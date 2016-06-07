@@ -11,7 +11,7 @@
 #' @return The vector of the probability distribution of a CUB model with explicit shelter effect
 #' @details A CUB model with explicit shelter effect is a mixture of two components: 
 #' a CUB distribution with uncertainty parameter \eqn{\pi}  and feeling parameter \eqn{\xi}, 
-#' and  a degenerate distribution with unit mass at the shelter category ("shelter"), 
+#' and  a degenerate distribution with unit mass at the shelter category ("shelter") 
 #' with mixing coefficient specified by \eqn{\delta}.
 #' @references 
 #' Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  

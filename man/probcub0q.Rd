@@ -22,7 +22,7 @@ NCOL(W)+1 to include an intercept term in the model (first entry)}
 \value{
 A vector of the same length as ordinal, whose i-th component is the
 probability of the i-th observation according to a CUB model with the corresponding values 
-of the covariates for the feeling component, and coefficients specified in gama
+of the covariates for the feeling component and coefficients specified in gama
 }
 \description{
 Compute the probability distribution of a CUB model with covariates

@@ -1,20 +1,20 @@
-# @title Variance-covariance matrix for CUBE models based on the expected information matrix
-# @description Compute the variance-covariance matrix of parameter estimates as the inverse of
-#  the expected information matrix for a CUBE model without covariates.
-# @aliases varcovcubeexp
-# @usage varcovcubeexp(m, pai, csi, phi, n)
-# @param m Number of ordinal categories
-# @param pai Uncertainty parameter
-# @param csi Feeling parameter
-# @param phi Overdispersion parameter
-# @param n Number of observations
-# @details The function checks if the variance-covariance matrix is positive-definite: if not, 
-# it returns a warning message and produces a matrix with NA entries.
-# @seealso \code{\link{cube000}}, \code{\link{varcovcubeobs}}
-# @references
-# Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
-# \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
+#' @title Variance-covariance matrix for CUBE models based on the expected information matrix
+#' @description Compute the variance-covariance matrix of parameter estimates as the inverse of
+#'  the expected information matrix for a CUBE model without covariates.
+#' @aliases varcovcubeexp
+#' @usage varcovcubeexp(m, pai, csi, phi, n)
+#' @param m Number of ordinal categories
+#' @param pai Uncertainty parameter
+#' @param csi Feeling parameter
+#' @param phi Overdispersion parameter
+#' @param n Number of observations
+#' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
+#' it returns a warning message and produces a matrix with NA entries.
+#' @seealso \code{\link{cube000}}, \code{\link{varcovcubeobs}}
 #' @keywords internal
+#' @references
+#' Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+#' \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
 
 
 varcovcubeexp <-

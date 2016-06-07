@@ -27,13 +27,13 @@ vectors of parameters for each observation.
 }
 \examples{
 m<-8
-n0<-230;  n1<-270;
+n0<-230;  n1<-270
 bet<-c(-1.5,1.2)
 gama<-c(0.5,-1.2)
 alpha<-c(-1.2,-0.5)
-pai0<-1/(1+exp(-bet[1])); csi0<-1/(1+exp(-gama[1])); phi0<-exp(alpha[1]);
+pai0<-1/(1+exp(-bet[1])); csi0<-1/(1+exp(-gama[1])); phi0<-exp(alpha[1])
 ordinal0<-simcube(n0,m,pai0,csi0,phi0)
-pai1<-1/(1+exp(-sum(bet))); csi1<-1/(1+exp(-sum(gama))); phi1<-exp(sum(alpha));
+pai1<-1/(1+exp(-sum(bet))); csi1<-1/(1+exp(-sum(gama))); phi1<-exp(sum(alpha))
 ordinal1<-simcube(n1,m,pai1,csi1,phi1)
 ordinal<-c(ordinal0,ordinal1)
 assepai<-c(rep(pai0,n0),rep(pai1,n1))

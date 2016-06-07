@@ -17,8 +17,8 @@ for the different university faculties}
  \item{\code{ChangeFa}}{A factor with levels: 1 = changed faculty, 2 = not changed faculty}
 }
 Analyzed ordinal variables (Likert ordinal scale):
- 1 = "extremely unsatisfied", 2 = "very unsatisfied", 3="unsatisfied", 4="indifferent", 5="satisfied", 6 = "very satisfied",
-7="extremely satisfied"
+ 1 = "extremely unsatisfied", 2 = "very unsatisfied", 3 = "unsatisfied", 4 = "indifferent", 5 = "satisfied", 6 = "very satisfied",
+7 = "extremely satisfied"
 \describe{
 \item{\code{Informat}}{Level of satisfaction about the collected information}
 \item{\code{Willingn}}{Level of satisfaction about the willingness of the staff}

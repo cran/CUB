@@ -1,30 +1,30 @@
-# @title Variance-covariance matrix of CUB models with covariates for the feeling component
-# @description Compute the variance-covariance matrix of parameter estimates of a CUB model
-#  with covariates for the feeling component.
-# @aliases varcovcub0q
-# @usage varcovcub0q(m, ordinal, W, pai, gama)
-# @param m Number of ordinal categories
-# @param ordinal Vector of ordinal responses
-# @param W Matrix of covariates for explaining the feeling component
-# @param pai Uncertainty parameter
-# @param gama Vector of parameters for the feeling component, whose length is 
-# NCOL(W)+1 to include an intercept term in the model (first entry of gama)
-# @export varcovcub0q
-# @details The function checks if the variance-covariance matrix is positive-definite: if not, 
-# it returns a warning message and produces a matrix with NA entries.
-# @seealso \code{\link{probcub0q}}, \code{\link{loglikcub0q}}, \code{\link{cub0q}}  
-# @references
-# Piccolo D.(2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},
-#  \bold{8}, 33--78,
-# @examples
-# data(univer)
-# m<-7
-# ordinal<-univer[,9]
-# pai<-0.86
-# gama<-c(-1.94, -0.17)
-# W<-univer[,4]           
-# varmat<-varcovcub0q(m, ordinal, W, pai, gama)
+#' @title Variance-covariance matrix of CUB models with covariates for the feeling component
+#' @description Compute the variance-covariance matrix of parameter estimates of a CUB model
+#'  with covariates for the feeling component.
+#' @aliases varcovcub0q
+#' @usage varcovcub0q(m, ordinal, W, pai, gama)
+#' @param m Number of ordinal categories
+#' @param ordinal Vector of ordinal responses
+#' @param W Matrix of covariates for explaining the feeling component
+#' @param pai Uncertainty parameter
+#' @param gama Vector of parameters for the feeling component, whose length is 
+#' NCOL(W)+1 to include an intercept term in the model (first entry of gama)
+#' @export varcovcub0q
+#' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
+#' it returns a warning message and produces a matrix with NA entries.
+#' @seealso \code{\link{probcub0q}}, \code{\link{loglikcub0q}}, \code{\link{cub0q}}  
 #' @keywords internal
+#' @references
+#' Piccolo D.(2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},
+#'  \bold{8}, 33--78,
+#' @examples
+#' data(univer)
+#' m<-7
+#' ordinal<-univer[,9]
+#' pai<-0.86
+#' gama<-c(-1.94, -0.17)
+#' W<-univer[,4]           
+#' varmat<-varcovcub0q(m, ordinal, W, pai, gama)
 
 
 varcovcub0q <-

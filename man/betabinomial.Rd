@@ -41,7 +41,7 @@ ordinal<-nona[,1]
 gama<-c(-0.6, -0.3)
 csivett<-logis(lage,gama)
 alpha<-c(-2.3,0.92)
-phivett<-1/(-1+ 1/(logis(lage,alpha)))
+phivett<-1/(-1+1/(logis(lage,alpha)))
 pr<-betabinomial(m, ordinal, csivett, phivett)
 }
 \references{

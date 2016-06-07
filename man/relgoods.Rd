@@ -15,17 +15,17 @@
  0 = otherwise}
 \item{\code{EducationDegree}}{A factor with levels: 1 = compulsory school, 2 = high school diploma,
  3 = Graduated-Bachelor degree, 4 = Graduated-Master degree, 5 = Post graduated}
-\item{\code{MaritalStatus}}{A factor with levels: 1 = Unmarried, 2 = Married/Cohabitant, 
+\item{\code{MaritalStatus}}{A factor with levels: 1 = Unmarried, 2 = Married/Cohabitee, 
 3 = Separated/Divorced, 4 = Widower}
 \item{\code{Residence}}{A factor with levels: 1 = City of Naples, 2 = District of Naples,
- 3 = Others Campania, 4 = Others Italia, 5= Foreign countries}
+ 3 = Others Campania, 4 = Others Italia, 5 = Foreign countries}
 \item{\code{Glasses}}{A factor with levels: 1 = wearing glasses or contact lenses, 0 = otherwise}
 \item{\code{RightHand}}{A factor with levels: 1 = right-handed, 0 = left-handed}
 \item{\code{Smoking}}{A factor with levels: 1 = smoker, 0 = not smoker}
-\item{\code{WalkAlone}}{A factor with levels: 1 = usually walking alone, 0= usually walking in company}
-\item{\code{Job}}{A factor with levels: 1 = Not working, 2 = Retired, 3 = occasionally, 
+\item{\code{WalkAlone}}{A factor with levels: 1 = usually walking alone, 0 = usually walking in company}
+\item{\code{job}}{A factor with levels: 1 = Not working, 2 = Retired, 3 = occasionally, 
 4 = fixed-term job, 5 = permanent job}
-\item{\code{PlaySport}}{A factor with levels: 1 = Not playing any sport, 2= Yes, individual sport, 
+\item{\code{PlaySport}}{A factor with levels: 1 = Not playing any sport, 2 = Yes, individual sport, 
 3 = Yes, team sport}
 \item{\code{Pets}}{A factor with levels: 1 = owning a pet, 0 = not owning any pet}
 } 

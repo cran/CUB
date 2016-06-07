@@ -35,7 +35,7 @@ data(univer)
 m<-7
 ### CUB model with no covariate
 ordinal<-univer[,12]
-pai<-0.87; csi<-0.17; 
+pai<-0.87; csi<-0.17 
 param<-c(pai,csi)
 varmat<-varmatCUB(ordinal,m,param)
 #######################
@@ -43,7 +43,7 @@ varmat<-varmatCUB(ordinal,m,param)
 data(univer)
 m<-7
 ordinal<-univer[,9]
-pai<-0.86; gama<-c(-1.94, -0.17);
+pai<-0.86; gama<-c(-1.94, -0.17)
 param<-c(pai,gama)
 W<-univer[,4]           
 varmat<-varmatCUB(ordinal,m,param, W=W)
@@ -56,7 +56,7 @@ gender<-relgoods[,2]
 data<-na.omit(cbind(ordinal,gender))
 ordinal<-data[,1]
 Y<-data[,2]
-bet<-c(-0.811,0.93); csi<-0.202;
+bet<-c(-0.811,0.93); csi<-0.202
 varmat<-varmatCUB(ordinal,m,param=c(bet,csi),Y=Y)
 #######################
 ### and with covariates for both parameters
@@ -69,13 +69,13 @@ nona<-na.omit(cbind(ordinal,gender,smoking))
 ordinal<-nona[,1]
 gender<-nona[,2]
 smoking<-nona[,3]
-gama<-c(-0.55, -0.43); bet<-c(-0.45, -0.48);
+gama<-c(-0.55, -0.43); bet<-c(-0.45, -0.48)
 varmat<-varmatCUB(ordinal,m,param=c(bet,gama),Y=gender,W=smoking)
 #######################
 ### Variance-covariance for a CUB model with shelter
-m<-8; n<-300;
-pai1<-0.5; pai2<-0.3; csi<-0.4;
-shelter<-6;
+m<-8; n<-300
+pai1<-0.5; pai2<-0.3; csi<-0.4
+shelter<-6
 pr<-probcubshe1(m,pai1,pai2,csi,shelter)
 ordinal<-sample(1:m,n,prob=pr,replace=TRUE)
 param<-c(pai1,pai2,csi)

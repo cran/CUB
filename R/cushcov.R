@@ -1,22 +1,22 @@
-# @title CUSH model with covariates
-# @description Estimate and validate a CUSH model for ordinal responses, with covariates
-#  to explain the shelter effect.
-# @usage cushcov(m, ordinal, X, shelter, makeplot)
-# @param m Number of ordinal categories
-# @param ordinal Vector of ordinal responses
-# @param X Matrix of selected covariates for explaining the shelter effect
-# @param shelter Category corresponding to the shelter choice
-# @param makeplot Logical: if TRUE and if only one dichotomous covariate is included in the model, 
-# with levels (0,1), the function returns a graphical plot comparing the distributions of the
-#  responses conditioned to the value of the covariate
-# @aliases cushcov
-# @return An object of the class "CUSH"
-# @import stats graphics
+#' @title CUSH model with covariates
+#' @description Estimate and validate a CUSH model for ordinal responses, with covariates
+#'  to explain the shelter effect.
+#' @usage cushcov(m, ordinal, X, shelter, makeplot, summary)
+#' @param m Number of ordinal categories
+#' @param ordinal Vector of ordinal responses
+#' @param X Matrix of selected covariates for explaining the shelter effect
+#' @param shelter Category corresponding to the shelter choice
+#' @param makeplot Logical: if TRUE and if only one dichotomous covariate is included in the model, 
+#' with levels (0,1), the function returns a graphical plot comparing the distributions of the
+#'  responses conditioned to the value of the covariate
+#' @param summary Logical: if TRUE, summary results of the fitting procedure are displayed on screen
 #' @keywords internal
+#' @aliases cushcov
+#' @return An object of the class "CUSH"
+#' @import stats graphics
 
 
-cushcov <-
-function(m,ordinal,X,shelter,makeplot){ 
+cushcov<-function(m,ordinal,X,shelter,makeplot,summary){ 
   tt0<-proc.time()
   freq<-tabulate(ordinal,nbins=m); n<-length(ordinal);
   fc<-freq[shelter]/n
@@ -56,29 +56,32 @@ function(m,ordinal,X,shelter,makeplot){
   AICCUSH<- -2*loglik+2*nparam
   BICCUSH<- -2*loglik+nparam*log(n)
   
-  ######## optimomega$message; cat("\n")
-  cat("=======================================================================","\n")
-  cat(">>>    ML estimation of a CUSH model with covariates  (September 2015)   <<<","\n") 
-  cat("=======================================================================","\n")
-  cat("n =", n,"    m =",m ,"   shelter =",round(shelter,digits=1), 
-      "   Number of covariates for omega =", ncovar,"\n")
-  cat("=======================================================================","\n")
-  cat("parameters  ML-estimates  stand.errors    Wald-test      p-value ","\n")
-  cat("=======================================================================","\n")
   nomi<-c(paste("omega",0:(nparam-1),sep="_"))
   stime<-round(omegaest,5); errstd<-round(errst,5);  wald<-round(wald,5);
   pval<-round(2*(1-pnorm(abs(wald))),20)
-  for(i in 1:length(nomi)){
-    cat(nomi[i],"     ",stime[i],"      ",errstd[i],"       ",wald[i],"      ",pval[i],"\n")
+  durata<-proc.time()-tt0;durata<-durata[1];
+  ######## optimomega$message; cat("\n")
+  if (summary ==TRUE){
+    cat("=======================================================================","\n")
+    cat(">>>    ML estimation of a CUSH model with covariates   <<<","\n") 
+    cat("=======================================================================","\n")
+    cat("n =", n,"    m =",m ,"   shelter =",round(shelter,digits=1), 
+        "   Number of covariates for omega =", ncovar,"\n")
+    cat("=======================================================================","\n")
+    cat("parameters  ML-estimates  stand.errors    Wald-test      p-value ","\n")
+    cat("=======================================================================","\n")
+    for(i in 1:length(nomi)){
+      cat(nomi[i],"     ",stime[i],"      ",errstd[i],"       ",wald[i],"      ",pval[i],"\n")
+    }
+    cat("=======================================================================","\n")
+    cat("Parameters correlation matrix","\n") 
+    print(round(ddd%*%varmat%*%ddd,5))
+    cat("=======================================================================","\n")
+    cat("Log-lik(omega^) =",round(loglik,digits=8),"\n")
+    cat("AIC-CUSH-covar  =",round(AICCUSH,digits=8),"\n")
+    cat("BIC-CUSH-covar  =",round(BICCUSH,digits=8),"\n")
+    cat("ICOMP-CUSH-covar=",round(ICOMP,digits=8),"\n")
   }
-  cat("=======================================================================","\n")
-  cat("Parameters correlation matrix","\n") 
-  print(round(ddd%*%varmat%*%ddd,5))
-  cat("=======================================================================","\n")
-  cat("Log-lik(omega^) =",round(loglik,digits=8),"\n")
-  cat("AIC-CUSH-covar  =",round(AICCUSH,digits=8),"\n")
-  cat("BIC-CUSH-covar  =",round(BICCUSH,digits=8),"\n")
-  cat("ICOMP-CUSH-covar=",round(ICOMP,digits=8),"\n")
   #########################################
   #   assign('varmat',varmat,pos=1)
   #   assign('omega',omegaest,pos=1)
@@ -96,10 +99,10 @@ function(m,ordinal,X,shelter,makeplot){
     
     maxpr<-max(prob0,prob1)
     if(makeplot==TRUE){
-      plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.8,las=1,
-           main="CUSH distributions, given delta-covariate=0, 1",cex=2,
-           xlab="",ylab="Prob(R|D=0)  and  Prob(R|D=1)",pch=1,lty=1,type="b");
-      lines(1:m,prob1,cex=2,pch=19,lty=2,type="b");
+      plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.9,las=1,
+           main="CUSH distributions, given delta-covariate=0, 1",cex=1.2,cex.lab=0.9,
+           xlab="",ylab="Prob(R|D=0) (circles) and  Prob(R|D=1) (dots)",pch=1,lty=1,type="b");
+      lines(1:m,prob1,cex=1.2,pch=19,lty=2,type="b");
       abline(h=0);
     }
     ### Expected moments given D=0,1 
@@ -111,27 +114,30 @@ function(m,ordinal,X,shelter,makeplot){
     aver0<-mean(ord0);   aver1<-mean(ord1);
     obsmode0<-which.max(tabulate(ordinal[X==0]))    
     obsmode1<-which.max(tabulate(ordinal[X==1]))
-    cat("Samples and populations measures, given dichotomous covariate (D=0) and (D=1)","\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("(D = 0)","   n0 = ", n0,
-        "        delta_0=",round(delta0,digits=3),"\n")
-    cat("............................","\n")
-    cat("Sample average  =",round(aver0,digits=8),"   Sample mode =",round(obsmode0,digits=1),"\n")
-    cat("CUSH expectation =",round(exp0,digits=8), "    CUSH mode   =",round(cushmode0,digits=1),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("(D = 1)","   n1 = ", n1,
-        "        delta_1=",round(delta1,digits=3),"\n")
-    cat("............................","\n")
-    cat("Sample average  =",round(aver1,digits=8)," Sample mode =",round(obsmode1,digits=1),"\n")
-    cat("CUSH expectation =",round(exp1,digits=8), " CUSH mode    =",round(cushmode1,digits=1),"\n")
-    cat("-----------------------------------------------------------------------","\n")
+    if (summary==TRUE){
+      cat("=======================================================================","\n")
+      cat("Samples and populations measures, given dichotomous covariate (D=0) and (D=1)","\n")
+      cat("-----------------------------------------------------------------------","\n")
+      cat("(D = 0)","   n0 = ", n0,
+          "        delta_0=",round(delta0,digits=3),"\n")
+      cat("............................","\n")
+      cat("Sample average  =",round(aver0,digits=8),"   Sample mode =",round(obsmode0,digits=1),"\n")
+      cat("CUSH expectation =",round(exp0,digits=8), "    CUSH mode   =",round(cushmode0,digits=1),"\n")
+      cat("-----------------------------------------------------------------------","\n")
+      cat("(D = 1)","   n1 = ", n1,
+          "        delta_1=",round(delta1,digits=3),"\n")
+      cat("............................","\n")
+      cat("Sample average  =",round(aver1,digits=8)," Sample mode =",round(obsmode1,digits=1),"\n")
+      cat("CUSH expectation =",round(exp1,digits=8), " CUSH mode    =",round(cushmode1,digits=1),"\n")
+    }
   }
+  if (summary==TRUE){
+    cat("=======================================================================","\n") 
+    cat("Elapsed time      =",durata,"seconds","=====>>>",date(),"\n")
+    cat("=======================================================================","\n")
+  }
+  #cat("Convergence code  =",optimomega$convergence,"\n")
   
-  durata<-proc.time()-tt0;durata<-durata[1];
-  cat("=======================================================================","\n")
-  cat("Convergence code  =",optimomega$convergence,"\n")
-  cat("=======================================================================","\n") 
-  cat("Elapsed time      =",durata,"seconds","=====>>>",date(),"\n")
   results<-list('estimates'=stime, 'loglik'=loglik,  'varmat'=varmat,'BIC'=round(BICCUSH,digits=8))
   
 }

@@ -25,7 +25,7 @@
 #' simul<-cubforsim(m,ordinal)
 #' param<-simul$estimates   # Estimated parameters vector (pai,csi)
 #' ###############
-#' m<-9; n<-500;
+#' m<-9; n<-500
 #' pai<-0.7
 #' csi<-0.4
 #' ordinal<-simcub(n,m,pai,csi)

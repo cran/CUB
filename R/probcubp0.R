@@ -13,7 +13,7 @@
 #' @param csi Feeling parameter
 #' @return A vector of the same length as ordinal, whose i-th component is the probability of the i-th 
 #' observation according to a CUB model with the corresponding values of the covariates for the 
-#' uncertainty component, and coefficients for the covariates specified in bet 
+#' uncertainty component and coefficients for the covariates specified in bet 
 #' @references 
 #' Piccolo D. (2006). Observed Information Matrix for MUB Models, 
 #' \emph{Quaderni di Statistica}, \bold{8}, 33--78 \cr

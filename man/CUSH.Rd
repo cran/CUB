@@ -4,7 +4,7 @@
 \alias{CUSH}
 \title{Main function for CUSH models}
 \usage{
-CUSH(ordinal, shelter, m=get('m',envir=.GlobalEnv), X = 0, makeplot = TRUE)
+CUSH(ordinal, shelter, m=get('m',envir=.GlobalEnv), X = 0, makeplot = TRUE, summary=TRUE)
 }
 \arguments{
 \item{ordinal}{Vector of ordinal responses}
@@ -23,6 +23,8 @@ and a plot of the log-likelihood function at the final estimate, compared with t
 the saturated and the uniform models. If only one explicative dichotomous variable is included in the model, 
 then the function returns a graphical plot comparing the distributions of the responses conditioned to the 
 value of the covariate}
+
+\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUSH" is a list containing the following results: 
@@ -48,10 +50,10 @@ data(relgoods)
 dog<-na.omit(relgoods[,49])
 m<-10
 shelter<-1
-model<-CUSH(dog,shelter=shelter)
+model<-CUSH(dog,shelter=shelter,summary=TRUE)
 delta<-model$estimates # ML estimates of delta
 maxlik<-model$loglik   # Log-likelihood at ML estimates
-errst<-model$varmat    # Square of estimated standard error of delta
+sqerrst<-model$varmat    # Squared standard error of delta
 BIC<-model$BIC
 ###############################################
 ### CUSH model with covariates
@@ -61,7 +63,7 @@ cov<-relgoods[,12]
 nona<-na.omit(cbind(music,cov))
 ordinal<-nona[,1]
 smoking<-nona[,2]
-modelcov<-CUSH(ordinal,shelter=shelter,X=smoking)
+modelcov<-CUSH(ordinal,shelter=shelter,X=smoking,summary=FALSE)
 omega<-modelcov$estimates
 maxlik<-modelcov$loglik
 varmat<-modelcov$varmat
@@ -70,8 +72,8 @@ BIC<-modelcov$BIC
 \references{
 Capecchi S. and Piccolo D. (2015). Dealing with heterogeneity/uncertainty in sample survey with ordinal data, 
 \emph{IFCS Proceedings, University of Bologna} \cr
-Capecchi S and Iannario M. (2015). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
- \emph{SIS Proceedings, Treviso - Ca'Foscari, University of Venice}
+Capecchi S. and Iannario M. (2016). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
+ \emph{Metron} - DOI: 10.1007/s40300-016-0088-5
 }
 \seealso{
 \code{\link{cushforsim}}, \code{\link{loglikCUSH}}

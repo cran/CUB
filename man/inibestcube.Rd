@@ -22,7 +22,7 @@ These preliminary estimators are used within the package code to start the E-M a
 data(relgoods)
 m<-10
 ordinal<-na.omit(relgoods[,44])
-estim<-inibestcube(m,ordinal)     # Preliminary estimates: (pai,csi,phi)
+estim<-inibestcube(m,ordinal)     # Preliminary estimates (pai,csi,phi)
 }
 \seealso{
 \code{\link{inibestcubecov}}, \code{\link{inibestcubecsi}}

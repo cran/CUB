@@ -38,7 +38,7 @@ It invokes \code{\link{cubeforsim}} to obtain preliminary estimates
 data(relgoods)
 isnacov<-which(is.na(relgoods[,2]))
 isnaord<-which(is.na(relgoods[,37]))
-unina<-union(isnacov,isnaord);
+unina<-union(isnacov,isnaord)
 newdati<-relgoods[-unina,]
 ordinal<-newdati[,37]
 W<-newdati[,2]

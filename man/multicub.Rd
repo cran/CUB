@@ -4,14 +4,15 @@
 \alias{multicub}
 \title{Joint plot of estimated CUB models in the parameter space}
 \usage{
-multicub(matord, m, labelpoints=as.character(1:ncol(matord)), 
-caption="CUB models", colours="black", symbols=19, 
-thickness=1.5, xwidth=c(0,1), ywidth=c(0,1))
+multicub(listord, mlist, labelpoints=as.character(1:length(mlist)),
+caption="CUB models", colours=rep("black",length(mlist)), symbols=19,
+thickness=1.5, xwidth=c(0,1), ywidth=c(0,1), pos=rep(3,length(mlist)))
 }
 \arguments{
-\item{matord}{Matrix of ordinal data arranged per columns}
+\item{listord}{List of vectors of ordinal observations, possibly with different length and over different
+numbers of categories}
 
-\item{m}{Number of ordinal categories}
+\item{mlist}{List of numbers of categories corresponding to ordinal data in listord}
 
 \item{labelpoints}{Character strings indicating the labels for the estimated models as points
 in the parameter space (default is the corresponding index of column in matord)}
@@ -28,17 +29,29 @@ parameter space}
 \item{xwidth}{Indicate the width of the abscissa axis}
 
 \item{ywidth}{Indicate the width of the ordinate axis}
+
+\item{pos}{Vector of positions relative to location for labelpoints}
 }
 \description{
 Return a plot of estimated CUB models represented as points in the parameter space.
 }
 \examples{
 data(univer)
-matord<-univer[,8:12]
-m<-7
-multicub(matord, m, labelpoints=as.character(1:ncol(matord)), 
-        caption ="CUB models", colours="black", symbols=19,
-        thickness=1.5, xwidth=c(0,1), ywidth=c(0,1))
+listord<-as.list(univer[,8:12])
+mlist<-as.list(rep(7,length(listord)))
+multicub(listord, mlist, labelpoints=as.character(1:length(mlist)),
+caption="CUB models", colours=rep("black",length(mlist)), symbols=19,
+thickness=1.5, xwidth=c(0,1), ywidth=c(0,1), pos=rep(3,length(mlist)))
+###############################
+m1<-5; m2<-7;  m3<-9
+mlist<-list(m1,m2,m3)
+pai<-0.7;csi<-0.6
+n1<-1000; n2<-500; n3<-1500
+ord1<-simcub(n1,m1,pai,csi)
+ord2<-simcub(n2,m2,pai,csi)
+ord3<-simcub(n3,m3,pai,csi)
+listord<-list(ord1,ord2,ord3)
+multicub(listord,mlist,labelpoints=c("m=5","m=7","m=9"),pos=c(3,1,4))
 }
 \keyword{device}
 

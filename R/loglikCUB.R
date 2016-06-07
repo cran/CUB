@@ -21,8 +21,8 @@
 #' @keywords htest
 #' @examples
 #' ## Log-likelihood of a CUB model with no covariate
-#' m<-9; n<-300;
-#' pai<-0.6; csi<-0.4;
+#' m<-9; n<-300
+#' pai<-0.6; csi<-0.4
 #' ordinal<-simcub(n,m,pai,csi)
 #' param<-c(pai,csi)
 #' loglikcub<-loglikCUB(ordinal,m,param)
@@ -30,23 +30,23 @@
 #' ## Log-likelihood of a CUB model with covariate for uncertainty
 #' \donttest{
 #' data(relgoods)
-#' m<-10; 
+#' m<-10
 #' ordinal<-relgoods[,29]
 #' gender<-relgoods[,2]
 #' data<-na.omit(cbind(ordinal,gender))
-#' ordinal<-data[,1]; Y<-data[,2];
-#' bbet<-c(-0.81,0.93); ccsi<-0.2;
+#' ordinal<-data[,1]; Y<-data[,2]
+#' bbet<-c(-0.81,0.93); ccsi<-0.2
 #' param<-c(bbet,ccsi)
 #' loglikcubp0<-loglikCUB(ordinal,m, param, Y=Y)
 #' #######################
 #' ## Log-likelihood of a CUB model with covariate for feeling
 #' data(relgoods)
-#' m<-10; 
+#' m<-10
 #' ordinal<-relgoods[,29]
 #' gender<-relgoods[,2]
 #' data<-na.omit(cbind(ordinal,gender))
-#' ordinal<-data[,1]; W<-data[,2];
-#' pai<-0.44; gama<- c(-0.91, -0.7);
+#' ordinal<-data[,1]; W<-data[,2]
+#' pai<-0.44; gama<- c(-0.91, -0.7)
 #' param<-c(pai,gama)
 #' loglikcub0q<-loglikCUB(ordinal,m,param,W=W)
 #' }
@@ -59,14 +59,14 @@
 #' gender<-relgoods[,2]
 #' nona<-na.omit(cbind(ordinal,gender,smoking))
 #' ordinal<-nona[,1]
-#' gender<-nona[,2]; smoking<-nona[,3];
-#' bet=c(-0.45, -0.48); gama=c(-0.55, -0.43);
+#' gender<-nona[,2]; smoking<-nona[,3]
+#' bet=c(-0.45, -0.48); gama=c(-0.55, -0.43)
 #' param<-c(bet,gama)
 #' loglikcubpq<-loglikCUB(ordinal,m,param, Y=smoking, W=gender)
 #' #################################
 #' ### Log-likelihood of a CUB model with shelter effect
-#' m<-7; n<-400;
-#' pai1<-0.56; pai2<-0.34; csi<-0.16;
+#' m<-7; n<-400
+#' pai1<-0.56; pai2<-0.34; csi<-0.16
 #' shelter<-5
 #' pr<-probcubshe1(m,pai1,pai2,csi,shelter)
 #' ordinal<-sample(1:m,n,prob=pr,replace=TRUE)

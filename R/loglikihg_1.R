@@ -16,8 +16,8 @@
 #' @keywords htest
 #' @examples
 #' #### Log-likelihood of an IHG model with no covariate
-#' m<-10; theta<-0.14; n<-300;
-#' ordinal<-simihg(n,m,theta);
+#' m<-10; theta<-0.14; n<-300
+#' ordinal<-simihg(n,m,theta)
 #' loglik<-loglikIHG(ordinal,m,param=theta)
 #' ##################################
 #' #### Log-likelihood of a IHG model with covariate 

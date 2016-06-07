@@ -3,7 +3,7 @@
 #' explaining uncertainty, feeling and overdispersion.
 #' @aliases CUBE
 #' @usage CUBE(ordinal, m=get('m',envir=.GlobalEnv), Y = 0, W = 0, Z = 0, starting, maxiter,
-#' toler, makeplot = TRUE, expinform=FALSE)
+#' toler, makeplot = TRUE, expinform=FALSE, summary=TRUE)
 #' @param ordinal Vector of ordinal responses
 #' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
 #'  specified in the global environment)
@@ -23,6 +23,7 @@
 #'  a graphical plot comparing fitted probabilities and observed relative frequencies
 #' @param expinform Logical: if TRUE  and no covariate is included in the model, the function returns 
 #'  the expected variance-covariance matrix (default is FALSE)
+#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
 #' @export CUBE
 #' @return An object of the class "CUBE" is a list containing the following results: 
 #' \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi, \phi)}}
@@ -42,12 +43,14 @@
 #'  If the estimated variance-covariance matrix is not positive definite, the function returns a 
 #'  warning message and produces a matrix with NA entries.
 #' @references 
-#' Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+#' Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
 #' \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
-#' Piccolo, D. (2014). Inferential issues on CUBE models with covariates,
-#'  \emph{Communications in Statistics - Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487 \cr
-#' Iannario, M. (2015). Detecting latent components in ordinal data with overdispersion by means
-#'  of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987
+#' Piccolo D. (2015). Inferential issues for CUBE models with covariates,
+#'  \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
+#' Iannario M. (2015). Detecting latent components in ordinal data with overdispersion by means
+#'  of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987 \cr
+#'  Iannario M. (2016). Testing the overdispersion parameter in CUBE models. 
+#'  \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635.\cr
 #' @seealso \code{\link{probcube}}, \code{\link{loglikCUBE}}, \code{\link{loglikcuben}},  \code{\link{inibestcube}},
 #'  \code{\link{inibestcubecsi}}, \code{\link{inibestcubecov}},
 #' \code{\link{varmatCUBE}}
@@ -57,7 +60,7 @@
 #' data(relgoods)
 #' m<-10
 #' ordinal<-na.omit(relgoods[,37])  
-#' model<-CUBE(ordinal,starting=c(0.1,0.1,0.1))  
+#' model<-CUBE(ordinal,starting=c(0.1,0.1,0.1),summary=TRUE)  
 #' model$estimates        # Final ML estimates
 #' model$loglik           # Maximum value of the log-likelihood function
 #' model$varmat         
@@ -67,7 +70,7 @@
 #' ordinal<-relgoods[,40]
 #' cov<-relgoods[,2]
 #' nona<-na.omit(cbind(ordinal,cov))
-#' modelcovcsi<-CUBE(nona[,1],W=nona[,2])
+#' modelcovcsi<-CUBE(nona[,1],W=nona[,2],summary=TRUE)
 #' modelcov<-CUBE(nona[,1],Y=nona[,2],W=nona[,2], Z=nona[,2])
 #' modelcov$BIC
 #' modelcovcsi$BIC
@@ -76,11 +79,11 @@
 #' m<-7
 #' ordinal<-univer[,8]
 #' starting<-inibestcube(m,ordinal)
-#' model<-CUBE(ordinal,starting=starting)
+#' model<-CUBE(ordinal,starting=starting,summary=TRUE)
 #' }
 
-CUBE <-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,Z=0,starting,maxiter,toler,
-               makeplot=TRUE,expinform=FALSE){#default FAlse for expinform
+CUBE<-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,Z=0,starting,maxiter,toler,
+               makeplot=TRUE,expinform=FALSE,summary=TRUE){#default FAlse for expinform
   
   ry<-NROW(Y); rw<-NROW(W); rz<-NROW(Z);
   
@@ -108,11 +111,11 @@ CUBE <-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,Z=0,starting,maxiter
   }
   
   if(ry==1 & rw==1 & rz==1) {
-    cube000(m,ordinal,starting,maxiter,toler,makeplot,expinform)
+    cube000(m,ordinal,starting,maxiter,toler,makeplot,expinform,summary)
   } else if (ry==1 & rz==1 & rw >1){
-    cubecsi(m,ordinal,W,starting,maxiter,toler)  
+    cubecsi(m,ordinal,W,starting,maxiter,toler,summary)  
   } else if(ry>1 & rz>1 & rw >1){
-    cubecov(m,ordinal,Y,W,Z,starting,maxiter,toler=1e-2)
+    cubecov(m,ordinal,Y,W,Z,starting,maxiter,toler=1e-2,summary)
   } else {
     cat("CUBE models not available for this variables specification")
   }

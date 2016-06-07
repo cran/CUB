@@ -13,7 +13,7 @@
 #' data(relgoods)
 #' m<-10
 #' ordinal<-na.omit(relgoods[,44])
-#' estim<-inibestcube(m,ordinal)     # Preliminary estimates: (pai,csi,phi)
+#' estim<-inibestcube(m,ordinal)     # Preliminary estimates (pai,csi,phi)
 
 
 inibestcube <-

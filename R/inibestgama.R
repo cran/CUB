@@ -26,10 +26,11 @@
 #' ini<-inibestgama(m,ordinal,W=diploma)
 
 
-inibestgama <-
-function(m,ordinal,W){
+inibestgama<-function(m,ordinal,W){
+  
   WW<-cbind(1,W)                           
   ni<-log((m-ordinal+0.5)/(ordinal-0.5))
   gama<-(solve(t(WW)%*%WW))%*%(t(WW)%*%ni) 
+  gama<-as.vector(gama)
   return(gama)
 }

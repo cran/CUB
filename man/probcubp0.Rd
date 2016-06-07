@@ -21,7 +21,7 @@ NCOL(Y) + 1 to include an intercept term in the model (first entry)}
 \value{
 A vector of the same length as ordinal, whose i-th component is the probability of the i-th 
 observation according to a CUB model with the corresponding values of the covariates for the 
-uncertainty component, and coefficients for the covariates specified in bet
+uncertainty component and coefficients for the covariates specified in bet
 }
 \description{
 Compute the probability distribution of a CUB model with covariates for the 

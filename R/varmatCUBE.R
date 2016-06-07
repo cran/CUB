@@ -22,11 +22,11 @@
 #' @keywords htest
 #' @references Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
 #' \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
-#' Piccolo, D. (2014). Inferential issues on CUBE models with covariates, 
-#' \emph{Communications in Statistics - Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487
+#' Piccolo D. (2015). Inferential issues for CUBE models with covariates,
+#'  \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
 #' @examples
-#' m<-7; n<-500;
-#' pai<-0.83; csi<-0.19; phi<-0.045;
+#' m<-7; n<-500
+#' pai<-0.83; csi<-0.19; phi<-0.045
 #' ordinal<-simcube(n,m,pai,csi,phi)
 #' param<-c(pai,csi,phi)
 #' varmat<-varmatCUBE(ordinal,m,param)
@@ -41,8 +41,8 @@
 #' nona<-na.omit(cbind(ordinal,lage))
 #' ordinal<-nona[,1]
 #' Y<-W<-Z<-nona[,2]
-#' estbet<-c(0.18, 1.03); estgama<-c(-0.6, -0.3); estalpha<-c(-2.3,0.92);
-#' param<-c(estbet,estgama,estalpha);
+#' estbet<-c(0.18, 1.03); estgama<-c(-0.6, -0.3); estalpha<-c(-2.3,0.92)
+#' param<-c(estbet,estgama,estalpha)
 #' varmat<-varmatCUBE(ordinal, m, param, Y=Y, W=W, Z=Z, expinform=TRUE)
 #' }
 

@@ -31,7 +31,7 @@ points(1:m,pr,pch=19)
 Capecchi S. and Piccolo D. (2015). Dealing with heterogeneity/uncertainty in sample survey with 
 ordinal data, \emph{IFCS Proceedings, University of Bologna} \cr
 Capecchi S and Iannario M. (2015). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
- \emph{SIS Proceedings, Treviso - Ca'Foscari, University of Venice}
+ \emph{Metron}  - DOI: 10.1007/s40300-016-0088-5
 }
 \seealso{
 \code{\link{CUSH}}

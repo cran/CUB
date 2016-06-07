@@ -1,20 +1,20 @@
-# @title Variance-covariance matrix of CUB model with covariates for the uncertainty parameter
-# @description Compute the variance-covariance matrix of parameter estimates of a CUB model with 
-# covariates for the uncertainty component.
-# @aliases varcovcubp0
-# @usage varcovcubp0(m, ordinal, Y, bet, csi)
-# @param m Number of ordinal categories
-# @param ordinal Vector of ordinal responses
-# @param Y Matrix of covariates for explaining the uncertainty parameter
-# @param bet Vector of parameters for the uncertainty component, whose length equals NCOL(Y)+1 
-# to include an intercept term (first entry)
-# @param csi Feeling parameter
-# @details The function checks if the variance-covariance matrix is positive-definite: if not, 
-# it returns a warning message and produces a matrix with NA entries.
-# @seealso \code{\link{probcubpq}}, \code{\link{cubpq}}
-# @references
-# Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
+#' @title Variance-covariance matrix of CUB model with covariates for the uncertainty parameter
+#' @description Compute the variance-covariance matrix of parameter estimates of a CUB model with 
+#' covariates for the uncertainty component.
+#' @aliases varcovcubp0
+#' @usage varcovcubp0(m, ordinal, Y, bet, csi)
+#' @param m Number of ordinal categories
+#' @param ordinal Vector of ordinal responses
+#' @param Y Matrix of covariates for explaining the uncertainty parameter
+#' @param bet Vector of parameters for the uncertainty component, whose length equals NCOL(Y)+1 
+#' to include an intercept term (first entry)
+#' @param csi Feeling parameter
+#' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
+#' it returns a warning message and produces a matrix with NA entries.
+#' @seealso \code{\link{probcubpq}}, \code{\link{cubpq}}
 #' @keywords internal
+#' @references
+#' Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
 
 varcovcubp0 <-
 function(m,ordinal,Y,bet,csi){

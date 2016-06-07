@@ -1,22 +1,23 @@
-# @title Variance-covariance matrix of a CUB model with covariates for both uncertainty and feeling
-# @description Compute the variance-covariance matrix of parameter estimates of a CUB model with covariates for
-#  both the uncertainty and the feeling components.
-# @aliases varcovcubpq
-# @usage varcovcubpq(m, ordinal, Y, W, bet, gama)
-# @param m Number of ordinal categories
-# @param ordinal Vector of ordinal responses
-# @param Y Matrix of covariates for explaining the uncertainty parameter
-# @param W Matrix of covariates for explaining the feeling parameter
-# @param bet Vector of parameters for the uncertainty component, with length equal to
-# NCOL(Y)+1 to account for an intercept term (first entry)
-# @param gama Vector of parameters for the feeling component, with length equal to
-# NCOL(W)+1 to account for an intercept term (first entry)
-# @details The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
-#  message and produces a matrix with NA entries.
-# @seealso \code{\link{probcubpq}}, \code{\link{cubpq}}
-# @references
-# Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
+#' @title Variance-covariance matrix of a CUB model with covariates for both uncertainty and feeling
+#' @description Compute the variance-covariance matrix of parameter estimates of a CUB model with covariates for
+#'  both the uncertainty and the feeling components.
+#' @aliases varcovcubpq
+#' @usage varcovcubpq(m, ordinal, Y, W, bet, gama)
+#' @param m Number of ordinal categories
+#' @param ordinal Vector of ordinal responses
+#' @param Y Matrix of covariates for explaining the uncertainty parameter
+#' @param W Matrix of covariates for explaining the feeling parameter
+#' @param bet Vector of parameters for the uncertainty component, with length equal to
+#' NCOL(Y)+1 to account for an intercept term (first entry)
+#' @param gama Vector of parameters for the feeling component, with length equal to
+#' NCOL(W)+1 to account for an intercept term (first entry)
+#' @details The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
+#'  message and produces a matrix with NA entries.
+#' @seealso \code{\link{probcubpq}}, \code{\link{cubpq}}
 #' @keywords internal
+#' @references
+#' Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
+
 
 varcovcubpq <-
 function(m,ordinal,Y,W,bet,gama){

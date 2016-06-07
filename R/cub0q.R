@@ -1,8 +1,67 @@
-
+#' @title Main function for CUB models with covariates for the feeling component
+#' @description Function to estimate and validate a CUB model for given ordinal responses, with covariates for
+#'  explaining the feeling component.
+#' @aliases cub0q
+#' @usage cub0q(m, ordinal, W, maxiter, toler, makeplot,summary)
+#' @param m Number of ordinal categories
+#' @param ordinal Vector of ordinal responses
+#' @param W Matrix of selected covariates for explaining the feeling component, not including intercept
+#' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
+#' @param toler Fixed error tolerance for final estimates 
+#' @param makeplot Logical: if TRUE and if only one dichotomous covariate is included in the model, with levels (0,1), 
+#' the function returns a graphical plot comparing the distributions of the responses conditioned to the value of 
+#' the covariate
+#' @param summary logical: if TRUE, summary results of the fitting procedure are displayed on screen
+#' @import stats graphics
+#' @return An object of the class "CUB"
+#' @references
+#'  Piccolo D. and D'Elia A. (2008), A new approach for modelling consumers' preferences,
+#'   \emph{Food Quality and Preference}, \bold{18}, 247--259 \cr
+#' @references 
+#' Iannario M. and Piccolo D. (2010), A new statistical model for the analysis of customer
+#'  satisfaction, #' \emph{Quality Technology and Quantity management}, \bold{7}(2) 149--168 \cr
+#' Iannario M. and Piccolo D. (2012), CUB models: Statistical methods and empirical evidence, in:
+#' Kenett R. S. and Salini S. (eds.), \emph{Modern Analysis of Customer Surveys: with applications using R},
+#'  J. Wiley and Sons, Chichester, 231--258. 
 #' @keywords internal 
+#' @examples 
+#' #running donttest option since the proposed examples require a long time run for check 
+#' \donttest{
+#' data(relgoods)
+#' m=10
+#' ordinal=relgoods[,29]
+#' gender=relgoods[,2]
+#' data=na.omit(cbind(ordinal,gender))
+#' ordinal=data[,1]
+#' W=data[,2]
+#' makeplot=TRUE
+#' maxiter=500           
+#' toler=1e-6 
+#' cubfit=cub0q(m,ordinal,W, maxiter, toler, makeplot, summary=TRUE)
+#' param=cubfit$estimates      # Final ML estimates
+#' pai=param[1]                # Estimated uncertainty parameter
+#' gama=param[2:length(param)] # Estimated coefficients for feeling covariates
+#' maxlik=cubfit$loglik
+#' varmat=cubfit$varmat
+#' niter=cubfit$niter
+#' BIC=cubfit$BIC
+#' ###########################
+#' data(univer)
+#' m=7
+#' global=univer[,12]
+#' freqserv=univer[,2]
+#' vercub0q=cub0q(m,global,W=freqserv,maxiter=300,toler=1e-4,makeplot=FALSE)
+#' param=vercub0q$estimates      # Final ML estimates
+#' pai=param[1]                  # Estimated uncertainty parameter
+#' gama=param[2:length(param)]   # Estimated coefficients for feeling covariates
+#' maxlik=vercub0q$loglik
+#' varmat=vercub0q$varmat
+#' niter=vercub0q$niter
+#' BIC=vercub0q$BIC
+#' }
 
 
-cub0q <-function(m,ordinal,W,maxiter,toler,makeplot){
+cub0q<-function(m,ordinal,W,maxiter,toler,makeplot,summary){
   tt0<-proc.time()
   n<-length(ordinal)
   q<-NCOL(W)
@@ -57,38 +116,39 @@ cub0q <-function(m,ordinal,W,maxiter,toler,makeplot){
     errstd<-round(sqrt(diag(varmat)),5);  wald<-round(stime/errstd,5);
     pval<-round(2*(1-pnorm(abs(wald))),20)
   }
+  rownames(cormat)<-nomi;colnames(cormat)<-nomi; 
+  durata<-proc.time()-tt0;durata<-durata[1];
   ####################################################################
   ### Print CUB(0,q) results of ML estimation  
   ####################################################################
-  cat("\n")
-  cat("=======================================================================","\n")
-  cat("============== CUB Program: version 4.0 (September 2015) ==============","\n")
-  cat("=======================================================================","\n")
-  cat("=====>>> C U B (0,q) model <<<=====   ML-estimates via E-M algorithm   ","\n")
-  cat("=======================================================================","\n")
-  cat("                    Covariates for csi ==> q=", q,"\n")
-  cat("=======================================================================","\n")
-  cat("*** m=", m,"  *** Sample size: n=", n,"   *** Iterations=",nniter,"Maxiter=",maxiter,"\n")
-  cat("=======================================================================","\n")
-  cat("parameters  ML-estimates  stand.errors    Wald-test      p-value ","\n")
-  cat("=======================================================================","\n")
-  for(i in 1:length(nomi)){
-    cat(nomi[i],"     ",stime[i],"      ",errstd[i],"       ",wald[i],"      ",pval[i],"\n")
+  if (summary==TRUE){
+    cat("\n")
+    cat("=======================================================================","\n")
+    cat("=====>>> C U B (0,q) model <<<=====   ML-estimates via E-M algorithm   ","\n")
+    cat("=======================================================================","\n")
+    cat("                    Covariates for csi ==> q=", q,"\n")
+    cat("=======================================================================","\n")
+    cat("*** m=", m," ** Sample size: n=", n,"   *** Iterations=",nniter,"Maxiter=",maxiter,"\n")
+    cat("=======================================================================","\n")
+    cat("parameters  ML-estimates  stand.errors    Wald-test      p-value ","\n")
+    cat("=======================================================================","\n")
+    for(i in 1:length(nomi)){
+      cat(nomi[i],"     ",stime[i],"      ",errstd[i],"       ",wald[i],"      ",pval[i],"\n")
+    }
+    ####################################################################
+    cat("=======================================================================","\n")
+    cat("                         Parameters correlation matrix","\n")
+    print(round(cormat,5))
+    ##############################################################################
+    cat("=======================================================================","\n")
+    cat("Log-lik(pai^,gamma^) =",round(loglik,digits=8),"\n")
+    cat("Mean Log-likelihood  =",round(loglik/n,digits=8),"\n")
+    cat("-----------------------------------------------------------------------","\n")
+    cat("AIC-CUB0q            =",round(AICCUB0q,digits=8),"\n")
+    cat("BIC-CUB0q            =",round(BICCUB0q,digits=8),"\n")
+    cat("ICOMP-CUB0q          =",round(ICOMP,digits=8),"\n")
   }
-  ####################################################################
-  cat("=======================================================================","\n")
-  cat("                         Parameters correlation matrix","\n")
-  rownames(cormat)<-nomi;colnames(cormat)<-nomi; 
-  print(round(cormat,5))
-  ##############################################################################
-  cat("=======================================================================","\n")
-  cat("Log-lik(pai^,gamma^) =",round(loglik,digits=8),"\n")
-  cat("Mean Log-likelihood  =",round(loglik/n,digits=8),"\n")
-  cat("-----------------------------------------------------------------------","\n")
-  cat("AIC-CUB0q          =",round(AICCUB0q,digits=8),"\n")
-  cat("BIC-CUB0q          =",round(BICCUB0q,digits=8),"\n")
-  cat("ICOMP-CUB0q        =",round(ICOMP,digits=8),"\n")
-  cat("=======================================================================","\n")
+  
   ################################################################
   #        Assignments as global variables
   ################################################################
@@ -106,10 +166,11 @@ cub0q <-function(m,ordinal,W,maxiter,toler,makeplot){
     maxpr<-max(prob0,prob1)
     ## makeplot=TRUE ### Alternatively, makeplot=FALSE
     if(makeplot==TRUE){
-      plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.8,las=1,
+      plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.9,las=1,
            main="CUB distributions, given csi-covariate=0, 1",
-           cex=2,xlab="",ylab="Prob(R|D=0)  and  Prob(R|D=1)",pch=1,lty=1,type="b");
-      lines(1:m,prob1,cex=2,pch=19,lty=2,type="b");
+           cex=1.2,xlab="Ordinal values of R=1,2,...,m",
+           ylab="Prob(R|D=0) (circles) and  Prob(R|D=1) (dots)",pch=1,lty=1,type="b");
+      lines(1:m,prob1,cex=1.2,pch=19,lty=2,type="b");
       abline(h=0);
     }
     ### Expected moments given D=0,1 
@@ -121,26 +182,36 @@ cub0q <-function(m,ordinal,W,maxiter,toler,makeplot){
     aver0<-mean(ord0);   aver1<-mean(ord1);
     obsmode0<-which.max(tabulate(ord0))
     obsmode1<-which.max(tabulate(ord1))
-    cat("Samples and populations measures, given dichotomous covariate (D=0) and (D=1)","\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("(D = 0)","   n0 = ", n0,
-        "        pai=",round(pai,digits=3),"   csi_0=",round(csi0,digits=3),"\n")
-    cat("............................","\n")
-    cat("Sample average  =",round(aver0,digits=8),"   Sample mode =",round(obsmode0,digits=1),"\n")
-    cat("CUB expectation =",round(exp0,digits=8), "   CUB mode    =",round(cubmode0,digits=1),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("(D = 1)","   n1 = ", n1,
-        "        pai=",round(pai,digits=3),"   csi_1=",round(csi1,digits=3),"\n")
-    cat("............................","\n")
-    cat("Sample average  =",round(aver1,digits=8)," Sample mode =",round(obsmode1,digits=1),"\n")
-    cat("CUB expectation =",round(exp1,digits=8), " CUB mode    =",round(cubmode1,digits=1),"\n")
-    cat("-----------------------------------------------------------------------","\n")
+    if (summary==TRUE){
+      cat("================================================================================","\n")  
+      cat("Samples and populations measures, given dichotomous covariate (D=0) and (D=1)","\n")
+      cat("-----------------------------------------------------------------------","\n")
+      cat("(D = 0)","   n0 = ", n0,
+          "        pai=",round(pai,digits=3),"   csi_0=",round(csi0,digits=3),"\n")
+      cat("............................","\n")
+      cat("Sample average  =",round(aver0,digits=8),"   Sample mode =",round(obsmode0,digits=1),"\n")
+      cat("CUB expectation =",round(exp0,digits=8), "   CUB mode    =",round(cubmode0,digits=1),"\n")
+      cat("-----------------------------------------------------------------------","\n")
+      cat("(D = 1)","   n1 = ", n1,
+          "        pai=",round(pai,digits=3),"   csi_1=",round(csi1,digits=3),"\n")
+      cat("............................","\n")
+      cat("Sample average  =",round(aver1,digits=8)," Sample mode =",round(obsmode1,digits=1),"\n")
+      cat("CUB expectation =",round(exp1,digits=8), " CUB mode    =",round(cubmode1,digits=1),"\n")
+      cat("-----------------------------------------------------------------------","\n")
+      
+    }
+    
   }
+  if (summary==TRUE){
+    cat("=======================================================================","\n")
+    cat("Elapsed time     =",durata,"seconds","=====>>>",date(),"\n")
+    cat("=======================================================================","\n")  
+    
+  }
+  
   ################################################################
-  durata<-proc.time()-tt0;durata<-durata[1];
-  cat("=======================================================================","\n")
-  cat("Convergence code =",optimgama$convergence,"\n")
-  cat("=======================================================================","\n")
-  cat("Elapsed time     =",durata,"seconds","=====>>>",date(),"\n")
+  # cat("=======================================================================","\n")
+  #  cat("Convergence code =",optimgama$convergence,"\n")
+  
   results<-list('estimates'=stime,'loglik'=loglik,'niter'=nniter,'varmat'=varmat,'BIC'=round(BICCUB0q,digits=8))
 }

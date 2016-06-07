@@ -1,6 +1,19 @@
-
+#' @title Variance-covariance matrix for CUB models with shelter effect
+#' @description Compute the variance-covariance matrix of parameter estimates of a CUB model with shelter effect.
+#' @aliases varcovcubshe
+#' @usage varcovcubshe(m, pai1, pai2, csi, shelter, n)
+#' @param m Number of ordinal categories
+#' @param pai1 Parameter of the mixture distribution: mixing coefficient for the shifted Binomial component
+#' @param pai2 Second parameter of the mixture distribution: mixing coefficient for the discrete Uniform component
+#' @param csi Feeling parameter
+#' @param shelter Category corresponding to the shelter choice
+#' @param n Number of observations
+#' @seealso \code{\link{cubshe}},  \code{\link{probcubshe1}}
 #' @keywords internal
-
+#' @details The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
+#'  message and produces a matrix with NA entries.
+#' @references Iannario, M. (2012), Modelling shelter choices in ordinal data surveys. 
+#' Statistical Modelling and Applications, \bold{21}, 1--22
 
 varcovcubshe <-function(m,pai1,pai2,csi,shelter,n){
   pr<-probcubshe1(m,pai1,pai2,csi,shelter)

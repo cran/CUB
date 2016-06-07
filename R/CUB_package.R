@@ -1,4 +1,4 @@
-#' @title CUB package
+#' @title A Class of Mixture Models for Ordinal Data
 #' @description 
 #' The analysis of human perceptions is often carried out by resorting to questionnaires, 
 #' where respondents are asked to express ratings about the items being evaluated. The standard goal of the 
@@ -26,12 +26,12 @@
 #'   \tabular{ll}{
 #' Package: \tab CUB\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.0\cr
-#' Date: \tab 2015-10-30\cr
+#' Version: \tab 0.1\cr
+#' Date: \tab 2016-6-7\cr
 #' License: GPL-2 | GPL-3
 #'  }
-#' @source  \url{http://www.labstat.it/home/research/resourses/cub-data-sets-2/}
-#' @author  Maria Iannario, Domenico Piccolo 
+#' @source  \url{http://www.labstat.it/home/research/resources/cub-data-sets-2/}
+#' @author  Maria Iannario, Domenico Piccolo, Rosaria Simone
 #' @references   Piccolo D. (2003). On the moments of a mixture of uniform and shifted binomial random variables,
 #'  \emph{Quaderni di Statistica}, \bold{5}, 85--104 \cr  D'Elia A. and Piccolo D. (2005). 
 #'  A mixture model for preferences data analysis, \emph{Computational Statistics & Data Analysis}, 

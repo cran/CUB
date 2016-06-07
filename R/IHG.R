@@ -2,7 +2,7 @@
 #' @description Main function to estimate and validate an Inverse Hypergeometric model, without or 
 #' with covariates for explaining the preference parameter.
 #' @aliases IHG
-#' @usage IHG(ordinal, m=get('m',envir=.GlobalEnv), U = 0, makeplot = TRUE)
+#' @usage IHG(ordinal, m=get('m',envir=.GlobalEnv), U = 0, makeplot = TRUE, summary = TRUE)
 #' @param ordinal Vector of ordinal responses
 #' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
 #'  specified in the global environment)
@@ -12,6 +12,7 @@
 #'  and observed relative frequencies  for IHG models without covariates. If only one explicative dichotomous 
 #'  variable is included in the model, then the function returns a graphical plot comparing the distributions
 #'   of the responses conditioned to the value of the covariate
+#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
 #' @export IHG
 #' @return An object of the class "IHG" is a list containing the following results: 
 #' \item{estimates}{Maximum likelihood parameters estimates}
@@ -41,29 +42,28 @@
 #' data(relgoods)
 #' m<-10
 #' ordinal<-na.omit(relgoods[,41]) 
-#' model<-IHG(ordinal)
+#' model<-IHG(ordinal,summary=TRUE)
 #' theta<-model$estimates      # ML estimates for the preference parameter theta
 #' maxlik<-model$loglik
-#' sterr<-model$varmat         # square of estimated standard error for theta
+#' sqerrst<-model$varmat         # Squared standard error of theta
 #' BICIHG<-model$BIC
 #' #################################
 #' ordinal<-relgoods[,41]
 #' gender<-relgoods[,9]
 #' data<-na.omit(cbind(ordinal,gender))
-#' modelcov<-IHG(data[,1],U=data[,2])
+#' modelcov<-IHG(data[,1],U=data[,2],summary=TRUE)
 #' omega<-modelcov$estimates     #  ML estimates (intercept term: omega[1])
 #' maxlik<-modelcov$loglik
 #' varmat<-modelcov$varmat
 #' BICcov<-modelcov$BIC
 #' }
 
-IHG <-
-function(ordinal,m=get('m',envir=.GlobalEnv),U=0,makeplot=TRUE){
+IHG<-function(ordinal,m=get('m',envir=.GlobalEnv),U=0,makeplot=TRUE,summary=TRUE){
   
   ru<-NROW(U)
   if (ru==1){
-    ihg00(m,ordinal,makeplot)
+    ihg00(m,ordinal,makeplot,summary)
   } else {
-    ihgcov(m,ordinal,U,makeplot)
+    ihgcov(m,ordinal,U,makeplot,summary)
   }
 }

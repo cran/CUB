@@ -5,7 +5,7 @@
 \title{Main function for CUBE models}
 \usage{
 CUBE(ordinal, m=get('m',envir=.GlobalEnv), Y = 0, W = 0, Z = 0, starting, maxiter,
-toler, makeplot = TRUE, expinform=FALSE)
+toler, makeplot = TRUE, expinform=FALSE, summary=TRUE)
 }
 \arguments{
 \item{ordinal}{Vector of ordinal responses}
@@ -36,6 +36,8 @@ a graphical plot comparing fitted probabilities and observed relative frequencie
 
 \item{expinform}{Logical: if TRUE  and no covariate is included in the model, the function returns 
 the expected variance-covariance matrix (default is FALSE)}
+
+\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUBE" is a list containing the following results: 
@@ -67,7 +69,7 @@ the variance-covariance matrix is computed as the inverse of the returned numeri
 data(relgoods)
 m<-10
 ordinal<-na.omit(relgoods[,37])  
-model<-CUBE(ordinal,starting=c(0.1,0.1,0.1))  
+model<-CUBE(ordinal,starting=c(0.1,0.1,0.1),summary=TRUE)  
 model$estimates        # Final ML estimates
 model$loglik           # Maximum value of the log-likelihood function
 model$varmat         
@@ -77,7 +79,7 @@ model$BIC
 ordinal<-relgoods[,40]
 cov<-relgoods[,2]
 nona<-na.omit(cbind(ordinal,cov))
-modelcovcsi<-CUBE(nona[,1],W=nona[,2])
+modelcovcsi<-CUBE(nona[,1],W=nona[,2],summary=TRUE)
 modelcov<-CUBE(nona[,1],Y=nona[,2],W=nona[,2], Z=nona[,2])
 modelcov$BIC
 modelcovcsi$BIC
@@ -86,16 +88,18 @@ data(univer)
 m<-7
 ordinal<-univer[,8]
 starting<-inibestcube(m,ordinal)
-model<-CUBE(ordinal,starting=starting)
+model<-CUBE(ordinal,starting=starting,summary=TRUE)
 }
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
-Piccolo, D. (2014). Inferential issues on CUBE models with covariates,
- \emph{Communications in Statistics - Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487 \cr
-Iannario, M. (2015). Detecting latent components in ordinal data with overdispersion by means
- of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987
+Piccolo D. (2015). Inferential issues for CUBE models with covariates,
+ \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
+Iannario M. (2015). Detecting latent components in ordinal data with overdispersion by means
+ of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987 \cr
+ Iannario M. (2016). Testing the overdispersion parameter in CUBE models. 
+ \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635.\cr
 }
 \seealso{
 \code{\link{probcube}}, \code{\link{loglikCUBE}}, \code{\link{loglikcuben}},  \code{\link{inibestcube}},

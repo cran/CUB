@@ -3,7 +3,7 @@
 #' and feeling for given ratings, with or without covariates and shelter effect.
 #' @aliases CUB
 #' @usage CUB(ordinal,m=get('m',envir=.GlobalEnv),
-#' Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE)
+#' Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE,summary=TRUE)
 #' @param ordinal Vector of ordinal responses
 #' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
 #'  specified in the global environment)
@@ -21,6 +21,7 @@
 #' explicative dichotomous variable is included in the model for the feeling or the uncertainty components, 
 #' then the function returns a graphical plot comparing the distributions of the responses conditioned to
 #'  the value of the covariate
+#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
 #' @export CUB
 #' @return An object of the class "CUB" is a list containing the following results: 
 #' \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi)}}
@@ -44,7 +45,9 @@
 #' Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
 #' \emph{Statistical Methods and Applications}, \bold{21}, 1--22 \cr
 #' Iannario M. and Piccolo D. (2014). Inference for CUB models: a program in R, \emph{Statistica & Applicazioni}, 
-#' \bold{XII} n.2, 177--204
+#' \bold{XII} n.2, 177--204 \cr
+#' Iannario M. (2016). Testing the overdispersion parameter in CUBE models,
+#'  \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635
 #' @seealso \code{\link{probcub00}}, \code{\link{probcubp0}}, \code{\link{probcub0q}}, \code{\link{probcubpq}},
 #' \code{\link{probcubshe1}}, \code{\link{loglikCUB}}, \code{\link{varmatCUB}} 
 #' @keywords models
@@ -52,9 +55,9 @@
 #' \donttest{
 #' data(relgoods)
 #' m<-10
-#' ordinal<-relgoods[,40] 
-#' model<-CUB(ordinal)     # Equivalent calls: CUB(ordinal, m) or CUB(ordinal,m=10) 
-#'      # if m has not been previously declared
+#' ordinal<-na.omit(relgoods[,40]) 
+#' model<-CUB(ordinal)      # Equivalent calls: CUB(ordinal, m) or CUB(ordinal,m=10) 
+#'                          # if m has not been previously declared
 #' estpar<-model$estimates  # Estimated parameter vector (pai,csi)
 #' maxlik<-model$loglik     # Log-likelihood function at ML estimates
 #' vmat<-model$varmat
@@ -65,7 +68,7 @@
 #' data(univer)
 #' m<-7
 #' officeho<-univer[,10]
-#' model<-CUB(officeho)
+#' model<-CUB(officeho,shelter=7)
 #' BICcub<-model$BIC
 #' ################
 #' ## CUB model with covariate for uncertainty
@@ -75,7 +78,7 @@
 #' gender<-relgoods[,7]
 #' data<-na.omit(cbind(ordinal,gender))
 #' modelcovpai<-CUB(data[,1],Y=data[,2])
-#' BICcov<-modelcovpai$BIC
+#' BICcovpai<-modelcovpai$BIC
 ################
 #' ## CUB model with covariate for feeling
 #' data(univer)
@@ -98,7 +101,7 @@
 #' }
 
 
-CUB <-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE){
+CUB<-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE,summary=TRUE){
   
   if (missing(maxiter)){
     maxiter <- 500
@@ -111,18 +114,18 @@ CUB <-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,shelter=0,maxiter,tol
   ry<-NROW(Y);   rw<-NROW(W); shelter<-as.numeric(shelter)
   if(shelter!=0){
     if (ry==1 & rw==1){
-      cubshe(m,ordinal,shelter,maxiter,toler,makeplot)
+      cubshe(m,ordinal,shelter,maxiter,toler,makeplot,summary)
     } else {
       cat("CUB model with shelter effect available only with no covariates")
     }
   } else{
-    if(ry==1 & rw==1) cub00(m,ordinal,maxiter,toler,makeplot)
+    if(ry==1 & rw==1) cub00(m,ordinal,maxiter,toler,makeplot,summary)
     else{
-      if(ry!=1 & rw==1) cubp0(m,ordinal,Y,maxiter,toler,makeplot)
+      if(ry!=1 & rw==1) cubp0(m,ordinal,Y,maxiter,toler,makeplot,summary)
       else{
-        if(ry==1 & rw!=1) cub0q(m,ordinal,W,maxiter,toler,makeplot)
+        if(ry==1 & rw!=1) cub0q(m,ordinal,W,maxiter,toler,makeplot,summary)
         else{
-          if(ry!=1 & rw!=1) cubpq(m,ordinal,Y,W,maxiter,toler,makeplot)
+          if(ry!=1 & rw!=1) cubpq(m,ordinal,Y,W,maxiter,toler,summary)
           else cat("Wrong variables specification")
         }
       }                            

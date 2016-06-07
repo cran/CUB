@@ -4,7 +4,7 @@
 \alias{IHG}
 \title{Main function for IHG models}
 \usage{
-IHG(ordinal, m=get('m',envir=.GlobalEnv), U = 0, makeplot = TRUE)
+IHG(ordinal, m=get('m',envir=.GlobalEnv), U = 0, makeplot = TRUE, summary = TRUE)
 }
 \arguments{
 \item{ordinal}{Vector of ordinal responses}
@@ -19,6 +19,8 @@ no covariate is included in the model}
 and observed relative frequencies  for IHG models without covariates. If only one explicative dichotomous 
 variable is included in the model, then the function returns a graphical plot comparing the distributions
  of the responses conditioned to the value of the covariate}
+
+\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "IHG" is a list containing the following results: 
@@ -49,16 +51,16 @@ The optimization procedure is run via "optim". The variance-covariance matrix (o
 data(relgoods)
 m<-10
 ordinal<-na.omit(relgoods[,41]) 
-model<-IHG(ordinal)
+model<-IHG(ordinal,summary=TRUE)
 theta<-model$estimates      # ML estimates for the preference parameter theta
 maxlik<-model$loglik
-sterr<-model$varmat         # square of estimated standard error for theta
+sqerrst<-model$varmat         # Squared standard error of theta
 BICIHG<-model$BIC
 #################################
 ordinal<-relgoods[,41]
 gender<-relgoods[,9]
 data<-na.omit(cbind(ordinal,gender))
-modelcov<-IHG(data[,1],U=data[,2])
+modelcov<-IHG(data[,1],U=data[,2],summary=TRUE)
 omega<-modelcov$estimates     #  ML estimates (intercept term: omega[1])
 maxlik<-modelcov$loglik
 varmat<-modelcov$varmat

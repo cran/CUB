@@ -18,8 +18,8 @@
 #' n1<-270
 #' bet<-c(-1.5,1.2)
 #' gama<-c(0.5,-1.2)
-#' pai0<-1/(1+exp(-bet[1])); csi0<-1/(1+exp(-gama[1]));
-#' pai1<-1/(1+exp(-sum(bet))); csi1<-1/(1+exp(-sum(gama)));
+#' pai0<-1/(1+exp(-bet[1])); csi0<-1/(1+exp(-gama[1]))
+#' pai1<-1/(1+exp(-sum(bet))); csi1<-1/(1+exp(-sum(gama)))
 #' ordinal0<-simcub(n0,m,pai0,csi0)
 #' ordinal1<-simcub(n1,m,pai1,csi1)
 #' ordinal<-c(ordinal0,ordinal1)

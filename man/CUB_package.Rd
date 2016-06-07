@@ -2,9 +2,9 @@
 % Please edit documentation in R/CUB_package.R
 \name{CUB_package}
 \alias{CUB_package}
-\title{CUB package}
+\title{A Class of Mixture Models for Ordinal Data}
 \source{
-\url{http://www.labstat.it/home/research/resourses/cub-data-sets-2/}
+\url{http://www.labstat.it/home/research/resources/cub-data-sets-2/}
 }
 \description{
 The analysis of human perceptions is often carried out by resorting to questionnaires, 
@@ -34,13 +34,13 @@ starts from a particular assumption about the unconscious mechanism leading indi
 \tabular{ll}{
 Package: \tab CUB\cr
 Type: \tab Package\cr
-Version: \tab 0.0\cr
-Date: \tab 2015-10-30\cr
+Version: \tab 0.1\cr
+Date: \tab 2016-6-7\cr
 License: GPL-2 | GPL-3
  }
 }
 \author{
-Maria Iannario, Domenico Piccolo
+Maria Iannario, Domenico Piccolo, Rosaria Simone
 }
 \references{
 Piccolo D. (2003). On the moments of a mixture of uniform and shifted binomial random variables,

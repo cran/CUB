@@ -9,7 +9,7 @@
 #' @export expcube
 #' @seealso \code{\link{varcube}}, \code{\link{varcub00}}, \code{\link{expcub00}} 
 #' @keywords distribution
-#' @references Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
+#' @references Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 #'  \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
 #' Iannario, M. (2015). Detecting latent components in ordinal data with overdispersion by means 
 #' of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987

@@ -34,7 +34,7 @@
 #' cov<-nona[,2]
 #' shelter<-1
 #' omega<-c(-2.29, 0.62)
-#' loglik<-loglikCUSH(ordinal,m,param=omega,shelter,X=cov)
+#' loglikcov<-loglikCUSH(ordinal,m,param=omega,shelter,X=cov)
 #' 
 
 loglikCUSH<-function(ordinal,m,param,shelter,X=0){

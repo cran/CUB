@@ -1,26 +1,27 @@
-# @title Variance-covariance matrix of a CUBE model with covariates
-# @description Compute the variance-covariance matrix of parameter estimates of a CUBE model with covariates
-#  for all the three parameters.
-# @aliases varcovcubecov
-# @usage varcovcubecov(m, ordinal, Y, W, Z, estbet, estgama, estalpha)
-# @param m Number of ordinal categories
-# @param ordinal Vector of ordinal responses
-# @param Y Matrix of covariates for explaining the uncertainty component
-# @param W Matrix of covariates for explaining the feeling component
-# @param Z Matrix of covariates for explaining the overdispersion component
-# @param estbet Vector of the estimated parameters for the uncertainty component, with length equal to 
-# NCOL(Y)+1 to account for an intercept term (first entry)
-# @param estgama Vector of the estimated parameters for the  feeling component, with length equal to 
-# NCOL(W)+1 to account for an intercept term (first entry)
-# @param estalpha Vector of the estimated parameters for the overdispersion component, with length
-#  equal to NCOL(Z)+1 to account for an intercept term (first entry)
-# @details The function checks if the variance-covariance matrix is positive-definite: if not, 
-# it returns a warning message and produces a matrix with NA entries.
-# @seealso \code{\link{loglikCUBE}}, \code{\link{CUBE}} 
-# @references
-# Piccolo, D. (2014), Inferential issues on CUBE models with covariates, 
-# \emph{Communications in Statistics - Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487 
+#' @title Variance-covariance matrix of a CUBE model with covariates
+#' @description Compute the variance-covariance matrix of parameter estimates of a CUBE model with covariates
+#'  for all the three parameters.
+#' @aliases varcovcubecov
+#' @usage varcovcubecov(m, ordinal, Y, W, Z, estbet, estgama, estalpha)
+#' @param m Number of ordinal categories
+#' @param ordinal Vector of ordinal responses
+#' @param Y Matrix of covariates for explaining the uncertainty component
+#' @param W Matrix of covariates for explaining the feeling component
+#' @param Z Matrix of covariates for explaining the overdispersion component
+#' @param estbet Vector of the estimated parameters for the uncertainty component, with length equal to 
+#' NCOL(Y)+1 to account for an intercept term (first entry)
+#' @param estgama Vector of the estimated parameters for the  feeling component, with length equal to 
+#' NCOL(W)+1 to account for an intercept term (first entry)
+#' @param estalpha Vector of the estimated parameters for the overdispersion component, with length
+#'  equal to NCOL(Z)+1 to account for an intercept term (first entry)
+#' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
+#' it returns a warning message and produces a matrix with NA entries.
+#' @seealso \code{\link{loglikCUBE}}, \code{\link{CUBE}} , 
 #' @keywords internal
+#' @references
+#' Piccolo, D. (2014), Inferential issues on CUBE models with covariates, 
+#' \emph{Communications in Statistics - Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487 
+
 
 varcovcubecov <-
 function(m,ordinal,Y,W,Z,estbet,estgama,estalpha){

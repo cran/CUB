@@ -5,7 +5,7 @@
 \title{Main function for CUB models}
 \usage{
 CUB(ordinal,m=get('m',envir=.GlobalEnv),
-Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE)
+Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE,summary=TRUE)
 }
 \arguments{
 \item{ordinal}{Vector of ordinal responses}
@@ -32,6 +32,8 @@ probabilities and observed relative frequencies for CUB models without covariate
 explicative dichotomous variable is included in the model for the feeling or the uncertainty components, 
 then the function returns a graphical plot comparing the distributions of the responses conditioned to
  the value of the covariate}
+
+\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUB" is a list containing the following results: 
@@ -58,9 +60,9 @@ if not, it prints a warning message and returns a matrix and related results wit
 \donttest{
 data(relgoods)
 m<-10
-ordinal<-relgoods[,40] 
-model<-CUB(ordinal)     # Equivalent calls: CUB(ordinal, m) or CUB(ordinal,m=10) 
-     # if m has not been previously declared
+ordinal<-na.omit(relgoods[,40]) 
+model<-CUB(ordinal)      # Equivalent calls: CUB(ordinal, m) or CUB(ordinal,m=10) 
+                         # if m has not been previously declared
 estpar<-model$estimates  # Estimated parameter vector (pai,csi)
 maxlik<-model$loglik     # Log-likelihood function at ML estimates
 vmat<-model$varmat
@@ -71,7 +73,7 @@ BICCUB<-model$BIC
 data(univer)
 m<-7
 officeho<-univer[,10]
-model<-CUB(officeho)
+model<-CUB(officeho,shelter=7)
 BICcub<-model$BIC
 ################
 ## CUB model with covariate for uncertainty
@@ -81,7 +83,7 @@ ordinal<-relgoods[,26]
 gender<-relgoods[,7]
 data<-na.omit(cbind(ordinal,gender))
 modelcovpai<-CUB(data[,1],Y=data[,2])
-BICcov<-modelcovpai$BIC
+BICcovpai<-modelcovpai$BIC
 ## CUB model with covariate for feeling
 data(univer)
 m<-7
@@ -111,7 +113,9 @@ J. Wiley and Sons, Chichester, 231--258\cr
 Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
 \emph{Statistical Methods and Applications}, \bold{21}, 1--22 \cr
 Iannario M. and Piccolo D. (2014). Inference for CUB models: a program in R, \emph{Statistica & Applicazioni}, 
-\bold{XII} n.2, 177--204
+\bold{XII} n.2, 177--204 \cr
+Iannario M. (2016). Testing the overdispersion parameter in CUBE models,
+ \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635
 }
 \seealso{
 \code{\link{probcub00}}, \code{\link{probcubp0}}, \code{\link{probcub0q}}, \code{\link{probcubpq}},
