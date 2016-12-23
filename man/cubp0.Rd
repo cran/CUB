@@ -4,7 +4,7 @@
 \alias{cubp0}
 \title{Main function for CUB models with covariates for the uncertainty component}
 \usage{
-cubp0(m, ordinal, Y, maxiter, toler, makeplot, summary)
+cubp0(m, ordinal, Y, maxiter, toler)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -16,12 +16,6 @@ cubp0(m, ordinal, Y, maxiter, toler, makeplot, summary)
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
 
 \item{toler}{Fixed error tolerance for final estimates}
-
-\item{makeplot}{Logical: if TRUE and if only one dichotomous covariate is included in the model, with levels (0,1),
-the function returns a graphical plot comparing the distributions of the responses conditioned to the value 
-of the covariate}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUB"

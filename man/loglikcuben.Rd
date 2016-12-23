@@ -44,5 +44,5 @@ lli<-loglikcuben(m,ordinal,assepai,assecsi,assephi)
 \seealso{
 \code{\link{loglikCUBE}}
 }
-\keyword{htest}
+\keyword{internal}
 

@@ -1,0 +1,48 @@
+#' @title S3 method: print for class "GEM"
+#' @description S3 method print for objects of class \code{\link{GEM}}. 
+#' @aliases print.GEM
+#' @method print GEM
+#' @param x An object of class \code{\link{GEM}}
+#' @param ...  Other arguments
+#' @export 
+#' @return Brief summary results of the fitting procedure, including parameter estimates, their standard errors and 
+#' the executed call
+#' @import methods
+#' @rdname print.GEM
+#' @keywords package
+
+
+
+print.GEM<-function(x,...){
+  
+  
+  arguments<-list(...)
+  
+  digits<-arguments$digits
+  
+  if (is.null(digits)){
+    digits<-options()$digits
+  }
+  
+  if(!is.null(cl <- x$call)){
+    cat("Call:\n")
+    dput(cl, control = NULL)
+  }
+  
+  sterr<-as.numeric(round(sqrt(diag(vcov(x))),digits=digits))
+  
+  mat<-cbind(coef(x,digits=digits),sterr)
+  rownames(mat)<-parnames(x)
+  colnames(mat)<-c("Estimates","Standard Errors")
+  
+  
+  cat("","\n")
+  print(mat)
+#   cat("Coefficients:","\n")
+#   print(coef(x,digits=digits))
+  cat("","\n")
+  cat("Maximized Log-Likelihood:",logLik(x,digits=digits),"\n")
+  
+  invisible(x)
+}
+

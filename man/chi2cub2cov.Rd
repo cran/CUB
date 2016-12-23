@@ -30,7 +30,7 @@ is explained via a logistic transform of the only discrete covariate. It groups 
 classes according to the values of the covariate.
 }
 \references{
-Tutz, G. (2011). \emph{ Regression for categorical data}, Cambridge Series in Statistical 
+Tutz, G. (2011). \emph{Regression for categorical data}, Cambridge Series in Statistical 
 and Probabilistic Mathematics
 }
 \keyword{internal}

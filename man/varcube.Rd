@@ -4,7 +4,7 @@
 \alias{varcube}
 \title{Variance of CUBE models without covariates}
 \usage{
-varcube(m, pai, csi, phi)
+varcube(m,pai,csi,phi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -23,7 +23,7 @@ m<-7
 pai<-0.8
 csi<-0.2
 phi<-0.05
-varianceCUBE<-varcube(m, pai, csi, phi)
+varianceCUBE<-varcube(m,pai,csi,phi)
 }
 \references{
 Iannario, M. (2014). Modelling Uncertainty and Overdispersion in 
@@ -31,7 +31,7 @@ Ordinal Data,  \emph{Communications in Statistics - Theory and Methods}, \bold{4
 771--786
 }
 \seealso{
-\code{\link{CUBE}}, \code{\link{probcube}}, \code{\link{expcube}}
+\code{\link{probcube}}, \code{\link{expcube}}
 }
 \keyword{distribution}
 

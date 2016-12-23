@@ -4,7 +4,7 @@
 \alias{plotloglikihg}
 \title{Plot of the log-likelihood function of the IHG distribution}
 \usage{
-plotloglikihg(m, freq)
+plotloglikihg(m,freq)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -17,8 +17,8 @@ Plot the log-likelihood function of an IHG model fitted to a given absolute freq
 }
 \examples{
 m<-7
-freq<-c(828, 275, 202, 178, 143, 110, 101)
-max<-plotloglikihg(m, freq)
+freq<-c(828,275,202,178,143,110,101)
+max<-plotloglikihg(m,freq)
 }
 \seealso{
 \code{\link{loglikIHG}}

@@ -1,7 +1,7 @@
 #' @title Probability distribution of a shifted Binomial random variable
 #' @description Return the shifted Binomial probability distribution.
 #' @aliases probbit
-#' @usage probbit(m, csi)
+#' @usage probbit(m,csi)
 #' @param m Number of ordinal categories
 #' @param csi Feeling parameter 
 #' @import stats
@@ -11,8 +11,8 @@
 #' @examples
 #' m<-7
 #' csi<-0.7
-#' pr<-probbit(m, csi)
-#' plot(1:m, pr, type="h", main="Shifted Binomial probability distribution",xlab="Categories")
+#' pr<-probbit(m,csi)
+#' plot(1:m,pr,type="h",main="Shifted Binomial probability distribution",xlab="Categories")
 #' points(1:m,pr,pch=19)
 
 probbit <-

@@ -4,7 +4,7 @@
 \alias{varcub00}
 \title{Variance of CUB models without covariates}
 \usage{
-varcub00(m, pai, csi)
+varcub00(m,pai,csi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -27,7 +27,7 @@ Piccolo D. (2003). On the moments of a mixture of uniform and shifted binomial r
 \emph{Quaderni di Statistica}, \bold{5}, 85--104
 }
 \seealso{
-\code{\link{CUB}}, \code{\link{expcub00}}, \code{\link{probcub00}}
+\code{\link{expcub00}}, \code{\link{probcub00}}
 }
 \keyword{distribution}
 

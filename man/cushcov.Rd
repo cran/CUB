@@ -4,7 +4,7 @@
 \alias{cushcov}
 \title{CUSH model with covariates}
 \usage{
-cushcov(m, ordinal, X, shelter, makeplot, summary)
+cushcov(m, ordinal, X, shelter)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -14,15 +14,9 @@ cushcov(m, ordinal, X, shelter, makeplot, summary)
 \item{X}{Matrix of selected covariates for explaining the shelter effect}
 
 \item{shelter}{Category corresponding to the shelter choice}
-
-\item{makeplot}{Logical: if TRUE and if only one dichotomous covariate is included in the model, 
-with levels (0,1), the function returns a graphical plot comparing the distributions of the
- responses conditioned to the value of the covariate}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
-An object of the class "CUSH"
+An object of the class "GEM", "CUSH"
 }
 \description{
 Estimate and validate a CUSH model for ordinal responses, with covariates

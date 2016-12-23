@@ -2,21 +2,11 @@
 #' @description Main function to estimate and validate a CUSH model for ordinal responses, with or without covariates
 #'  to explain the shelter effect.
 #' @aliases CUSH
-#' @usage CUSH(ordinal, shelter, m=get('m',envir=.GlobalEnv), X = 0, makeplot = TRUE, summary=TRUE)
-#' @param ordinal Vector of ordinal responses
-#' @param shelter Category corresponding to the shelter choice
-#' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
-#'  specified in the global environment)
-#' @param X Matrix of selected covariates for explaining the shelter effect. If omitted (default), no covariate 
-#' is included in the model
-#' @param makeplot Logical: if TRUE (default) and if no covariate is included in the model,
-#' the algorithm returns a graphical plot comparing fitted probabilities and observed relative frequencies, 
-#' and a plot of the log-likelihood function at the final estimate, compared with the log-likelihood values of 
-#' the saturated and the uniform models. If only one explicative dichotomous variable is included in the model, 
-#' then the function returns a graphical plot comparing the distributions of the responses conditioned to the 
-#' value of the covariate
-#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
-#' @export CUSH
+#' @usage CUSH(Formula,data,...)
+#' @param Formula Object of class Formula.
+#' @param data Data frame from which model matrices and response variables are taken.
+#' @param ... Additional arguments to pass to the fitting procedure. Argument X specifies the matrix of 
+#' subjects covariates to include in the model for explaining the shelter effect (not including intercept). 
 #' @return An object of the class "CUSH" is a list containing the following results: 
 #' \item{estimates}{Maximum likelihood parameters estimates}
 #' \item{loglik}{Log-likelihood function at the final estimates}
@@ -33,39 +23,64 @@
 #' \emph{IFCS Proceedings, University of Bologna} \cr
 #' Capecchi S. and Iannario M. (2016). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
 #'  \emph{Metron} - DOI: 10.1007/s40300-016-0088-5
-#' @seealso \code{\link{cushforsim}}, \code{\link{loglikCUSH}}
-#' @keywords models
-#' @examples
-#' data(relgoods)
-#' dog<-na.omit(relgoods[,49])
-#' m<-10
-#' shelter<-1
-#' model<-CUSH(dog,shelter=shelter,summary=TRUE)
-#' delta<-model$estimates # ML estimates of delta
-#' maxlik<-model$loglik   # Log-likelihood at ML estimates
-#' sqerrst<-model$varmat    # Squared standard error of delta
-#' BIC<-model$BIC
-#' ###############################################
-#' ### CUSH model with covariates
-#' music<-relgoods[,47]
-#' shelter<-1
-#' cov<-relgoods[,12]
-#' nona<-na.omit(cbind(music,cov))
-#' ordinal<-nona[,1]
-#' smoking<-nona[,2]
-#' modelcov<-CUSH(ordinal,shelter=shelter,X=smoking,summary=FALSE)
-#' omega<-modelcov$estimates
-#' maxlik<-modelcov$loglik
-#' varmat<-modelcov$varmat
-#' BIC<-modelcov$BIC
+#' @seealso \code{\link{loglikCUSH}}
+#' @keywords internal 
 
-CUSH<-function(ordinal,shelter,m=get('m',envir=.GlobalEnv),X=0,makeplot=TRUE,summary=TRUE){  
+
+CUSH<-function(Formula,data,...){  
   
-  rx<-NROW(X)
-  if(rx==1){ 
-    cush00(m,ordinal,shelter,makeplot,summary)
+  ellipsis.arg<-list(...)
+  
+  mf<-model.frame(Formula,data=data)
+  ordinal<-as.numeric(model.response(mf))
+  
+  #covpai<-model.matrix(Formula,data=data,rhs=1)
+  #covcsi<-model.matrix(Formula,data=data,rhs=2)
+  covshe<-model.matrix(Formula,data=data,rhs=1)
+  
+  # if (ncol(covpai)==0){
+  #   Y<-NULL
+  # } else {
+  #   stop("Error: no uncertainty parameter modelled with CUSH model")
+  #   #Y<-as.numeric(covpai[,-1])
+  # }
+  # if (ncol(covcsi)==0){
+  #   W<-NULL
+  # } else {
+  #   stop("Error: no feeling parameter modelled with CUSH model")
+  #   #W<-as.numeric(covcsi[,-1])
+  # }
+  if (ncol(covshe)==0){
+    X<-NULL
+  } else {
+    X<-covshe[,-1]
   }
-  else{
-    cushcov(m,ordinal,X,shelter,makeplot,summary)
+  
+  lev <- levels(factor(ordinal,ordered=TRUE))
+  m <- length(lev) 
+  
+  shelter<-ellipsis.arg$shelter
+  
+  if (is.null(shelter)) stop("Shelter category missing")
+  
+  
+  if(is.null(X)){ 
+    mod<- cush00(m,ordinal,shelter)
+  } else {
+    X<-as.matrix(X)
+    mod<-cushcov(m,ordinal,X,shelter)
   }
+  stime<-mod$estimates
+  durata<-mod$time
+  loglik<-as.numeric(mod$loglik)
+  niter<-1
+  varmat<-mod$varmat
+  BIC<-as.numeric(mod$BIC)
+  ordinal<-factor(ordinal,ordered=TRUE)
+  
+  results<-list('estimates'=stime,'ordinal'=ordinal,'time'=durata,
+                'loglik'=loglik,'niter'=niter,'varmat'=varmat,
+                'BIC'=BIC)
+  return(results)
+  
 }

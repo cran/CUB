@@ -1,7 +1,7 @@
 #' @title Probability distribution of a CUB model without covariates
 #' @description Compute the probability distribution of a CUB model without covariates.
 #' @aliases probcub00
-#' @usage probcub00(m, pai, csi)
+#' @usage probcub00(m,pai,csi)
 #' @param m Number of ordinal categories
 #' @param pai Uncertainty parameter 
 #' @param csi Feeling parameter
@@ -18,7 +18,7 @@
 #' m<-9
 #' pai<-0.3
 #' csi<-0.8
-#' pr<-probcub00(m, pai, csi)
+#' pr<-probcub00(m,pai,csi)
 #' plot(1:m,pr,type="h",main="CUB probability distribution",xlab="Ordinal categories")
 #' points(1:m,pr,pch=19)
 

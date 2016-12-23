@@ -24,6 +24,6 @@ function(param,esterno2,q,m){
   alpha<-param[(q+2):(q+v+2)]
   csi<-logis(W,gama)   
   phi<-1/(-1 + 1/logis(Z,alpha)) 
-  betabin<-betabinomial(m,ordinal,csi,phi)
+  betabin<-betabinomial(m,factor(ordinal,ordered=TRUE),csi,phi)
   return(-sum(tauno*log(betabin)))           ### change sign for optim
 }

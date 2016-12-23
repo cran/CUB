@@ -5,7 +5,7 @@
 #' @aliases chi2cub1cov
 #' @usage chi2cub1cov(m, ordinal, covar, pai, gama)
 #' @param m Integer: number of ordinal categories
-#' @param ordinal Vector of ordinal responses
+#' @param ordinal Vector of ordinal responses (factor type)
 #' @param covar Vector of the selected covariate for explaining the feeling component
 #' @param pai Uncertainty parameter 
 #' @param gama gama}{Vector of parameters for the feeling component, with length equal to 2
@@ -16,14 +16,23 @@
 #' \item{dev}{Deviance indicator}
 #' @keywords internal
 #' @import stats
-#' @references Tutz, G. (2011). \emph{ Regression for categorical data}, Cambridge Series in Statistical 
+#' @references Tutz, G. (2011). \emph{Regression for categorical data}, Cambridge Series in Statistical 
 #' and Probabilistic Mathematics
 
 
 
 chi2cub1cov <-function(m,ordinal,covar,pai,gama){
+  
+  if (!is.factor(ordinal)){
+    stop("Response must be an ordered factor")
+  }
+  
+  ordinal<-unclass(ordinal)
+  
+  covar<-as.matrix(covar)
+  
   n<-length(ordinal)
-  elle<-sort(unique(covar))
+  elle<-as.numeric(sort(unique(covar)))
   
   kappa<-length(elle)
   
@@ -49,7 +58,7 @@ chi2cub1cov <-function(m,ordinal,covar,pai,gama){
     j<-j+1
   }
     
-  df<-kappa*(m-1)-(length(gama)+1)
+  df<- kappa*(m-1)-(length(gama)+1)
   cat("Degrees of freedom         ==>  df  =",df, "\n")
   cat("Pearson Fitting measure    ==>  X^2 =",chi2,"(p-val.=",1-pchisq(chi2,df),")","\n")
   cat("Deviance                   ==>  Dev =",dev,"(p-val.=",1-pchisq(dev,df),")","\n")

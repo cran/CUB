@@ -1,7 +1,7 @@
 #' @title Normalized dissimilarity measure
 #' @description Compute the normalized dissimilarity measure between observed
 #'  relative frequencies and estimated (theoretical) probabilities.
-#' @usage dissim(proba, probb)
+#' @usage dissim(proba,probb)
 #' @aliases dissim
 #' @param proba Vector of observed relative frequencies
 #' @param probb Vector of estimated (theoretical) probabilities

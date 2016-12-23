@@ -4,12 +4,12 @@
 \alias{bitcsi}
 \title{Shifted Binomial probabilities of ordinal responses}
 \usage{
-bitcsi(m, ordinal, csi)
+bitcsi(m,ordinal,csi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{csi}{Feeling parameter of the shifted Binomial distribution}
 }
@@ -22,10 +22,10 @@ Compute the shifted Binomial probabilities of ordinal responses.
 }
 \examples{
 data(univer)
+attach(univer)
 m<-7
-ordinal<-univer[,8]
 csi<-0.7
-pr<-bitcsi(m,ordinal,csi)
+pr<-bitcsi(m,informat,csi)
 }
 \references{
 Piccolo D. (2003). On the moments of a mixture of uniform and shifted binomial random variables,

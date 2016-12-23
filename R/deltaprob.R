@@ -1,6 +1,6 @@
 #' @title Mean difference of a discrete random variable
 #' @description Compute the Gini mean difference of a discrete random variable.
-#' @usage deltaprob(m, prob)
+#' @usage deltaprob(m,prob)
 #' @aliases deltaprob
 #' @param m Number of categories
 #' @param prob Probability distribution of the random variable

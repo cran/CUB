@@ -2,13 +2,14 @@
 #' @description Return the shifted Binomial probabilities of ordinal responses where the feeling component 
 #' is explained by covariates via a logistic link.
 #' @aliases bitgama
+#' @usage bitgama(m,ordinal,W,gama)
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses
+#' @param ordinal Vector of ordinal responses (factor type)
 #' @param W Matrix of covariates for the feeling component
 #' @param gama Vector of parameters for the feeling component, with length equal to 
-#' NCOL(W)+1 to account for an intercept term (first entry of gama)
+#' NCOL(W)+1 to account for an intercept term (first entry of \code{gama})
 #' @export bitgama
-#' @return A vector of the same length as ordinal, where each entry is the shifted Binomial probability of
+#' @return A vector of the same length as \code{ordinal}, where each entry is the shifted Binomial probability of
 #'  the corresponding observation and feeling parameter
 #' @seealso  \code{\link{logis}}, \code{\link{probcub0q}}, \code{\link{probcubpq}} 
 #' @keywords distribution
@@ -19,10 +20,33 @@
 #' W<-sample(c(0,1),n,replace=TRUE)
 #' gama<-c(0.2,-0.2)
 #' csivett<-logis(W,gama)
-#' ordinal<-rbinom(n,m-1,csivett)+1
+#' ordinal<-factor(rbinom(n,m-1,csivett)+1,ordered=TRUE)
 #' pr<-bitgama(m,ordinal,W,gama)
 
 bitgama <-function(m,ordinal,W,gama){
+  
+  if (!is.factor(ordinal)){
+    stop("Response must be an ordered factor")
+  }
+  
+  ordinal<-unclass(ordinal)
+  
+  W <- as.matrix(W)
+  
+  if (ncol(W)==1){
+    W<-as.numeric(W)
+  }
+  # Wlist<-apply(W,2,as.list)
+  # 
+  # q<-length(Wlist)
+  # 
+  # for (j in 1:q){
+  #   if (is.factor(Wlist[[j]])){
+  #     W[,j]<-unclass(W[,j])
+  #   }
+  # }
+  
+  
   ci<- 1/(logis(W,gama))-1
   kkk(m,ordinal)*exp((ordinal-1)*log(ci)-(m-1)*log(1+ci))
 }

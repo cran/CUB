@@ -1,7 +1,7 @@
 #' @title Expectation of CUB models
 #' @description Compute the expectation of a CUB model without covariates.
 #' @aliases expcub00
-#' @usage expcub00(m, pai, csi)
+#' @usage expcub00(m,pai,csi)
 #' @param m Number of ordinal categories
 #' @param pai Uncertainty parameter
 #' @param csi Feeling parameter

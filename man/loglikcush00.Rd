@@ -20,7 +20,7 @@ Compute the log-likelihood function for a CUSH model
 without covariate for the given ordinal responses.
 }
 \seealso{
-\code{\link{CUSH}}
+\code{\link{GEM}}
 }
 \keyword{internal}
 

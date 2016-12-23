@@ -1,11 +1,11 @@
 #' @title Preliminary parameter estimates of a CUB model with covariates for feeling
-#' @description Compute preliminary parameter estimates for CUB models 
-#' with covariates for feeling, given ordinal responses.
+#' @description Compute preliminary parameter estimates for the feeling component of a CUB model 
+#' fitted to ordinal responses
 #' These estimates are set as initial values for parameters to start the E-M algorithm.
 #' @aliases inibestgama
-#' @usage inibestgama(m, ordinal, W)
+#' @usage inibestgama(m,ordinal,W)
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses
+#' @param ordinal Vector of ordinal responses (factor type)
 #' @param W Matrix of selected covariates for explaining the feeling component
 #' @export inibestgama
 #' @return A vector of length equal to NCOL(W)+1, whose entries are the preliminary estimates
@@ -13,24 +13,38 @@
 #' @references Iannario M. (2008). Selecting feeling covariates in rating surveys, 
 #' \emph{Rivista di Statistica Applicata}, \bold{20}, 103--116 \cr
 #' Iannario M. (2009). A comparison of preliminary estimators in a class of ordinal data models,
-#' \emph{Statistica and Applicazioni}, \bold{VII}, 25--44 \cr
+#' \emph{Statistica & Applicazioni}, \bold{VII}, 25--44 \cr
 #' Iannario M. (2012).  Preliminary estimators for a mixture model of ordinal data, 
 #' \emph{Advances in Data Analysis and Classification}, \bold{6}, 163--184
 #' @seealso \code{\link{inibest}}, \code{\link{inibestcubecsi}}
 #' @keywords htest utilities
 #' @examples
 #' data(univer)
+#' attach(univer)
 #' m<-7
-#' ordinal<-univer[,12]
-#' diploma<-univer[,5]
+#' ordinal<-factor(global,ordered=TRUE)
 #' ini<-inibestgama(m,ordinal,W=diploma)
 
 
 inibestgama<-function(m,ordinal,W){
   
+  if (!is.factor(ordinal)){
+    stop("Response must be an ordered factor")
+  }
+  
+  ordinal<-unclass(ordinal)
+  
+  W<-as.matrix(W)
+  if (ncol(W)==1){
+    W<-as.numeric(W)
+  }
+  
   WW<-cbind(1,W)                           
   ni<-log((m-ordinal+0.5)/(ordinal-0.5))
   gama<-(solve(t(WW)%*%WW))%*%(t(WW)%*%ni) 
-  gama<-as.vector(gama)
+  
+  q<-NCOL(W)
+  listanomi<-paste("gamma",0:q,sep="_")
+  dimnames(gama)<-list(listanomi,"")
   return(gama)
 }

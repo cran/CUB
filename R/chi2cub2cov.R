@@ -17,15 +17,22 @@
 #' @keywords internal
 #' @import stats
 #' @references
-#' Tutz, G. (2011). \emph{ Regression for categorical data}, Cambridge Series in Statistical 
+#' Tutz, G. (2011). \emph{Regression for categorical data}, Cambridge Series in Statistical 
 #' and Probabilistic Mathematics
 
 
 chi2cub2cov <-function(m,ordinal,covar1,covar2,pai,gama){
+  
+  if (!is.factor(ordinal)){
+    stop("Response must be an ordered factor")
+  }
+  
+  ordinal<-unclass(ordinal)
+  
   n<-length(ordinal)
   W<-cbind(covar1,covar2)
-  elle1<-sort(unique(covar1))
-  elle2<-sort(unique(covar2))
+  elle1<-as.numeric(sort(unique(covar1)))
+  elle2<-as.numeric(sort(unique(covar2)))
   
   profiles<-expand.grid(elle1,elle2)
   kappa<-nrow(profiles)

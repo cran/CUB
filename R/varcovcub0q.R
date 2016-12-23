@@ -12,7 +12,6 @@
 #' @export varcovcub0q
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso \code{\link{probcub0q}}, \code{\link{loglikcub0q}}, \code{\link{cub0q}}  
 #' @keywords internal
 #' @references
 #' Piccolo D.(2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},
@@ -29,7 +28,13 @@
 
 varcovcub0q <-
 function(m,ordinal,W,pai,gama){
-  qi<-1/(m*probcub0q(m,ordinal,W,pai,gama))
+  W<-as.matrix(W)
+  if (ncol(W)==1){
+    W<-as.numeric(W)
+  }
+  
+  qi<-1/(m*probcub0q(m,factor(ordinal,ordered=TRUE),W,pai,gama))
+  
   qistar<-1-(1-pai)*qi
   qitilde<-qistar*(1-qistar)
   fi<-logis(W,gama)

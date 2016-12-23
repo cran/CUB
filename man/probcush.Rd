@@ -4,7 +4,7 @@
 \alias{probcush}
 \title{Probability distribution of a CUSH model}
 \usage{
-probcush(m, delta, shelter)
+probcush(m,delta,shelter)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -23,18 +23,15 @@ Compute the probability distribution of a CUSH model without covariates.
 m<-10
 shelter<-1
 delta<-0.4
-pr<-probcush(m, delta, shelter)
+pr<-probcush(m,delta,shelter)
 plot(1:m,pr,type="h",xlab="Number of categories")
 points(1:m,pr,pch=19)
 }
 \references{
-Capecchi S. and Piccolo D. (2015). Dealing with heterogeneity/uncertainty in sample survey with 
-ordinal data, \emph{IFCS Proceedings, University of Bologna} \cr
-Capecchi S and Iannario M. (2015). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
- \emph{Metron}  - DOI: 10.1007/s40300-016-0088-5
-}
-\seealso{
-\code{\link{CUSH}}
+Capecchi S. and Piccolo D. (2016). Dealing with heterogeneity in ordinal responses,
+ \emph{Quality and Quantity}, DOI: 10.1007/s11135-016-0393-3 \cr
+Capecchi S. and Iannario M. (2016). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
+ \emph{Metron}, \bold{74}(2), 223--232
 }
 \keyword{distribution}
 

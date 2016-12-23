@@ -7,7 +7,7 @@
 loglikIHG(ordinal,m,param,U=0)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{m}{Number of ordinal categories}
 
@@ -21,8 +21,8 @@ Compute the log-likelihood function for IHG models with or without covariates
 to explain the preference parameter.
 }
 \details{
-If no covariate is included in the model, then "param" is the estimate of the preference
-parameter (theta), otherwise "param" has length equal to NCOL(U) + 1 to account for an intercept  
+If no covariate is included in the model, then \code{param} is the estimate of the preference
+parameter (theta), otherwise \code{param} has length equal to NCOL(U) + 1 to account for an intercept  
 term (first entry)
 }
 \examples{
@@ -33,17 +33,17 @@ loglik<-loglikIHG(ordinal,m,param=theta)
 ##################################
 #### Log-likelihood of a IHG model with covariate 
 data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,41]
-gender<-relgoods[,9]
-nona<-na.omit(cbind(ordinal,gender))
-ordinal<-nona[,1]
-gender<-nona[,2]
-nu<-c(-1.55,-0.11) # first entry: intercept term
-loglik<-loglikIHG(ordinal, m, param=nu, U=gender)
+naord<-which(is.na(HandWork))
+nacov<-which(is.na(Gender))
+na<-union(naord,nacov)
+ordinal<-HandWork[-na]; U<-Gender[-na]
+nu<-c(-1.55,-0.11)     # first entry: intercept term
+loglik<-loglikIHG(ordinal,m,param=nu,U=U)
 }
 \seealso{
-\code{\link{IHG}}
+\code{\link{GEM}}, \code{\link{logLik}}
 }
 \keyword{htest}
 

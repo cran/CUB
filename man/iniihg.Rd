@@ -4,12 +4,12 @@
 \alias{iniihg}
 \title{Moment estimate for the preference parameter of the IHG distribution}
 \usage{
-iniihg(m, freq)
+iniihg(m,freq)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{freq}{Vector of length \eqn{m} of the absolute frequency distribution of the categories}
+\item{freq}{Vector of the absolute frequency distribution of the categories}
 }
 \value{
 Moment estimator of the preference parameter \eqn{\theta}
@@ -21,15 +21,15 @@ This preliminary estimate is set as initial value within the optimization proced
 }
 \examples{
 m<-9
-freq<-c(70, 51, 48, 38, 29, 23, 12, 10, 5)
-initheta<-iniihg(m, freq)
+freq<-c(70,51,48,38,29,23,12,10,5)
+initheta<-iniihg(m,freq)
 }
 \references{
 D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
-\emph{Statistical Modelling: An International Journal}, \bold{3}, 65--78
+\emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78
 }
 \seealso{
-\code{\link{IHG}}
+\code{\link{inibest}}, \code{\link{inibestcube}}
 }
 \keyword{htest}
 \keyword{utilities}

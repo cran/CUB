@@ -4,7 +4,7 @@
 \alias{cush00}
 \title{CUSH model without covariates}
 \usage{
-cush00(m, ordinal, shelter, makeplot, summary)
+cush00(m, ordinal, shelter)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -12,14 +12,9 @@ cush00(m, ordinal, shelter, makeplot, summary)
 \item{ordinal}{Vector of ordinal responses}
 
 \item{shelter}{Category corresponding to the shelter choice}
-
-\item{makeplot}{Logical: if TRUE, the algorithm returns a graphical plot comparing fitted 
-probabilities and observed relative frequencies}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
-An object of the class "CUSH"
+An object of the class "GEM", "CUSH"
 }
 \description{
 Estimate and validate a CUSH model for given ordinal responses, without covariates.

@@ -1,45 +1,71 @@
 #' @title Plot an estimated CUB model
 #' @description Plotting facility for the CUB estimation of ordinal responses. 
 #' @aliases cubvisual
-#' @usage cubvisual(m, ordinal, caption, labelpoint="estim", xlim, ylim)
-#' @param m Number of ordinal categories
+#' @usage cubvisual(ordinal,...)
 #' @param ordinal Vector of ordinal responses
-#' @param caption Characters string for the plot caption (default is "CUB models parameter space")
-#' @param labelpoint Characters string describing the label to give to the point estimates (default is "estim")
-#' @param xlim Numeric vectors of length 2, giving the x coordinate range (if missing, xlim=c(0,1))
-#' @param ylim Numeric vectors of length 2, giving the y coordinate range (if missing, ylim=c(0,1))
-#' @details The estimation is performed via \code{\link{cubforsim}}. It represents an estimated CUB model as a point
-#'  in the parameter space with some useful options. If necessary, other estimated models may be added with
-#' the standard commands of the R environment (as points(.), for instance).
-#' @return A plot of the estimated parameter vector \eqn{(\pi, \xi)} as a point in the parameter space
+#' @param ... Additional arguments to be passed to plot() and text()
+#' @details It represents an estimated CUB model as a point
+#'  in the parameter space with some useful options. 
+#' @return A plot of the estimated parameter vector \eqn{(\pi, \xi)} as a point in the parameter space.
 #' @keywords device
 #' @export cubvisual
 #' @import graphics
 #' @examples
 #' data(univer)
-#' m<-7
-#' ordinal<-univer[,12] 
-#' cubvisual(m, ordinal)
+#' attach(univer)
+#' cubvisual(global,xlim=c(0,0.5),ylim=c(0.5,1),cex=0.8)
 
-cubvisual <-
-function(m,ordinal,caption,labelpoint="estim",xlim,ylim){
+cubvisual<-function(ordinal,...){
   
-  if (missing(xlim)){
+  ellipsis.arg<-list(...)
+  
+  xlim<-ellipsis.arg$xlim
+  if (is.null(xlim)){
     xlim<-c(0,1)
   }
-  if (missing(ylim)){
+  ylim<-ellipsis.arg$ylim
+  if (is.null(ylim)){
     ylim<-c(0,1)
   }
-  if (missing(caption)){
-    caption<-"CUB models parameter space"
+  pos<-ellipsis.arg$pos
+  if (is.null(pos)){
+    pos<-3
   }
+  offset<-ellipsis.arg$offset
+  if (is.null(offset)){
+    offset<-0.5
+  }
+  font<-ellipsis.arg$font
+  if(is.null(font)){
+    font<-4
+  }
+  pch<-ellipsis.arg$pch
+  if (is.null(pch)){
+    pch<-19
+  } 
+  cex<-ellipsis.arg$cex
+  if (is.null(cex)){
+    cex<-0.5
+  } 
+  col<-ellipsis.arg$col
+  if (is.null(col)){
+    col<-"black"
+  } 
+  if (!is.factor(ordinal)){
+    stop("Response must be an ordered factor")
+  }
+  #ordinal<-factor(ordinal,ordered=TRUE)
+  F0<-Formula(ordinal~0|0|0)
+  data<-as.data.frame(ordinal)
   
-  stimacub<-cubforsim(m, ordinal, maxiter = 500, toler = 1e-06)
-    #cub00(m,ordinal,maxiter=500,toler=1e-6,makeplot=FALSE);
+  stimacub<-GEM(F0,data=data, maxiter = 500, toler = 1e-06,family="cub")
   param<-stimacub$estimates; pai<-param[1];csi<-param[2];
-  plot(1-pai,1-csi,main=caption,las=1,pch=19,cex=1.2,xlim=xlim,ylim=ylim,
-       col="blue",
+  plot(1-pai,1-csi,main="CUB models parameter space",las=1,pch=pch,cex=cex,xlim=xlim,ylim=ylim,
+       col=col,
        xlab=expression(paste("Uncertainty  ", (1-pi))),
-       ylab=expression(paste("Feeling  ", (1-xi))));
-  text(1-pai,1-csi,labels=labelpoint,font=4,pos=1,offset=0.4,cex=0.8)
+       ylab=expression(paste("Feeling  ", (1-xi))))
+  text(1-pai,1-csi,labels="estim",font=font,pos=pos,offset=offset,cex=cex,col=col)
 }
+
+
+

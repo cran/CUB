@@ -4,12 +4,12 @@
 \alias{inibestgama}
 \title{Preliminary parameter estimates of a CUB model with covariates for feeling}
 \usage{
-inibestgama(m, ordinal, W)
+inibestgama(m,ordinal,W)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{W}{Matrix of selected covariates for explaining the feeling component}
 }
@@ -18,22 +18,22 @@ A vector of length equal to NCOL(W)+1, whose entries are the preliminary estimat
  of the parameters for the feeling component, including an intercept term as first entry
 }
 \description{
-Compute preliminary parameter estimates for CUB models 
-with covariates for feeling, given ordinal responses.
+Compute preliminary parameter estimates for the feeling component of a CUB model 
+fitted to ordinal responses
 These estimates are set as initial values for parameters to start the E-M algorithm.
 }
 \examples{
 data(univer)
+attach(univer)
 m<-7
-ordinal<-univer[,12]
-diploma<-univer[,5]
+ordinal<-factor(global,ordered=TRUE)
 ini<-inibestgama(m,ordinal,W=diploma)
 }
 \references{
 Iannario M. (2008). Selecting feeling covariates in rating surveys, 
 \emph{Rivista di Statistica Applicata}, \bold{20}, 103--116 \cr
 Iannario M. (2009). A comparison of preliminary estimators in a class of ordinal data models,
-\emph{Statistica and Applicazioni}, \bold{VII}, 25--44 \cr
+\emph{Statistica & Applicazioni}, \bold{VII}, 25--44 \cr
 Iannario M. (2012).  Preliminary estimators for a mixture model of ordinal data, 
 \emph{Advances in Data Analysis and Classification}, \bold{6}, 163--184
 }

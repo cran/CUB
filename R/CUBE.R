@@ -2,30 +2,14 @@
 #' @description Main function to estimate and validate a CUBE model for given ratings, 
 #' explaining uncertainty, feeling and overdispersion.
 #' @aliases CUBE
-#' @usage CUBE(ordinal, m=get('m',envir=.GlobalEnv), Y = 0, W = 0, Z = 0, starting, maxiter,
-#' toler, makeplot = TRUE, expinform=FALSE, summary=TRUE)
-#' @param ordinal Vector of ordinal responses
-#' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
-#'  specified in the global environment)
-#' @param Y Matrix of covariates for explaining the uncertainty component. If omitted (default), no covariate 
-#' is included in the model
-#' @param W Matrix of covariates for explaining the feeling component. If omitted (default), no covariate
-#' is included in the model
-#' @param Z Matrix of covariates for explaining the overdispersion component. If omitted (default), no covariate
-#' is included in the model
-#' @param starting  Initial parameters estimates to start the optimization algorithm. If missing,
-#'  the function calls specific routines computing the best initial estimates available
-#' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
-#' (default: maxiter=1000) 
-#' @param toler Fixed error tolerance for final estimates (default: toler = 1e-6,
-#' except for the model including covariates for all the three parameters, in which case toler=1e-2)
-#' @param makeplot Logical: if TRUE (default) and no covariate is included in the model, the function returns
-#'  a graphical plot comparing fitted probabilities and observed relative frequencies
-#' @param expinform Logical: if TRUE  and no covariate is included in the model, the function returns 
-#'  the expected variance-covariance matrix (default is FALSE)
-#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
-#' @export CUBE
-#' @return An object of the class "CUBE" is a list containing the following results: 
+#' @usage CUBE(Formula,data,...)
+#' @param Formula Object of class Formula.
+#' @param data Data frame from which model matrices and response variables are taken.
+#' @param ... Additional arguments to be passed for the specification of the model, Including Y, W, Z for 
+#'  explanatory variables for uncertainty, feeling and overdispersion. Set expinform=TRUE if inference should
+#'   be based on expected information matrix for model with no covariate. Set starting = ... to pass initial 
+#'   values for EM iterations.
+#' @return An object of the class "GEM"-"CUBE" is a list containing the following results: 
 #' \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi, \phi)}}
 #' \item{loglik}{Log-likelihood function at the final estimates}
 #' \item{varmat}{Variance-covariance matrix of final estimates}
@@ -54,13 +38,12 @@
 #' @seealso \code{\link{probcube}}, \code{\link{loglikCUBE}}, \code{\link{loglikcuben}},  \code{\link{inibestcube}},
 #'  \code{\link{inibestcubecsi}}, \code{\link{inibestcubecov}},
 #' \code{\link{varmatCUBE}}
-#' @keywords models
+#' @keywords internal #models
 #' @examples 
 #' \donttest{
 #' data(relgoods)
-#' m<-10
 #' ordinal<-na.omit(relgoods[,37])  
-#' model<-CUBE(ordinal,starting=c(0.1,0.1,0.1),summary=TRUE)  
+#' model<-CUBE(ordinal,starting=c(0.1,0.1,0.1))  
 #' model$estimates        # Final ML estimates
 #' model$loglik           # Maximum value of the log-likelihood function
 #' model$varmat         
@@ -70,53 +53,110 @@
 #' ordinal<-relgoods[,40]
 #' cov<-relgoods[,2]
 #' nona<-na.omit(cbind(ordinal,cov))
-#' modelcovcsi<-CUBE(nona[,1],W=nona[,2],summary=TRUE)
+#' modelcovcsi<-CUBE(nona[,1],W=nona[,2])
 #' modelcov<-CUBE(nona[,1],Y=nona[,2],W=nona[,2], Z=nona[,2])
 #' modelcov$BIC
 #' modelcovcsi$BIC
 #' #######################################
 #' data(univer)
-#' m<-7
 #' ordinal<-univer[,8]
 #' starting<-inibestcube(m,ordinal)
-#' model<-CUBE(ordinal,starting=starting,summary=TRUE)
+#' model<-CUBE(ordinal,starting=starting)
 #' }
-
-CUBE<-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,Z=0,starting,maxiter,toler,
-               makeplot=TRUE,expinform=FALSE,summary=TRUE){#default FAlse for expinform
+#' 
+#' 
+CUBE<-function(Formula,data,...){
   
-  ry<-NROW(Y); rw<-NROW(W); rz<-NROW(Z);
+  ellipsis.arg<-list(...)
   
+  mf<-model.frame(Formula,data=data)
   
-  if(missing(starting)){
-    if(ry==1 & rw==1 & rz==1) {
-      starting<-inibestcube(m,ordinal)
-    }else if(ry==1 & rz==1 & rw >1){
-      initial<-inibestcube(m,ordinal)
-      starting<-inibestcubecsi(m,ordinal,W,initial,maxiter=500,toler=1e-6)
+  ordinal<-as.numeric(model.response(mf))
+  
+  #formula given as Formula=ordinal~covpai|covcsi|covphi
+  covpai<-model.matrix(Formula,data=data,rhs=1)
+  covcsi<-model.matrix(Formula,data=data,rhs=2)
+  covphi<-model.matrix(Formula,data=data,rhs=3)
+  
+  if (ncol(covpai)==0){
+    Y<-NULL
+  } else {
+    Y<-covpai[,-1]
+  }
+  if (ncol(covcsi)==0){
+    W<-NULL
+  } else {
+    W<-covcsi[,-1]
+  }
+  if (ncol(covphi)==0){
+    Z<-NULL
+  } else {
+    Z<-covphi[,-1]
+  }
+  
+  lista<-ellipsis.arg[[1]]
+  # Y<-lista$Y
+  # W<-lista$W
+  # Z<-lista$Z
+  #m<-lista$m
+  
+  maxiter<-lista$maxiter
+  toler<-lista$toler
+  starting<-lista$starting
+  expinform<-lista$expinform
+  
+  lev <- levels(factor(ordinal,ordered=TRUE))
+  m <- length(lev) 
+  
+  # if (is.null(maxiter)){
+  #  maxiter <- 1000
+  # }
+  # if (is.null(toler)){
+  #   toler <- 1e-6
+  # }
+  if (is.null(expinform)){
+    expinform <-  FALSE
+  }
+  
+  if(is.null(starting)){
+    if(is.null(W) & is.null(Y) & is.null(Z)) {
+      starting<-inibestcube(m,factor(ordinal,ordered=TRUE))
+    }else if(is.null(Y) & is.null(Z) & !is.null(W)){
+      W<-as.matrix(W)
+      initial<-inibestcube(m,factor(ordinal,ordered=TRUE))
+      starting<-inibestcubecsi(m,factor(ordinal,ordered=TRUE),W,initial,maxiter=500,toler=1e-6)
     } else {
-      starting<-inibestcubecov(m,ordinal,Y,W,Z)
+      W<-as.matrix(W); Y<-as.matrix(Y); Z<-as.matrix(Z);
+      starting<-inibestcubecov(m,factor(ordinal,ordered=TRUE),Y,W,Z)
     }
   }
   
   
-  if(missing(maxiter)){
-    maxiter<-1000
-  }
-  if(missing(toler)){
-    toler<-1e-6
-  }
-  if(missing(expinform)){
-    expinform<-FALSE
-  }
-  
-  if(ry==1 & rw==1 & rz==1) {
-    cube000(m,ordinal,starting,maxiter,toler,makeplot,expinform,summary)
-  } else if (ry==1 & rz==1 & rw >1){
-    cubecsi(m,ordinal,W,starting,maxiter,toler,summary)  
-  } else if(ry>1 & rz>1 & rw >1){
-    cubecov(m,ordinal,Y,W,Z,starting,maxiter,toler=1e-2,summary)
+  if(is.null(W) & is.null(Y) & is.null(Z)) {
+    mod<-cube000(m,ordinal,starting,maxiter,toler,expinform)
+  } else if (is.null(Y) & is.null(Z) & !is.null(W)){
+    W<-as.matrix(W)
+    mod<-cubecsi(m,ordinal,W,starting,maxiter,toler)  
+  } else if(!is.null(Y) & !is.null(W) & !is.null(Z)){
+    W<-as.matrix(W); Y<-as.matrix(Y); Z<-as.matrix(Z);
+    mod<-cubecov(m,ordinal,Y,W,Z,starting,maxiter,toler=1e-2)
   } else {
     cat("CUBE models not available for this variables specification")
   }
+  
+  
+  stime<-mod$estimates
+  durata<-mod$time
+  loglik<-as.numeric(mod$loglik)
+  niter<-mod$niter
+  varmat<-mod$varmat
+  BIC<-as.numeric(mod$BIC)
+  ordinal<-factor(mod$ordinal,ordered=TRUE)
+  
+  results<-list('estimates'=stime,'ordinal'=ordinal,'time'=durata,
+                'loglik'=loglik,'niter'=niter,'varmat'=varmat,
+                'BIC'=BIC)
+  #class(results)<-"cube"
+  return(results)
+  
 }

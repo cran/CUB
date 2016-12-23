@@ -4,7 +4,7 @@
 \alias{ihgcov}
 \title{Main function for IHG models with covariates}
 \usage{
-ihgcov(m, ordinal, U, makeplot, summary)
+ihgcov(m, ordinal, U)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -12,12 +12,6 @@ ihgcov(m, ordinal, U, makeplot, summary)
 \item{ordinal}{Vector of ordinal responses}
 
 \item{U}{Matrix of selected covariates for the preference parameter}
-
-\item{makeplot}{Logical: if TRUE and if only one dichotomous covariate is included in the model, with levels (0,1), 
-the function returns a graphical plot comparing the distributions of the responses conditioned to the value of the 
-covariate}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "IHG"

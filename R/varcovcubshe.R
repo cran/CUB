@@ -8,7 +8,7 @@
 #' @param csi Feeling parameter
 #' @param shelter Category corresponding to the shelter choice
 #' @param n Number of observations
-#' @seealso \code{\link{cubshe}},  \code{\link{probcubshe1}}
+#' @seealso \code{\link{probcubshe1}}
 #' @keywords internal
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
 #'  message and produces a matrix with NA entries.

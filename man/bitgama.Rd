@@ -4,20 +4,20 @@
 \alias{bitgama}
 \title{Shifted Binomial distribution with covariates}
 \usage{
-bitgama(m, ordinal, W, gama)
+bitgama(m,ordinal,W,gama)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{W}{Matrix of covariates for the feeling component}
 
 \item{gama}{Vector of parameters for the feeling component, with length equal to 
-NCOL(W)+1 to account for an intercept term (first entry of gama)}
+NCOL(W)+1 to account for an intercept term (first entry of \code{gama})}
 }
 \value{
-A vector of the same length as ordinal, where each entry is the shifted Binomial probability of
+A vector of the same length as \code{ordinal}, where each entry is the shifted Binomial probability of
  the corresponding observation and feeling parameter
 }
 \description{
@@ -30,7 +30,7 @@ m<-7
 W<-sample(c(0,1),n,replace=TRUE)
 gama<-c(0.2,-0.2)
 csivett<-logis(W,gama)
-ordinal<-rbinom(n,m-1,csivett)+1
+ordinal<-factor(rbinom(n,m-1,csivett)+1,ordered=TRUE)
 pr<-bitgama(m,ordinal,W,gama)
 }
 \seealso{

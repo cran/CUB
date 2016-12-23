@@ -15,6 +15,7 @@
 
 loglikcub0q <-
 function(m,ordinal,W,pai,gama){
-  probn<-probcub0q(m,ordinal,W,pai,gama)
+  W<-as.matrix(W)
+  probn<-probcub0q(m,factor(ordinal,ordered=TRUE),W,pai,gama)
   sum(log(probn))
 }

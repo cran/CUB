@@ -4,7 +4,7 @@
 \alias{deltaprob}
 \title{Mean difference of a discrete random variable}
 \usage{
-deltaprob(m, prob)
+deltaprob(m,prob)
 }
 \arguments{
 \item{m}{Number of categories}

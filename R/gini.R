@@ -1,7 +1,7 @@
 #' @title Normalized Gini heterogeneity index
 #' @description Compute the normalized Gini heterogeneity 
 #' index for a given discrete probability distribution.
-#' @usage gini(m, prob)
+#' @usage gini(m,prob)
 #' @aliases gini
 #' @param m Number of categories
 #' @param prob Vector of the probability distribution or relative frequencies

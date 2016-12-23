@@ -1,14 +1,11 @@
 #' @title Main function for CUB models without covariates
 #' @description Function to estimate and validate a CUB model without covariates for given ordinal responses.
 #' @aliases cub00
-#' @usage cub00(m, ordinal, maxiter, toler, makeplot,summary)
+#' @usage cub00(m, ordinal, maxiter, toler)
 #' @param m Number of ordinal categories
 #' @param ordinal Vector of ordinal responses
 #' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
 #' @param toler Fixed error tolerance for final estimates 
-#' @param makeplot Logical: if TRUE, the function returns a graphical plot comparing fitted probabilities 
-#' and observed relative frequencies
-#' @param summary Logical: if TRUE, summary results of the fitting procedure are displayed on screen
 #' @return An object of the class "CUB"
 #' @seealso \code{\link{CUB}}, \code{\link{probbit}}, \code{\link{probcub00}}, \code{\link{loglikCUB}}
 #' @keywords internal 
@@ -35,8 +32,7 @@
 #' BICCUB=model$BIC
 #' }
 
-
-cub00<-function(m,ordinal,maxiter,toler,makeplot,summary){
+cub00<-function(m,ordinal,maxiter,toler){
   tt0<-proc.time()
   serie<-1:m
   freq<-tabulate(ordinal,nbins=m)
@@ -111,82 +107,21 @@ cub00<-function(m,ordinal,maxiter,toler,makeplot,summary){
     nparam<-length(stime)
     trvarmat<-sum(diag(varmat))
     ICOMP<- -2*loglik + nparam*log(trvarmat/nparam) - log(det(varmat))
-    errstd<-round(sqrt(diag(varmat)),5);wald<-round(stime/errstd,5);
-    pval<-round(2*(1-pnorm(abs(wald))),20)
-    cormat<-round(ddd%*%varmat%*%ddd,5)  
+    errstd<-sqrt(diag(varmat));wald<-stime/errstd;
+    pval<-2*(1-pnorm(abs(wald)))
+    cormat<-ddd%*%varmat%*%ddd
     esq<-sqrt(varmat[1,1])/m 
   }
   ####################################################################
   # Print CUB(0,0) results of ML estimation  
-  rdiss00<-round(dissimi,3)
+#  rdiss00<-round(dissimi,3)
   stampa<-cbind(1:m,freq/n,theorpr,pearson,relares)
   durata<-proc.time()-tt0;durata<-durata[1];
   
-  ####################################################################
-  if (summary==TRUE){
-    cat("\n")
-    cat("=======================================================================","\n")
-    #cat("================== CUB Package: version 0.1 (April 2016) ==============","\n")
-    #cat("=======================================================================","\n")
-    cat("=====>>> C U B (0,0) model  <<<=====   ML-estimates via E-M algorithm  ","\n")
-    cat("=======================================================================","\n")
-    cat(" m=", m," Sample size: n=", n," Iterations=",nniter," Maxiter=",maxiter,"\n")
-    cat("=======================================================================","\n")
-    cat("parameters  ML-estimates  stand.errors    estimates/stand.errors       ","\n")
-    cat("=======================================================================","\n")
-    for(i in 1:2){
-      cat(nomi[i],"        ",stime[i],"        ",errstd[i],"  ",wald[i],"      ","\n")
-    }
-    cat("=======================================================================","\n")
-    cat("Parameters correlation matrix","\n") 
-    print(round(ddd%*%varmat%*%ddd,5))
-    ##############################################################################
-    cat("=======================================================================","\n")
-    cat("Log-lik(pai^,csi^) =",round(loglik,digits=8),"\n")
-    cat("Mean Log-likelihood=",round(loglik/n,digits=8),"\n")
-    cat("Log-lik(saturated) =",round(logsat,digits=8),"\n")
-    cat("Deviance           =",round(devian,digits=8),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("Log-lik(UNIFORM)         =",round(llunif,digits=8),"\n")
-    cat("Log-lik(Shifted-BINOMIAL)=",round(llsb,digits=8),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("AIC-CUB00          =",round(AICCUB00,digits=8),"\n")
-    cat("BIC-CUB00          =",round(BICCUB00,digits=8),"\n")
-    cat("ICOMP-CUB          =",round(ICOMP,digits=8),"\n")
-    cat("=======================================================================","\n")
-    cat("Pearson Fitting measure    ==>  X^2 =",X2,"(p-val.=",1-pchisq(X2,m-3),")","\n")
-    cat("Lik-based fitting measure  ==>  L^2 =",LL2,"\n")
-    cat("Relative Log-lik index     ==>  I   =",round(II2,digits=5),"\n")
-    cat("F^2 fitting measure        ==>  F^2 =",round(FF2,digits=5),"\n")
-    cat("Normed Dissimilarity index ==>  Diss=",dissimi,"\n")
-    cat("=======================================================================","\n")
-    cat("Observed average          =",   aver," Sample variance        =",varcamp,"\n")
-    cat("Expectation of R~CUB(0,0) =", expcub," Variance of R~CUB(0,0) =",varcub,"\n")
-    cat("=======================================================================","\n")
-    cat("(R=r) Observed CUB-prob","Pearson","Relative res.","\n")
-    print(stampa,digits=5)
-    cat("=======================================================================","\n")
-    cat("Elapsed time=",durata,"seconds","=====>>>",date(),"\n")
-    cat("=======================================================================","\n")  
-    
-  }
+  results<-list('estimates'=stime,'ordinal'=ordinal,'time'=durata, 
+                'loglik'=loglik,'niter'=nniter,
+                'varmat'=varmat,'BIC'=BICCUB00)
   
-  if(makeplot==TRUE){
-    stringtitle<-"CUB model";
-    plot(cbind(1:m,1:m),cbind(theorpr,(freq/n)),las=1,
-         main=paste(stringtitle,  "     (Diss =",round(dissimi,digits=4),")"),
-         xlim=c(1,m),ylim=c(0.0,1.1*max(theorpr,(freq/n))),
-         xlab="Ordinal values of R=1,2,...,m",
-         ylab="Observed freq.(dots) and fitted prob. (circles)");
-    ###
-    points(1:m,theorpr,pch=21,cex=1.5,lwd=2.0,type="b",lty=3); ### ex pch=8,col="red"
-    points(1:m,freq/n,pch=16,cex=1.25,lwd=1.5);
-    abline(h=0);
-  }
-  #   setClass("cub", representation(estimates = "numeric", loglik = "numeric",niter="numeric",varmat="matrix",BIC="numeric"))
-  #   results <- structure(list('estimates'=stime, 'loglik'=loglik,'niter'=nniter,'varmat'=varmat,'BIC'=round(BICCUB00,digits=8)), class = "cub")
-  #   setMethod("LogLik",  function(cub) {
-  #     cub@loglik
-  #   })
-  results<-list('estimates'=stime, 'loglik'=loglik,'niter'=nniter,'varmat'=varmat,'BIC'=round(BICCUB00,digits=8))
+  #class(results)<-"cub"
+  return(results)
 }

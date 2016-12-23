@@ -4,7 +4,7 @@
 \alias{dissim}
 \title{Normalized dissimilarity measure}
 \usage{
-dissim(proba, probb)
+dissim(proba,probb)
 }
 \arguments{
 \item{proba}{Vector of observed relative frequencies}

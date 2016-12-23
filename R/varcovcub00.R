@@ -9,7 +9,7 @@
 #' @export varcovcub00
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso \code{\link{probcub00}}, \code{\link{cub00}}   
+#' @seealso \code{\link{probcub00}}
 #' @keywords internal
 #' @references
 #' Piccolo D. (2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},

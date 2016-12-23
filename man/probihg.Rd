@@ -4,7 +4,7 @@
 \alias{probihg}
 \title{Probability distribution of an IHG model}
 \usage{
-probihg(m, theta)
+probihg(m,theta)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -20,16 +20,13 @@ Compute the probability distribution of an IHG model without covariates.
 \examples{
 m<-10
 theta<-0.30
-pr<-probihg(m, theta)
+pr<-probihg(m,theta)
 plot(1:m,pr,type="h",xlab="Ordinal categories")
 points(1:m,pr,pch=19)
 }
 \references{
 D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
 \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78
-}
-\seealso{
-\code{\link{IHG}}
 }
 \keyword{distribution}
 

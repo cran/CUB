@@ -13,7 +13,7 @@
 #' NCOL(W)+1 to account for an intercept term (first entry)
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
 #'  message and produces a matrix with NA entries.
-#' @seealso \code{\link{probcubpq}}, \code{\link{cubpq}}
+#' @seealso \code{\link{probcubpq}}
 #' @keywords internal
 #' @references
 #' Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
@@ -21,7 +21,16 @@
 
 varcovcubpq <-
 function(m,ordinal,Y,W,bet,gama){
-  qi<-1/(m*probcubpq(m,ordinal,Y,W,bet,gama))
+  Y<-as.matrix(Y);W<-as.matrix(W);
+  
+  if (ncol(W)==1){
+    W<-as.numeric(W)
+  }
+  if (ncol(Y)==1){
+    Y<-as.numeric(Y)
+  }
+ 
+  qi<-1/(m*probcubpq(m,factor(ordinal,ordered=TRUE),Y,W,bet,gama))
   ei<-logis(Y,bet)
   eitilde<-ei*(1-ei)
   qistar<-1-(1-ei)*qi

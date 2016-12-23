@@ -4,7 +4,7 @@
 \alias{gini}
 \title{Normalized Gini heterogeneity index}
 \usage{
-gini(m, prob)
+gini(m,prob)
 }
 \arguments{
 \item{m}{Number of categories}

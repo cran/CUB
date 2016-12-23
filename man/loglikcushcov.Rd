@@ -22,8 +22,5 @@ with length equal to NCOL(X)+1 to account for an intercept term (first entry of 
 Compute the log-likelihood function for a CUSH model 
 with covariates for the given ordinal responses.
 }
-\seealso{
-\code{\link{CUSH}}
-}
 \keyword{internal}
 

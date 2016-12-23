@@ -4,12 +4,12 @@
 \alias{betabinomialcsi}
 \title{Beta-Binomial probabilities of ordinal responses, given feeling parameter for each observation}
 \usage{
-betabinomialcsi(m, ordinal, csivett, phi)
+betabinomialcsi(m,ordinal,csivett,phi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{csivett}{Vector of feeling parameters of the Beta-Binomial distribution for the given ordinal 
 responses}
@@ -27,13 +27,13 @@ and with the same overdispersion parameter for all the responses.
 }
 \examples{
 data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,37]
-age<-2014-relgoods[,4]
+naTv<-which(is.na(Tv))
+ordinal<-na.omit(Tv)
+age<-2014-BirthYear[-naTv]
 lage<-log(age)-mean(log(age))
-nona<-na.omit(cbind(ordinal,lage))
-ordinal<-nona[,1]
-W<-nona[,2]
+W<-lage
 gama<-c(-0.61,-0.31)
 phi<-0.16 
 csivett<-logis(W,gama)
@@ -41,7 +41,9 @@ pr<-betabinomialcsi(m,ordinal,csivett,phi)
 }
 \references{
 Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
- \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
+ \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
+ Piccolo D. (2015). Inferential issues for CUBE models with covariates. 
+\emph{Communications in Statistics - Theory and Methods}, \bold{44}(23), 771--786.
 }
 \seealso{
 \code{\link{betar}}, \code{\link{betabinomial}}

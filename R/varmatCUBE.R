@@ -4,7 +4,7 @@
 #' is specified, or when covariates are included for all the three parameters.
 #' @usage varmatCUBE(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE)
 #' @export varmatCUBE
-#' @param ordinal Vector of ordinal responses
+#' @param ordinal Vector of ordinal responses (factor type)
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified CUBE model
 #' @param Y Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
@@ -18,7 +18,7 @@
 #'  variance-covariance matrix)
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso  \code{\link{CUBE}}, \code{\link{loglikCUBE}}
+#' @seealso  \code{\link{vcov}}, \code{\link{cormat}}
 #' @keywords htest
 #' @references Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
 #' \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
@@ -34,43 +34,65 @@
 #' ### Including covariates
 #' \donttest{
 #' data(relgoods)
+#' attach(relgoods)
 #' m<-10
-#' ordinal<-relgoods[,37]
-#' age<-2014-relgoods[,4]
+#' naord<-which(is.na(Tv))
+#' nacov<-which(is.na(BirthYear))
+#' na<-union(naord,nacov)
+#' age<-2014-BirthYear[-na]
 #' lage<-log(age)-mean(log(age))
-#' nona<-na.omit(cbind(ordinal,lage))
-#' ordinal<-nona[,1]
-#' Y<-W<-Z<-nona[,2]
-#' estbet<-c(0.18, 1.03); estgama<-c(-0.6, -0.3); estalpha<-c(-2.3,0.92)
+#' Y<-W<-Z<-lage
+#' ordinal<-Tv[-na]
+#' estbet<-c(0.18,1.03); estgama<-c(-0.6,-0.3); estalpha<-c(-2.3,0.92)
 #' param<-c(estbet,estgama,estalpha)
-#' varmat<-varmatCUBE(ordinal, m, param, Y=Y, W=W, Z=Z, expinform=TRUE)
+#' varmat<-varmatCUBE(ordinal,m,param,Y=Y,W=W,Z=Z,expinform=TRUE)
 #' }
 
 
-varmatCUBE <-
-function(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE){
-   ry<-NROW(Y); rw<-NROW(W); rz<-NROW(Z);
 
 
+varmatCUBE<-function(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE){
+  
+  if (!is.factor(ordinal)){
+    stop("Response must be an ordered factor")
+  }
+  
+  ordinal<-unclass(ordinal)
+  
+  ry<-NROW(Y); rw<-NROW(W); rz<-NROW(Z);
+  
+  
   if(ry==1 & rw==1 & rz==1) {
     pai<-param[1]; csi<-param[2]; phi<-param[3];
     if(expinform==FALSE){
-     freq<-tabulate(ordinal,nbins=m)
-     varmat<-varcovcubeobs(m,pai,csi,phi,freq)
-     } else{
-       n<-length(ordinal)
-        varmat<-varcovcubeexp(m,pai,csi,phi,n)
-      }
+      freq<-tabulate(ordinal,nbins=m)
+      varmat<-varcovcubeobs(m,pai,csi,phi,freq)
+    } else{
+      n<-length(ordinal)
+      varmat<-varcovcubeexp(m,pai,csi,phi,n)
+    }
   } else {
     if(ry>1 & rz>1 & rw >1){
       ncy<-NCOL(Y)
-     ncw<-NCOL(W)
-     estbet<-param[1:(ncy+1)]; estgama<-param[(ncy+2):(ncy+ncw+2)]; estalpha<-param[(ncy+ncw+3):length(param)];
-     varmat<-varcovcubecov(m,ordinal,Y,W,Z,estbet,estgama,estalpha) 
-     } else {
-       cat("CUBE models not available for this variables specification")
-     }
+      ncw<-NCOL(W)
+      Y<-as.matrix(Y);W<-as.matrix(W); Z<-as.matrix(Z);
+      
+      if (ncol(Y)==1){
+        Y<-as.numeric(Y)
+      }
+      if (ncol(W)==1){
+        W<-as.numeric(W)
+      }
+      if (ncol(Z)==1){
+        Z<-as.numeric(Z)
+      }
+      
+      estbet<-param[1:(ncy+1)]; estgama<-param[(ncy+2):(ncy+ncw+2)]; estalpha<-param[(ncy+ncw+3):length(param)];
+      varmat<-varcovcubecov(m,ordinal,Y,W,Z,estbet,estgama,estalpha) 
+    } else {
+      cat("CUBE models not available for this variables specification")
+    }
   }
-return(varmat)
-
+  return(varmat)
+  
 }

@@ -9,7 +9,7 @@ inibestcube(m,ordinal)
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 }
 \value{
 A vector \eqn{(\pi, \xi ,\phi)} of parameter estimates of a CUBE model without covariates
@@ -20,9 +20,9 @@ These preliminary estimators are used within the package code to start the E-M a
 }
 \examples{
 data(relgoods)
-m<-10
-ordinal<-na.omit(relgoods[,44])
-estim<-inibestcube(m,ordinal)     # Preliminary estimates (pai,csi,phi)
+attach(relgoods)
+m<-length(levels(SocialNetwork))
+estim<-inibestcube(m,SocialNetwork)     # Preliminary estimates (pai,csi,phi)
 }
 \seealso{
 \code{\link{inibestcubecov}}, \code{\link{inibestcubecsi}}

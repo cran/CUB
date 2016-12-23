@@ -4,7 +4,7 @@
 \alias{simcube}
 \title{Simulation routine for CUBE models}
 \usage{
-simcube(n, m, pai, csi, phi)
+simcube(n,m,pai,csi,phi)
 }
 \arguments{
 \item{n}{Number of simulated observations}
@@ -18,8 +18,8 @@ simcube(n, m, pai, csi, phi)
 \item{phi}{Overdispersion parameter}
 }
 \description{
-Generate \eqn{n} pseudo-random numbers according to the CUBE 
-distribution with the given parameters.
+Generate \eqn{n} pseudo-random observations following the given CUBE 
+distribution.
 }
 \examples{
 n<-300
@@ -28,7 +28,7 @@ pai<-0.7
 csi<-0.4
 phi<-0.1
 simulation<-simcube(n,m,pai,csi,phi)
-plot(table(simulation), xlab="Ordinal categories",ylab="Frequencies")
+plot(table(simulation),xlab="Ordinal categories",ylab="Frequencies")
 }
 \seealso{
 \code{\link{probcube}}

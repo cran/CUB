@@ -4,7 +4,7 @@
 \alias{simcub}
 \title{Simulation routine for CUB models}
 \usage{
-simcub(n, m, pai, csi)
+simcub(n,m,pai,csi)
 }
 \arguments{
 \item{n}{Number of simulated observations}
@@ -16,16 +16,15 @@ simcub(n, m, pai, csi)
 \item{csi}{Feeling parameter}
 }
 \description{
-Generate \eqn{n} pseudo-random numbers according to the CUB distribution
-with given parameters.
+Generate \eqn{n} pseudo-random observations following the given CUB distribution.
 }
 \examples{
 n<-300
 m<-9
 pai<-0.4
 csi<-0.7
-simulation<-simcub(n, m, pai, csi)
-plot(table(simulation), xlab="Ordinal categories",ylab="Frequencies")
+simulation<-simcub(n,m,pai,csi)
+plot(table(simulation),xlab="Ordinal categories",ylab="Frequencies")
 }
 \seealso{
 \code{\link{probcub00}}

@@ -1,7 +1,7 @@
 #' @title Main function for CUB models with a shelter effect
 #' @description Estimate and validate a CUB model with a shelter effect.
 #' @aliases cubshe
-#' @usage cubshe(m, ordinal, shelter, maxiter, toler, makeplot,summary)
+#' @usage cubshe(m, ordinal, shelter, maxiter, toler)
 #' @param m Number of ordinal categories
 #' @param ordinal Vector of ordinal responses
 #' @param shelter Category corresponding to the shelter choice
@@ -18,24 +18,40 @@
 #' @keywords internal #models
 
 
-cubshe<-function(m,ordinal,shelter,maxiter,toler,makeplot,summary){
+cubshe<-function(m,ordinal,shelter,maxiter,toler){
   tt0<-proc.time()
+  
+  #######
+  ###########
+  
   serie<-1:m; freq<-tabulate(ordinal,nbins=m); n<-sum(freq); 
+  
+  ##########
+  ###########
+  
   aver<-mean(ordinal); varcamp<-mean(ordinal^2)-aver^2;
   dd<-ifelse(serie==shelter,1,0)
   #####################################################################
   vett<-inibest(m,freq)
-  pai1<-vett[1]; csi<-vett[2];
-  fc<-freq[shelter]
+  pai1<-vett[1]; csi<-vett[2]
+  
+
+  fc<-freq[shelter]/n
+  
   deltaini<-max(0.01,(m*fc-1)/(m-1)) #deltaini=runif(1,0,0.3)  
-  pai2<-max(0.01, 1-deltaini-pai1)
+  pai2<-max(0.01,1-deltaini-pai1)
   ################################################################
   loglik<-loglikcubshe(m,freq,pai1,pai2,csi,shelter)
+  
+
   # ********************************************************************
   # ************* E-M algorithm for CUBSHE *****************************
   # ********************************************************************
   nniter<-1
   while(nniter<=maxiter){
+    
+    #############
+
     likold<-loglik
     bb<-probbit(m,csi)
     tau1<-pai1*bb
@@ -50,6 +66,7 @@ cubshe<-function(m,ordinal,shelter,maxiter,toler,makeplot,summary){
     pai1<-sum(freq*tau1)/n    #updated pai1 estimate
     pai2<-sum(freq*tau2)/n    #updated pai2 estimate
     csi<-(m-averpo)/(m-1)     #updated csi estimate
+    
     
     if(csi<0.001){
       csi<-0.001;nniter<-maxiter-1;
@@ -113,80 +130,10 @@ cubshe<-function(m,ordinal,shelter,maxiter,toler,makeplot,summary){
   AICCUBshe<- -2*loglik+2*(3)
   BICCUBshe<- -2*loglik+log(n)*(3)
   durata<-proc.time()-tt0;durata<-durata[1];
-  ####################################################################
-  # Print CUBSHE results of ML estimation  
-  ####################################################################
-  if (summary==TRUE){
-    cat("\n")
-    cat("=======================================================================","\n")
-    cat("==>>> C U B + SHELTER model  <<<=====  ML-estimates via E-M algorithm  ","\n")
-    cat("=======================================================================","\n")
-    cat(" m=", m," shelter=", shelter," Sample size: n=", n,
-        " *** Iterations=",nniter,"Maxiter=",maxiter,"\n")
-    cat("=======================================================================","\n")
-    cat("parameters  ML-estimates  stand.errors    estimates/stand.errors       ","\n")
-    cat("=======================================================================","\n")
-    for(i in 1:3){
-      cat(nomi[i],"        ",round(stime[i],5),"        ",round(errstd[i],5),"        ",round(wald[i],5),"      ","\n")
-    }
-    cat("=======================================================================","\n")
-    cat("delta","       ",delta, "    ",esdelta,  "       ",delta/esdelta,"     ","\n")
-    cat("(1-pai1-pai2)","\n")
-    cat("=======================================================================","\n")
-    cat("paistar","      ",paistar,"      ",espaistar,"        ",paistar/espaistar,"       ","\n")
-    cat("[pai1/(pai1+pai2)]","\n")
-    cat("=======================================================================","\n")
-    cat("Parameters correlation matrix","\n") 
-    print(round(ddd%*%varmat%*%ddd,5))
-    cat("=======================================================================","\n")
-    cat("Log-lik(pai1^,pai2^,csi^)    =",round(loglik,digits=8),"\n")
-    cat("Mean Log-likelihood          =",round(loglik/n,digits=8),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("Log-lik(UNIFORM)             =",round(llunif,digits=8),"\n")
-    cat("Log-lik(Shifted-BINOMIAL)    =",round(llsb,digits=8),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("Pearson Fitting measure    ==>  X^2 =",X2,"(p-val.=",1-pchisq(X2,m-3),")","\n")
-    cat("Normed Dissimilarity index ==>  Diss=",round(dissshe,digits=5),"\n")
-    cat("F^2 fitting measure        ==>  F^2 =",round(FF2,digits=5),"\n")
-    cat("Lik-based fitting measure  ==>  L^2 =",LL2,"\n")
-    cat("Relative Log-lik index     ==>  I   =",round(II2,digits=5),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("AIC-CUB+she          =",round(AICCUBshe,digits=8),"\n")
-    cat("BIC-CUB+she          =",round(BICCUBshe,digits=8),"\n")
-    cat("ICOMP-CUB+she        =",round(ICOMP,digits=8),"\n")
-    cat("=======================================================================","\n")
-    cat("(R=r) Observed CUB+she-prob","Pearson","Relative res.","\n")
-    print(stampa,digits=5)
-    cat("=======================================================================","\n")
-    cat("Elapsed time=",durata,"seconds","=====>>>",date(),"\n")
-    cat("=======================================================================","\n")  
-    
-  }
-  ################################################################
-  #        Assignments as global variables
-  ################################################################
-  #   assign('pai1',pai1,pos=1)
-  #   assign('pai2',pai2,pos=1)
-  #   assign('csi',csi,pos=1)
-  #   assign('varmat',varmat,pos=1)
-  #   assign('loglik',loglik,pos=1)
-  #   assign('delta',delta,pos=1)
-  #   assign('paistar',paistar,pos=1)
-  #   assign('nniter',nniter,pos=1)
-  ################################################################
-  #           /* CUB-she ===>>> Only 1 plot with Diss=... */
-  ################################################################
-  if (makeplot==TRUE){
-    plot(cbind(1:m,1:m),cbind(theorpr,(freq/n)),
-         main=paste("CUB model with shelter effect"," (Diss =",round(dissshe,digits=4),")"),
-         xlim=c(1,m),ylim=c(0,1.1*max(theorpr,(freq/n))),las=1,
-         xlab="Ordinal values of R=1,2,...,m",cex.main=0.9,
-         ylab="Observed freq. (dots) and fitted prob. (circles)",cex.lab=0.9);
-    points(1:m,theorpr,pch=21,cex=1.2,lwd=2.0,type="b",lty=3);
-    points(1:m,freq/n,pch=16,cex=1.2,lwd=1.5);
-    ### points(shelter,theorpr[shelter]-delta,pch=8);
-    abline(h=0);
-  }
-  
-  results<-list('estimates'=round(stime,digits=5),'loglik'=loglik,'niter'=nniter,'varmat'=varmat,'BIC'=round(BICCUBshe,digits=8))
+  # 
+  results<-list('estimates'=stime,'ordinal'=ordinal,'time'=durata,
+                'loglik'=loglik,'niter'=nniter,'varmat'=varmat,
+                'BIC'=BICCUBshe)
+  #class(results)<-"cub"
+  return(results)
 }

@@ -38,8 +38,5 @@ it returns a warning message and produces a matrix with NA entries.
 Piccolo, D. (2014), Inferential issues on CUBE models with covariates, 
 \emph{Communications in Statistics - Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487
 }
-\seealso{
-\code{\link{loglikCUBE}}, \code{\link{CUBE}} ,
-}
 \keyword{internal}
 

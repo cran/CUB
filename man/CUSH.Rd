@@ -4,27 +4,15 @@
 \alias{CUSH}
 \title{Main function for CUSH models}
 \usage{
-CUSH(ordinal, shelter, m=get('m',envir=.GlobalEnv), X = 0, makeplot = TRUE, summary=TRUE)
+CUSH(Formula,data,...)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{Formula}{Object of class Formula.}
 
-\item{shelter}{Category corresponding to the shelter choice}
+\item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{m}{Number of ordinal categories (if omitted, it will be assigned to the number of categories
-specified in the global environment)}
-
-\item{X}{Matrix of selected covariates for explaining the shelter effect. If omitted (default), no covariate 
-is included in the model}
-
-\item{makeplot}{Logical: if TRUE (default) and if no covariate is included in the model,
-the algorithm returns a graphical plot comparing fitted probabilities and observed relative frequencies, 
-and a plot of the log-likelihood function at the final estimate, compared with the log-likelihood values of 
-the saturated and the uniform models. If only one explicative dichotomous variable is included in the model, 
-then the function returns a graphical plot comparing the distributions of the responses conditioned to the 
-value of the covariate}
-
-\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
+\item{...}{Additional arguments to pass to the fitting procedure. Argument X specifies the matrix of 
+subjects covariates to include in the model for explaining the shelter effect (not including intercept).}
 }
 \value{
 An object of the class "CUSH" is a list containing the following results: 
@@ -45,30 +33,6 @@ is computed as the inverse of the returned numerically differentiated Hessian ma
  as argument for "optim"). If not positive definite, it returns a warning message and produces a matrix 
  with NA entries.
 }
-\examples{
-data(relgoods)
-dog<-na.omit(relgoods[,49])
-m<-10
-shelter<-1
-model<-CUSH(dog,shelter=shelter,summary=TRUE)
-delta<-model$estimates # ML estimates of delta
-maxlik<-model$loglik   # Log-likelihood at ML estimates
-sqerrst<-model$varmat    # Squared standard error of delta
-BIC<-model$BIC
-###############################################
-### CUSH model with covariates
-music<-relgoods[,47]
-shelter<-1
-cov<-relgoods[,12]
-nona<-na.omit(cbind(music,cov))
-ordinal<-nona[,1]
-smoking<-nona[,2]
-modelcov<-CUSH(ordinal,shelter=shelter,X=smoking,summary=FALSE)
-omega<-modelcov$estimates
-maxlik<-modelcov$loglik
-varmat<-modelcov$varmat
-BIC<-modelcov$BIC
-}
 \references{
 Capecchi S. and Piccolo D. (2015). Dealing with heterogeneity/uncertainty in sample survey with ordinal data, 
 \emph{IFCS Proceedings, University of Bologna} \cr
@@ -76,7 +40,7 @@ Capecchi S. and Iannario M. (2016). Gini heterogeneity index for detecting uncer
  \emph{Metron} - DOI: 10.1007/s40300-016-0088-5
 }
 \seealso{
-\code{\link{cushforsim}}, \code{\link{loglikCUSH}}
+\code{\link{loglikCUSH}}
 }
-\keyword{models}
+\keyword{internal}
 

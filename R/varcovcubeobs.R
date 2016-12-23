@@ -10,7 +10,7 @@
 #' @param freq Vector of the observed absolute frequencies
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso \code{\link{cube000}}, \code{\link{varcovcubeexp}}
+#' @seealso  \code{\link{varcovcubeexp}}
 #' @keywords internal
 #' @references
 #' Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 

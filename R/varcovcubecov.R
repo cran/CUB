@@ -16,7 +16,6 @@
 #'  equal to NCOL(Z)+1 to account for an intercept term (first entry)
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso \code{\link{loglikCUBE}}, \code{\link{CUBE}} , 
 #' @keywords internal
 #' @references
 #' Piccolo, D. (2014), Inferential issues on CUBE models with covariates, 
@@ -26,12 +25,24 @@
 varcovcubecov <-
 function(m,ordinal,Y,W,Z,estbet,estgama,estalpha){
   n<-length(ordinal)
+  
+  Y<-as.matrix(Y); W<-as.matrix(W);Z<-as.matrix(Z); 
+  
+  if (ncol(W)==1){
+    W<-as.numeric(W)
+  }
+  if (ncol(Y)==1){
+    Y<-as.numeric(Y)
+  }
+  if (ncol(Z)==1){
+    Z<-as.numeric(Z)
+  }
   p<-NCOL(Y);q<-NCOL(W);v<-NCOL(Z);
   paivett<-logis(Y,estbet)
   csivett<-logis(W,estgama)
   phivett<-1/(-1+ 1/(logis(Z,estalpha)))
   # Probability
-  probi<-paivett*(betabinomial(m,ordinal,csivett,phivett)-1/m)+1/m
+  probi<-paivett*(betabinomial(m,factor(ordinal,ordered=TRUE),csivett,phivett)-1/m)+1/m
   uui<-1-1/(m*probi)
   ubari<-uui+paivett*(1-uui)
   ### Matrix computations

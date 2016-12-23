@@ -7,7 +7,7 @@
 loglikCUBE(ordinal,m,param,Y=0,W=0,Z=0)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{m}{Number of ordinal categories}
 
@@ -27,9 +27,9 @@ Compute the log-likelihood function for CUBE models. It is possible to include
  covariates in the model for explaining the feeling component or all the three parameters.
 }
 \details{
-If no covariate is included in the model, then "param" has the form \eqn{(\pi,\xi,\phi)}. More generally, 
-it has the form \eqn{(\beta,\gamma,\alpha)} where, respectively, \eqn{\beta},\eqn{\gamma}, \eqn{\alpha} are the vectors of 
-coefficients explaining the uncertainty, the feeling and the overdispersion components, with length NCOL(Y)+1, 
+If no covariate is included in the model, then \code{param} has the form \eqn{(\pi,\xi,\phi)}. More generally, 
+it has the form \eqn{(\bold{\beta,\gamma,\alpha)}} where, respectively, \eqn{\bold{\beta}},\eqn{\bold{\gamma}}, \eqn{\bold{\alpha}}
+ are the vectors of  coefficients explaining the uncertainty, the feeling and the overdispersion components, with length NCOL(Y)+1, 
  NCOL(W)+1, NCOL(Z)+1 to account for an intercept term in the first entry.
 }
 \examples{
@@ -41,24 +41,25 @@ loglik<-loglikCUBE(ordinal,m,param=c(pai,csi,phi))
 ##################################
 #### Log-likelihood of a CUBE model with covariate for feeling
 data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,37]
-age<-2014-relgoods[,4]
+nacov<-which(is.na(BirthYear))
+naord<-which(is.na(Tv))
+na<-union(nacov,naord)
+age<-2014-BirthYear[-na]
 lage<-log(age)-mean(log(age))
-nona<-na.omit(cbind(ordinal,lage))
-ordinal<-nona[,1]
-W<-nona[,2]
+ordinal<-Tv[-na]; W<-lage
 pai<-0.63; gama<-c(-0.61,-0.31); phi<-0.16
 param<-c(pai,gama,phi)
 loglik<-loglikCUBE(ordinal,m,param,W=W)
 ########## Log-likelihood of a CUBE model with covariates for all parameters
-Y<-W<-Z<-nona[,2]
+Y<-W<-Z<-lage
 bet<-c(0.18, 1.03); gama<-c(-0.6, -0.3); alpha<-c(-2.3,0.92)
 param<-c(bet,gama,alpha)
 loglik<-loglikCUBE(ordinal,m,param,Y=Y,W=W,Z=Z)
 }
 \seealso{
-\code{\link{CUBE}}, \code{\link{cubeforsim}}
+\code{\link{logLik}}
 }
 \keyword{htest}
 

@@ -3,7 +3,7 @@
 #' explicative covariates for all the three parameters.
 #' @aliases cubecov
 #' @keywords internal
-#' @usage cubecov(m, ordinal, Y, W, Z, starting, maxiter, toler, summary)
+#' @usage cubecov(m, ordinal, Y, W, Z, starting, maxiter, toler)
 #' @param m Number of ordinal categories
 #' @param ordinal Vector of ordinal responses
 #' @param Y Matrix of selected covariates for explaining the uncertainty component
@@ -14,7 +14,6 @@
 #' for all the three components
 #' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
 #' @param toler Fixed error tolerance for final estimates 
-#' @param summary Logical: if TRUE, summary results of the fitting procedure are displayed on screen
 #' @return An object of the class "CUBE"
 #' @import stats
 #' @references
@@ -22,14 +21,25 @@
 #'  \emph{Communications in Statistics - Theory and Methods}, \bold{44}, 
 #'  DOI: 10.1080/03610926.2013.821487
 
-
-cubecov<-function(m,ordinal,Y,W,Z,starting,maxiter,toler,summary){
+cubecov<-function(m,ordinal,Y,W,Z,starting,maxiter,toler){
   tt0<-proc.time()
   n<-length(ordinal)
+  Y<-as.matrix(Y); W<-as.matrix(W); Z<-as.matrix(Z);
   p<-NCOL(Y)
   q<-NCOL(W)
   v<-NCOL(Z)
   aver<-mean(ordinal)
+  if (ncol(W)==1){
+    W<-as.numeric(W)
+  }
+  if (ncol(Y)==1){
+    Y<-as.numeric(Y)
+  }
+  if (ncol(Z)==1){
+    Z<-as.numeric(Z)
+  }
+  
+  
   YY<-cbind(1,Y)   
   WW<-cbind(1,W)       
   ZZ<-cbind(1,Z)    
@@ -55,7 +65,7 @@ cubecov<-function(m,ordinal,Y,W,Z,starting,maxiter,toler,summary){
     #################################################################
     # 02.# Computation of beta-binomial distribution i=1,2,..,n
     #################################################################
-    betabin<-betabinomial(m,ordinal,csijj,phijj)
+    betabin<-betabinomial(m,factor(ordinal,ordered=TRUE),csijj,phijj)
     #################################################################
     # 03.# Computation of CUBE probability distribution i=1,2,..,n
     #################################################################
@@ -114,10 +124,10 @@ cubecov<-function(m,ordinal,Y,W,Z,starting,maxiter,toler,summary){
   
   varmat<-varcovcubecov(m,ordinal,Y,W,Z,bet,gama,alpha)
   #if(det(varmat)<=0) stop("Variance-Covariance matrix NOT positive definite")
-  nomi<-c(paste("beta",0:(length(bet)-1),sep="_"),
-          paste("gamma",0:(length(gama)-1),sep="_"),
-          paste("alpha",0:(length(alpha)-1),sep="_"))
-  stime<-round(paramest,5)
+  # nomi<-c(paste("beta",0:(length(bet)-1),sep="_"),
+  #         paste("gamma",0:(length(gama)-1),sep="_"),
+  #         paste("alpha",0:(length(alpha)-1),sep="_"))
+  stime<-paramest
   
   if (isTRUE(varmat==matrix(NA,nrow=nparam,ncol=nparam))==TRUE){
     ddd<-cormat<-matrix(NA,nrow=nparam,ncol=nparam)
@@ -128,57 +138,19 @@ cubecov<-function(m,ordinal,Y,W,Z,starting,maxiter,toler,summary){
     cormat<-(ddd%*%varmat)%*%ddd
     trvarmat<-sum(diag(varmat))
     ICOMP<- -2*loglik + nparam*log(trvarmat/nparam) - log(det(varmat))
-    errstd<-round(sqrt(diag(varmat)),5);  wald<-round(stime/errstd,5);
-    pval<-round(2*(1-pnorm(abs(wald))),20)
+    errstd<-sqrt(diag(varmat));  wald<-stime/errstd;
+    pval<-2*(1-pnorm(abs(wald)))
   }
-  rownames(cormat)<-nomi;colnames(cormat)<-nomi; 
+  # rownames(cormat)<-nomi;colnames(cormat)<-nomi; 
   ##################################################
   # Print CUBE-covariates results of ML estimation #
   durata<-proc.time()-tt0;durata<-durata[1];
   ##################################################
-  if (summary==TRUE){
-    cat("\n")
-    cat("=======================================================================","\n")
-    cat(">> C U B E model with covariates <<   ML-estimates via E-M algorithm   ","\n")
-    cat("=======================================================================","\n")
-    cat("Covar.pai: p=", p,";  Covar.csi: q=", q,";  Covar.phi: v=",v,  "\n")
-    cat("=======================================================================","\n")
-    cat("*** m=", m,"  *** Sample size: n=", n,"   *** Iterations=",nniter,"Maxiter=",maxiter,"\n")
-    cat("=======================================================================","\n")
-    cat("parameters  ML-estimates  stand.errors    Wald-test      p-value ","\n")
-    cat("=======================================================================","\n")
-    for(i in 1:length(nomi)){
-      cat(nomi[i],"     ",stime[i],"      ",errstd[i],"       ",wald[i],"      ",pval[i],"\n")
-    }
-    ####################################################################
-    cat("=======================================================================","\n")
-    cat("                         Parameters correlation matrix","\n") 
-    print(round(cormat,5))
-    ##############################################################################
-    cat("=======================================================================","\n")
-    cat("Log-lik(beta^,gamma^,alpha^)=",round(loglik,digits=8),"\n")
-    cat("Mean Log-likelihood         =",round(loglik/n,digits=8),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("AIC-CUBE           =",round(AICCUBE,digits=8),"\n")
-    cat("BIC-CUBE           =",round(BICCUBE,digits=8),"\n")
-    cat("ICOMP-CUBE         =",round(ICOMP,digits=8),"\n")
-    cat("=======================================================================","\n")
-    cat("Elapsed time     =",durata,"seconds","=====>>>",date(),"\n")
-    cat("=======================================================================","\n")
-  }
-  #####################################################################
-  # Assignments as global variables: assign('name',value,pos=1)
-  #####################################################################
-  #   assign('nniter',nniter,pos=1)
-  #   assign('bet',bet,pos=1)
-  #   assign('gama',gama,pos=1)
-  #   assign('alpha',alpha,pos=1)
-  #   assign('loglik',loglik,pos=1)
-  #   assign('varmat',varmat,pos=1)
-  ####################################
+  # if (summary==TRUE){
   
   #cat("=======================================================================","\n")
   #cat("Convergence code =",optimparam$convergence,"\n")
-  results<-list('estimates'=stime, 'loglik'=loglik, 'niter'= nniter, 'varmat'=varmat,'BIC'=round(BICCUBE,digits=8))
+  results<-list('estimates'=stime, 'loglik'=loglik, 'niter'= nniter,
+                'varmat'=varmat,'BIC'=BICCUBE,'time'=durata)
   
 }

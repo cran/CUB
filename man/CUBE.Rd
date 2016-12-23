@@ -4,43 +4,20 @@
 \alias{CUBE}
 \title{Main function for CUBE models}
 \usage{
-CUBE(ordinal, m=get('m',envir=.GlobalEnv), Y = 0, W = 0, Z = 0, starting, maxiter,
-toler, makeplot = TRUE, expinform=FALSE, summary=TRUE)
+CUBE(Formula,data,...)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{Formula}{Object of class Formula.}
 
-\item{m}{Number of ordinal categories (if omitted, it will be assigned to the number of categories
-specified in the global environment)}
+\item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{Y}{Matrix of covariates for explaining the uncertainty component. If omitted (default), no covariate 
-is included in the model}
-
-\item{W}{Matrix of covariates for explaining the feeling component. If omitted (default), no covariate
-is included in the model}
-
-\item{Z}{Matrix of covariates for explaining the overdispersion component. If omitted (default), no covariate
-is included in the model}
-
-\item{starting}{Initial parameters estimates to start the optimization algorithm. If missing,
-the function calls specific routines computing the best initial estimates available}
-
-\item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm 
-(default: maxiter=1000)}
-
-\item{toler}{Fixed error tolerance for final estimates (default: toler = 1e-6,
-except for the model including covariates for all the three parameters, in which case toler=1e-2)}
-
-\item{makeplot}{Logical: if TRUE (default) and no covariate is included in the model, the function returns
-a graphical plot comparing fitted probabilities and observed relative frequencies}
-
-\item{expinform}{Logical: if TRUE  and no covariate is included in the model, the function returns 
-the expected variance-covariance matrix (default is FALSE)}
-
-\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
+\item{...}{Additional arguments to be passed for the specification of the model, Including Y, W, Z for 
+explanatory variables for uncertainty, feeling and overdispersion. Set expinform=TRUE if inference should
+ be based on expected information matrix for model with no covariate. Set starting = ... to pass initial 
+ values for EM iterations.}
 }
 \value{
-An object of the class "CUBE" is a list containing the following results: 
+An object of the class "GEM"-"CUBE" is a list containing the following results: 
 \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi, \phi)}}
 \item{loglik}{Log-likelihood function at the final estimates}
 \item{varmat}{Variance-covariance matrix of final estimates}
@@ -67,9 +44,8 @@ the variance-covariance matrix is computed as the inverse of the returned numeri
 \examples{
 \donttest{
 data(relgoods)
-m<-10
 ordinal<-na.omit(relgoods[,37])  
-model<-CUBE(ordinal,starting=c(0.1,0.1,0.1),summary=TRUE)  
+model<-CUBE(ordinal,starting=c(0.1,0.1,0.1))  
 model$estimates        # Final ML estimates
 model$loglik           # Maximum value of the log-likelihood function
 model$varmat         
@@ -79,17 +55,18 @@ model$BIC
 ordinal<-relgoods[,40]
 cov<-relgoods[,2]
 nona<-na.omit(cbind(ordinal,cov))
-modelcovcsi<-CUBE(nona[,1],W=nona[,2],summary=TRUE)
+modelcovcsi<-CUBE(nona[,1],W=nona[,2])
 modelcov<-CUBE(nona[,1],Y=nona[,2],W=nona[,2], Z=nona[,2])
 modelcov$BIC
 modelcovcsi$BIC
 #######################################
 data(univer)
-m<-7
 ordinal<-univer[,8]
 starting<-inibestcube(m,ordinal)
-model<-CUBE(ordinal,starting=starting,summary=TRUE)
+model<-CUBE(ordinal,starting=starting)
 }
+
+
 }
 \references{
 Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
@@ -106,5 +83,6 @@ Iannario M. (2015). Detecting latent components in ordinal data with overdispers
  \code{\link{inibestcubecsi}}, \code{\link{inibestcubecov}},
 \code{\link{varmatCUBE}}
 }
-\keyword{models}
+\keyword{#models}
+\keyword{internal}
 

@@ -4,7 +4,7 @@
 \alias{cub00}
 \title{Main function for CUB models without covariates}
 \usage{
-cub00(m, ordinal, maxiter, toler, makeplot,summary)
+cub00(m, ordinal, maxiter, toler)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -14,11 +14,6 @@ cub00(m, ordinal, maxiter, toler, makeplot,summary)
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
 
 \item{toler}{Fixed error tolerance for final estimates}
-
-\item{makeplot}{Logical: if TRUE, the function returns a graphical plot comparing fitted probabilities 
-and observed relative frequencies}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUB"

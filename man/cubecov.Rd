@@ -4,7 +4,7 @@
 \alias{cubecov}
 \title{Main function for CUBE models with covariates}
 \usage{
-cubecov(m, ordinal, Y, W, Z, starting, maxiter, toler, summary)
+cubecov(m, ordinal, Y, W, Z, starting, maxiter, toler)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -24,8 +24,6 @@ for all the three components}
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
 
 \item{toler}{Fixed error tolerance for final estimates}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUBE"

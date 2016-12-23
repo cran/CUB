@@ -4,10 +4,10 @@
 \alias{varmatCUB}
 \title{Variance-covariance matrix for CUB models}
 \usage{
-varmatCUB(ordinal,m,param,Y=0,W=0,shelter=0)
+varmatCUB(ordinal,m,param,Y=0,W=0,X=0,shelter=0)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (of factory type)}
 
 \item{m}{Number of ordinal categories}
 
@@ -17,6 +17,9 @@ varmatCUB(ordinal,m,param,Y=0,W=0,shelter=0)
 in the model)}
 
 \item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included 
+in the model)}
+
+\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate is included 
 in the model)}
 
 \item{shelter}{Category corresponding to the shelter choice (default: no shelter effect is included in the 
@@ -32,52 +35,51 @@ it returns a warning message and produces a matrix with NA entries.
 }
 \examples{
 data(univer)
+attach(univer)
 m<-7
 ### CUB model with no covariate
-ordinal<-univer[,12]
 pai<-0.87; csi<-0.17 
 param<-c(pai,csi)
-varmat<-varmatCUB(ordinal,m,param)
+varmat<-varmatCUB(global,m,param)
 #######################
-### and With covariates for feeling
+### and with covariates for feeling
 data(univer)
 m<-7
-ordinal<-univer[,9]
-pai<-0.86; gama<-c(-1.94, -0.17)
+pai<-0.86; gama<-c(-1.94,-0.17)
 param<-c(pai,gama)
-W<-univer[,4]           
-varmat<-varmatCUB(ordinal,m,param, W=W)
+W<-gender      
+varmat<-varmatCUB(willingn,m,param,W=W)
 #######################
 ### CUB model with uncertainty covariates
-data(relgoods)
+#' data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,29]
-gender<-relgoods[,2]
-data<-na.omit(cbind(ordinal,gender))
-ordinal<-data[,1]
-Y<-data[,2]
-bet<-c(-0.811,0.93); csi<-0.202
+naord<-which(is.na(Physician))
+nacov<-which(is.na(Gender))
+na<-union(naord,nacov)
+ordinal<-Physician[-na]
+Y<-Gender[-na]
+bet<-c(-0.81,0.93); csi<-0.20
 varmat<-varmatCUB(ordinal,m,param=c(bet,csi),Y=Y)
 #######################
 ### and with covariates for both parameters
 data(relgoods)
+attach(relgoods)
 m<-10
-gender<-relgoods[,2]
-smoking<-relgoods[,12]
-ordinal<-relgoods[,40]
-nona<-na.omit(cbind(ordinal,gender,smoking))
-ordinal<-nona[,1]
-gender<-nona[,2]
-smoking<-nona[,3]
-gama<-c(-0.55, -0.43); bet<-c(-0.45, -0.48)
-varmat<-varmatCUB(ordinal,m,param=c(bet,gama),Y=gender,W=smoking)
+naord<-which(is.na(Physician))
+nacov<-which(is.na(Gender))
+na<-union(naord,nacov)
+ordinal<-Physician[-na]
+W<-Y<-Gender[-na]
+gama<-c(-0.91,-0.7); bet<-c(-0.81,0.93)
+varmat<-varmatCUB(ordinal,m,param=c(bet,gama),Y=Y,W=W)
 #######################
 ### Variance-covariance for a CUB model with shelter
 m<-8; n<-300
 pai1<-0.5; pai2<-0.3; csi<-0.4
 shelter<-6
 pr<-probcubshe1(m,pai1,pai2,csi,shelter)
-ordinal<-sample(1:m,n,prob=pr,replace=TRUE)
+ordinal<-factor(sample(1:m,n,prob=pr,replace=TRUE),ordered=TRUE)
 param<-c(pai1,pai2,csi)
 varmat<-varmatCUB(ordinal,m,param,shelter=shelter)
 }
@@ -85,10 +87,12 @@ varmat<-varmatCUB(ordinal,m,param,shelter=shelter)
 Piccolo D. (2006). Observed Information Matrix for MUB Models, 
 \emph{Quaderni di Statistica}, \bold{8}, 33--78 \cr
 Iannario, M. (2012). Modelling shelter choices in ordinal data surveys. 
-\emph{Statistical Modelling and Applications}, \bold{21}, 1--22
+\emph{Statistical Modelling and Applications}, \bold{21}, 1--22 \cr
+Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data. 
+ \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
 }
 \seealso{
-\code{\link{CUB}}, \code{\link{loglikCUB}}
+\code{\link{vcov}}, \code{\link{cormat}}
 }
 \keyword{htest}
 

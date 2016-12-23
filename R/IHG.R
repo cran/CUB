@@ -2,18 +2,11 @@
 #' @description Main function to estimate and validate an Inverse Hypergeometric model, without or 
 #' with covariates for explaining the preference parameter.
 #' @aliases IHG
-#' @usage IHG(ordinal, m=get('m',envir=.GlobalEnv), U = 0, makeplot = TRUE, summary = TRUE)
-#' @param ordinal Vector of ordinal responses
-#' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
-#'  specified in the global environment)
-#' @param U Matrix of covariates for explaining the preference parameter. If omitted (default), 
-#' no covariate is included in the model
-#' @param makeplot Logical: if TRUE (default), the algorithm returns a graphical plot comparing fitted probabilities
-#'  and observed relative frequencies  for IHG models without covariates. If only one explicative dichotomous 
-#'  variable is included in the model, then the function returns a graphical plot comparing the distributions
-#'   of the responses conditioned to the value of the covariate
-#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
-#' @export IHG
+#' @usage IHG(Formula, data, ...)
+#' @param Formula Object of class Formula.
+#' @param data Data frame from which model matrices and response variables are taken.
+#' @param ... Additional arguments to pass to the fitting procedure. Argument U specifies the matrix of 
+#' subjects covariates to include in the model for explaining the preference parameter (not including intercept). 
 #' @return An object of the class "IHG" is a list containing the following results: 
 #' \item{estimates}{Maximum likelihood parameters estimates}
 #' \item{loglik}{Log-likelihood function at the final estimates}
@@ -36,13 +29,13 @@
 #' Iannario M. (2012). CUBE models for interpreting ordered categorical data with overdispersion,
 #'  \emph{Quaderni di Statistica}, \bold{14}, 137--140
 #' @seealso \code{\link{probihg}},  \code{\link{iniihg}}, \code{\link{loglikIHG}} 
-#' @keywords models
+#' @keywords internal 
 #' @examples 
 #' \donttest{
 #' data(relgoods)
 #' m<-10
 #' ordinal<-na.omit(relgoods[,41]) 
-#' model<-IHG(ordinal,summary=TRUE)
+#' model<-IHG(ordinal)
 #' theta<-model$estimates      # ML estimates for the preference parameter theta
 #' maxlik<-model$loglik
 #' sqerrst<-model$varmat         # Squared standard error of theta
@@ -51,19 +44,57 @@
 #' ordinal<-relgoods[,41]
 #' gender<-relgoods[,9]
 #' data<-na.omit(cbind(ordinal,gender))
-#' modelcov<-IHG(data[,1],U=data[,2],summary=TRUE)
+#' modelcov<-IHG(data[,1],U=data[,2])
 #' omega<-modelcov$estimates     #  ML estimates (intercept term: omega[1])
 #' maxlik<-modelcov$loglik
 #' varmat<-modelcov$varmat
 #' BICcov<-modelcov$BIC
 #' }
 
-IHG<-function(ordinal,m=get('m',envir=.GlobalEnv),U=0,makeplot=TRUE,summary=TRUE){
+
+
+
+IHG<-function(Formula,data,...){
   
-  ru<-NROW(U)
-  if (ru==1){
-    ihg00(m,ordinal,makeplot,summary)
+  ellipsis.arg<-list(...)
+  
+  # U<-ellipsis.arg$U
+  mf<-model.frame(Formula,data=data)
+  ordinal<-as.numeric(model.response(mf))
+  
+  covtheta<-model.matrix(Formula,data=data,rhs=1)
+  
+  if (ncol(covtheta)==0){
+    U<-NULL
   } else {
-    ihgcov(m,ordinal,U,makeplot,summary)
+    U<-covtheta[,-1]
   }
+  
+  lev <- levels(factor(ordinal,ordered=TRUE))
+  m <- length(lev) 
+  
+  if (is.null(U)){
+    mod<- ihg00(m,ordinal)
+  } else {
+    U<-as.matrix(U)
+    mod<- ihgcov(m,ordinal,U)
+  }
+  
+  stime<-mod$estimates
+  durata<-mod$time
+  loglik<-as.numeric(mod$loglik)
+  niter<-1
+  varmat<-mod$varmat
+  BIC<-as.numeric(mod$BIC)
+  ordinal<-factor(ordinal,ordered=TRUE)
+  
+  results<-list('estimates'=stime,'ordinal'=ordinal,'time'=durata,
+                'loglik'=loglik,'niter'=niter,'varmat'=varmat,
+                'BIC'=BIC)
+  return(results)
+  
 }
+
+
+
+

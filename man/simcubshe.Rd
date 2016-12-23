@@ -4,7 +4,7 @@
 \alias{simcubshe}
 \title{Simulation routine for CUB models with shelter effect}
 \usage{
-simcubshe(n, m, pai, csi, delta, shelter)
+simcubshe(n,m,pai,csi,delta,shelter)
 }
 \arguments{
 \item{n}{Number of simulated observations}
@@ -20,8 +20,8 @@ simcubshe(n, m, pai, csi, delta, shelter)
 \item{shelter}{Category corresponding to the shelter choice}
 }
 \description{
-Generate \eqn{n} pseudo-random numbers according to the CUB distribution
- with shelter effect and with given parameters.
+Generate \eqn{n} pseudo-random observations following the given CUB distribution
+ with shelter effect.
 }
 \examples{
 n<-300
@@ -30,8 +30,8 @@ pai<-0.7
 csi<-0.3
 delta<-0.2
 shelter<-3
-simulation<-simcubshe(n, m, pai, csi, delta, shelter)
-plot(table(simulation), xlab="Ordinal categories",ylab="Frequencies")
+simulation<-simcubshe(n,m,pai,csi,delta,shelter)
+plot(table(simulation),xlab="Ordinal categories",ylab="Frequencies")
 }
 \seealso{
 \code{\link{probcubshe1}}, \code{\link{probcubshe2}}, \code{\link{probcubshe3}}

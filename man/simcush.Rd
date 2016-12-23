@@ -4,7 +4,7 @@
 \alias{simcush}
 \title{Simulation routine for CUSH models}
 \usage{
-simcush(n, m, delta, shelter)
+simcush(n,m,delta,shelter)
 }
 \arguments{
 \item{n}{Number of simulated observations}
@@ -16,7 +16,7 @@ simcush(n, m, delta, shelter)
 \item{shelter}{Category corresponding to the shelter choice}
 }
 \description{
-Generate \eqn{n} pseudo-random numbers following the distribution of a CUSH
+Generate \eqn{n} pseudo-random observations following the distribution of a CUSH
  model without covariates.
 }
 \examples{
@@ -24,8 +24,8 @@ n<-200
 m<-7
 delta<-0.3
 shelter<-3
-simulation<-simcush(n, m, delta, shelter)
-plot(table(simulation), xlab="Ordinal categories", ylab="Frequencies")
+simulation<-simcush(n,m,delta,shelter)
+plot(table(simulation),xlab="Ordinal categories",ylab="Frequencies")
 }
 \seealso{
 \code{\link{probcush}}

@@ -14,7 +14,7 @@
 #' observations (with the same length as ordinal)
 #' @export loglikcuben
 #' @seealso \code{\link{loglikCUBE}}
-#' @keywords htest
+#' @keywords internal
 #' @examples
 #' m<-8
 #' n0<-230;  n1<-270

@@ -12,12 +12,14 @@
 #' @param gama Vector of parameters for the feeling component, with length 
 #' equal to NCOL(W) + 1 to account for an intercept term (first entry of gama)
 #' @param phi Overdispersion parameter
-#' @seealso loglikCUBE
+#' @seealso internal
 
 
 loglikcubecsi <-
 function(m,ordinal,W,pai,gama,phi){
+  W<-as.matrix(W)
   csivett<-logis(W,gama)
+  ordinal<-factor(ordinal,ordered=TRUE)
   probi<-pai*(betabinomialcsi(m,ordinal,csivett,phi)-1/m)+1/m
   return(sum(log(probi)))
 }

@@ -28,8 +28,7 @@ NCOL(Z) + 1 to account for an intercept term (first entry of alpha)}
 }
 \description{
 Compute the log-likelihood function of a CUBE model for ordinal responses,
- with covariates for explaining all the three parameters.
- @keywords internal
- @usage loglikcubecov(m, ordinal, Y, W, Z, bet, gama, alpha)
+with covariates for explaining all the three parameters.
 }
+\keyword{internal}
 

@@ -1,10 +1,8 @@
-
 #' @title Log-likelihood function of a CUBE model with covariates
 #' @aliases loglikcubecov
 #' @description Compute the log-likelihood function of a CUBE model for ordinal responses,
-#'  with covariates for explaining all the three parameters.
-#'  @keywords internal
-#'  @usage loglikcubecov(m, ordinal, Y, W, Z, bet, gama, alpha)
+#' with covariates for explaining all the three parameters.
+#' @usage loglikcubecov(m, ordinal, Y, W, Z, bet, gama, alpha)
 #' @param m Number of ordinal categories
 #' @param ordinal  Vector of ordinal responses
 #' @param Y Matrix of covariates for explaining the uncertainty component
@@ -16,13 +14,16 @@
 #' NCOL(W) + 1 to account for an intercept term (first entry of gama)  
 #' @param alpha Vector of parameters for the overdispersion component, with length equal to 
 #' NCOL(Z) + 1 to account for an intercept term (first entry of alpha) 
+#' @keywords internal
 
 
 
 loglikcubecov <-
 function(m,ordinal,Y,W,Z,bet,gama,alpha){
+  Y<-as.matrix(Y); W<-as.matrix(W); Z<-as.matrix(Z)
   paivett<-logis(Y,bet); csivett<-logis(W,gama); 
   phivett<-1/(-1+ 1/(logis(Z,alpha))) 
+  ordinal<-factor(ordinal,ordered=TRUE)
   probi<-paivett*(betabinomial(m,ordinal,csivett,phivett)-1/m)+1/m
   return(sum(log(probi)))
 }

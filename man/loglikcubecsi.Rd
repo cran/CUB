@@ -25,7 +25,7 @@ Compute the log-likelihood function of a CUBE model for ordinal data with subjec
 covariates only for feeling.
 }
 \seealso{
-loglikCUBE
+internal
 }
 \keyword{internal}
 

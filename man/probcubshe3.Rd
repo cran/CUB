@@ -4,7 +4,7 @@
 \alias{probcubshe3}
 \title{probcubshe3}
 \usage{
-probcubshe3(m, lambda, eta, csi, shelter)
+probcubshe3(m,lambda,eta,csi,shelter)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -29,7 +29,7 @@ satisficing interpretation
 The "satisficing interpretation" provides a parametrization for CUB models with explicit 
 shelter effect as a mixture of two components: a shifted Binomial distribution with feeling parameter
 \eqn{\xi} (meditated choice), and a mixture of a degenerate distribution with unit mass at the shelter
-category ("shelter") and a discrete uniform distribution over \eqn{m} categories, with mixing 
+category (\code{shelter}) and a discrete uniform distribution over \eqn{m} categories, with mixing 
 coefficient specified by \eqn{\eta} (lazy selection of a category). Both components of the mixtures
 are weighted by \eqn{\lambda} coefficient.
 }
@@ -41,18 +41,14 @@ csi<-0.4
 shelter<-6
 lambda<-pai1
 eta<-1-pai2/(1-pai1)
-pr3<-probcubshe3(m, lambda, eta, csi, shelter)
-plot(1:m,pr3,type="h", main="CUB probability distribution with explicit 
+pr3<-probcubshe3(m,lambda,eta,csi,shelter)
+plot(1:m,pr3,type="h",main="CUB probability distribution with explicit 
 shelter effect",xlab="Ordinal categories")
 points(1:m,pr3,pch=19)
 }
 \references{
 Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
 \emph{Statistical Methods and Applications}, \bold{21}, 1--22 \cr
-Iannario M. and Piccolo D. (2014). Inference for CUB models: a program in R,
-\emph{Statistica & Applicazioni}, \bold{XII} n.2, 177--204 \cr
-Iannario M. and Piccolo D. (2014). A comprehensive approach to ordinal data modelling,
-\emph{Working paper}
 }
 \seealso{
 \code{\link{probcubshe1}}, \code{\link{probcubshe2}}

@@ -4,23 +4,15 @@
 \alias{IHG}
 \title{Main function for IHG models}
 \usage{
-IHG(ordinal, m=get('m',envir=.GlobalEnv), U = 0, makeplot = TRUE, summary = TRUE)
+IHG(Formula, data, ...)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{Formula}{Object of class Formula.}
 
-\item{m}{Number of ordinal categories (if omitted, it will be assigned to the number of categories
-specified in the global environment)}
+\item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{U}{Matrix of covariates for explaining the preference parameter. If omitted (default), 
-no covariate is included in the model}
-
-\item{makeplot}{Logical: if TRUE (default), the algorithm returns a graphical plot comparing fitted probabilities
-and observed relative frequencies  for IHG models without covariates. If only one explicative dichotomous 
-variable is included in the model, then the function returns a graphical plot comparing the distributions
- of the responses conditioned to the value of the covariate}
-
-\item{summary}{Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen}
+\item{...}{Additional arguments to pass to the fitting procedure. Argument U specifies the matrix of 
+subjects covariates to include in the model for explaining the preference parameter (not including intercept).}
 }
 \value{
 An object of the class "IHG" is a list containing the following results: 
@@ -51,7 +43,7 @@ The optimization procedure is run via "optim". The variance-covariance matrix (o
 data(relgoods)
 m<-10
 ordinal<-na.omit(relgoods[,41]) 
-model<-IHG(ordinal,summary=TRUE)
+model<-IHG(ordinal)
 theta<-model$estimates      # ML estimates for the preference parameter theta
 maxlik<-model$loglik
 sqerrst<-model$varmat         # Squared standard error of theta
@@ -60,7 +52,7 @@ BICIHG<-model$BIC
 ordinal<-relgoods[,41]
 gender<-relgoods[,9]
 data<-na.omit(cbind(ordinal,gender))
-modelcov<-IHG(data[,1],U=data[,2],summary=TRUE)
+modelcov<-IHG(data[,1],U=data[,2])
 omega<-modelcov$estimates     #  ML estimates (intercept term: omega[1])
 maxlik<-modelcov$loglik
 varmat<-modelcov$varmat
@@ -76,5 +68,5 @@ Iannario M. (2012). CUBE models for interpreting ordered categorical data with o
 \seealso{
 \code{\link{probihg}},  \code{\link{iniihg}}, \code{\link{loglikIHG}}
 }
-\keyword{models}
+\keyword{internal}
 

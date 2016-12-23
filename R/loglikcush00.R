@@ -7,7 +7,7 @@
 #' @param ordinal Vector of ordinal responses
 #' @param delta Shelter parameter
 #' @param shelter Category corresponding to the shelter choice
-#' @seealso \code{\link{CUSH}}
+#' @seealso \code{\link{GEM}}
 #' @keywords internal
 
 

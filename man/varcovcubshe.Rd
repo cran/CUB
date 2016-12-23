@@ -31,7 +31,7 @@ Iannario, M. (2012), Modelling shelter choices in ordinal data surveys.
 Statistical Modelling and Applications, \bold{21}, 1--22
 }
 \seealso{
-\code{\link{cubshe}},  \code{\link{probcubshe1}}
+\code{\link{probcubshe1}}
 }
 \keyword{internal}
 

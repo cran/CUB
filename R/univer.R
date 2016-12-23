@@ -1,13 +1,13 @@
 #' @title Evaluation of the Orientation Services 2002
 #' @description A sample survey on students evaluation of the Orientation services was conducted across the
-#' 13 Faculties of University of Naples - Federico II in five waves: participants were asked to express their ratings
+#' 13 Faculties of University of Naples  Federico II in five waves: participants were asked to express their ratings
 #'  on a 7 point scale (1 = "very unsatisfied", 7 = "extremely satisfied").
 #' Here only the dataset collected during 2002 is loaded.
 #' @aliases univer
 #' @usage data(univer)
 #' @format The description of subjects' covariates is:
 #' \describe{
-#' \item{\code{Faculty}}{A factor variables, with levels ranging from 1 to 13 indicating the coding 
+#' \item{\code{Faculty}}{A factor variable, with levels ranging from 1 to 13 indicating the coding 
 #' for the different university faculties}
 #' \item{\code{Freqserv}}{A factor with levels: 0 = for not regular users, 1 = for regular users}
 #' \item{\code{Age}}{Variable indicating the age of the respondent in years}
@@ -36,7 +36,7 @@
 #' Number of subjects' covariates: 7 \cr
 #' Number of analyzed items: 5
 #' }
-#' @source \url{http://www.labstat.it/home/wp-content/uploads/2015/09/univer02.txt}
+#' @source \url{http://www.labstat.it/home/wp-content/uploads/2016/12/univer2002.txt}
 
 
 "univer"

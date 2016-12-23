@@ -5,12 +5,12 @@
 \title{Beta-Binomial probabilities of ordinal responses, with feeling and overdispersion parameters
 for each observation}
 \usage{
-betabinomial(m, ordinal, csivett, phivett)
+betabinomial(m,ordinal,csivett,phivett)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{csivett}{Vector of feeling parameters of the Beta-Binomial distribution for the given ordinal responses}
 
@@ -32,21 +32,24 @@ The Beta-Binomial distribution is the Binomial distribution in which the probabi
 }
 \examples{
 data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,37]
-age<-2014-relgoods[,4]
+ordinal<-na.omit(Tv)
+naTv<-which(is.na(Tv))
+age<-2014-BirthYear[-naTv]
 lage<-log(age)-mean(log(age))
-nona<-na.omit(cbind(ordinal,lage))
-ordinal<-nona[,1]
 gama<-c(-0.6, -0.3)
 csivett<-logis(lage,gama)
 alpha<-c(-2.3,0.92)
 phivett<-1/(-1+1/(logis(lage,alpha)))
-pr<-betabinomial(m, ordinal, csivett, phivett)
+pr<-betabinomial(m,ordinal,csivett,phivett)
+plot(density(pr))
 }
 \references{
 Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
-\emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
+\emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
+Piccolo D. (2015). Inferential issues for CUBE models with covariates. 
+\emph{Communications in Statistics - Theory and Methods}, \bold{44}(23), 771--786.
 }
 \seealso{
 \code{\link{betar}}, \code{\link{betabinomialcsi}}

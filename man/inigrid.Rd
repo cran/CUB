@@ -4,7 +4,7 @@
 \alias{inigrid}
 \title{Grid-based preliminary parameter estimates for CUB models}
 \usage{
-inigrid(m, freq, x, y)
+inigrid(m,freq,x,y)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -17,7 +17,7 @@ inigrid(m, freq, x, y)
 }
 \value{
 It returns the parameter vector corresponding to the maximum value of the log-likelihood 
-for a CUB model fitting ordinal responses with given frequencies.
+for a CUB model without covariates for given frequencies.
 }
 \description{
 Compute the log-likelihood function of a CUB model with parameter vector \eqn{(\pi, \xi)} ranging in

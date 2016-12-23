@@ -39,8 +39,5 @@ varmat<-varcovcub0q(m, ordinal, W, pai, gama)
 Piccolo D.(2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},
  \bold{8}, 33--78,
 }
-\seealso{
-\code{\link{probcub0q}}, \code{\link{loglikcub0q}}, \code{\link{cub0q}}
-}
 \keyword{internal}
 

@@ -4,7 +4,7 @@
 \alias{expcub00}
 \title{Expectation of CUB models}
 \usage{
-expcub00(m, pai, csi)
+expcub00(m,pai,csi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}

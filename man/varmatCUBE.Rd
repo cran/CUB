@@ -7,7 +7,7 @@
 varmatCUBE(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE)
 }
 \arguments{
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{m}{Number of ordinal categories}
 
@@ -44,16 +44,18 @@ varmat<-varmatCUBE(ordinal,m,param)
 ### Including covariates
 \donttest{
 data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,37]
-age<-2014-relgoods[,4]
+naord<-which(is.na(Tv))
+nacov<-which(is.na(BirthYear))
+na<-union(naord,nacov)
+age<-2014-BirthYear[-na]
 lage<-log(age)-mean(log(age))
-nona<-na.omit(cbind(ordinal,lage))
-ordinal<-nona[,1]
-Y<-W<-Z<-nona[,2]
-estbet<-c(0.18, 1.03); estgama<-c(-0.6, -0.3); estalpha<-c(-2.3,0.92)
+Y<-W<-Z<-lage
+ordinal<-Tv[-na]
+estbet<-c(0.18,1.03); estgama<-c(-0.6,-0.3); estalpha<-c(-2.3,0.92)
 param<-c(estbet,estgama,estalpha)
-varmat<-varmatCUBE(ordinal, m, param, Y=Y, W=W, Z=Z, expinform=TRUE)
+varmat<-varmatCUBE(ordinal,m,param,Y=Y,W=W,Z=Z,expinform=TRUE)
 }
 }
 \references{
@@ -63,7 +65,7 @@ Piccolo D. (2015). Inferential issues for CUBE models with covariates,
  \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
 }
 \seealso{
-\code{\link{CUBE}}, \code{\link{loglikCUBE}}
+\code{\link{vcov}}, \code{\link{cormat}}
 }
 \keyword{htest}
 

@@ -2,14 +2,14 @@
 #' @description Compute the log-likelihood function of a CUB model with parameter vector \eqn{(\pi, \xi)} ranging in
 #' the Cartesian product between \eqn{x} and \eqn{y}, for a given absolute frequency distribution.
 #' @aliases inigrid
-#' @usage inigrid(m, freq, x, y)
+#' @usage inigrid(m,freq,x,y)
 #' @param m Number of ordinal categories
 #' @param freq Vector of length \eqn{m} of the absolute frequency distribution
 #' @param x A set of values to assign to the uncertainty parameter \eqn{\pi}
 #' @param y A set of values to assign to the feeling parameter \eqn{\xi}
 #' @export inigrid
 #' @return It returns the parameter vector corresponding to the maximum value of the log-likelihood 
-#' for a CUB model fitting ordinal responses with given frequencies.
+#' for a CUB model without covariates for given frequencies.
 #' @seealso \code{\link{inibest}} 
 #' @keywords htest utilities
 #' @examples
@@ -32,5 +32,9 @@ function(m,freq,x,y){
     loglik[j]<-loglikcub00(m,freq,pai,csi)
   }
   indice<-which.max(loglik)
-  return(listap[indice,])
+  
+  ini<-as.matrix(t(listap[indice,]))
+  rownames(ini)<-c("pai","csi")
+  colnames(ini)<-""
+  return(ini)
 }

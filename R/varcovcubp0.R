@@ -11,16 +11,22 @@
 #' @param csi Feeling parameter
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso \code{\link{probcubpq}}, \code{\link{cubpq}}
+#' @seealso \code{\link{probcubpq}}
 #' @keywords internal
 #' @references
 #' Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
 
 varcovcubp0 <-
 function(m,ordinal,Y,bet,csi){
+  Y<-as.matrix(Y);
+
+  if (ncol(Y)==1){
+    Y<-as.numeric(Y)
+  }
+  
   vvi<-(m-ordinal)/csi-(ordinal-1)/(1-csi)
   ui<-(m-ordinal)/(csi^2)+(ordinal-1)/((1-csi)^2)
-  qi<-1/(m*probcubp0(m,ordinal,Y,bet,csi))
+  qi<-1/(m*probcubp0(m,factor(ordinal,ordered=TRUE),Y,bet,csi))
   ei<-logis(Y,bet)
   qistar<-1-(1-ei)*qi
   eitilde<-ei*(1-ei)

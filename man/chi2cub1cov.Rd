@@ -9,7 +9,7 @@ chi2cub1cov(m, ordinal, covar, pai, gama)
 \arguments{
 \item{m}{Integer: number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{covar}{Vector of the selected covariate for explaining the feeling component}
 
@@ -30,7 +30,7 @@ is explained via a logistic transform of the only discrete covariate. It groups 
 classes according to the values of the covariate.
 }
 \references{
-Tutz, G. (2011). \emph{ Regression for categorical data}, Cambridge Series in Statistical 
+Tutz, G. (2011). \emph{Regression for categorical data}, Cambridge Series in Statistical 
 and Probabilistic Mathematics
 }
 \keyword{internal}

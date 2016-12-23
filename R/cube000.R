@@ -1,17 +1,14 @@
 #' @title Main function for CUBE models without covariates
 #' @description Estimate and validate a CUBE model without covariates.
 #' @aliases cube000
-#' @usage cube000(m, ordinal, starting, maxiter, toler, makeplot, expinform, summary)
+#' @usage cube000(m, ordinal, starting, maxiter, toler, expinform)
 #' @param m Number of ordinal categories
 #' @param ordinal Vector of ordinal responses
 #' @param starting Vector of initial estimates to start the optimization algorithm, 
 #' whose length equals the number of parameters of the model
 #' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
 #' @param toler Fixed error tolerance for final estimates 
-#' @param makeplot Logical: if TRUE, the function returns a graphical plot comparing fitted probabilities 
-#' and observed relative frequencies
 #' @param expinform Logical: if TRUE, the function returns the expected variance-covariance matrix
-#' @param summary Logical: if TRUE, summary results of the fitting procedure are displayed on screen
 #' @return An object of the class "CUBE"
 #' @import stats
 #' @references
@@ -49,15 +46,14 @@
 #' model$BIC
 #' }
 
-
 cube000<-function(m,ordinal,starting,maxiter,
-                  toler,makeplot,expinform,summary){ #default for expinform = FALSE
+                  toler,expinform){ #default for expinform = FALSE
   tt0<-proc.time()
   freq<-tabulate(ordinal,nbins=m); n<-sum(freq); 
   aver<-mean(ordinal); varcamp<-mean(ordinal^2)-aver^2;
   ########################################################
   #(00)# initial estimates, not efficient:
-  starting<-inibestcube(m,ordinal)
+  #starting<-inibestcube(m,ordinal)
   pai<-starting[1]; csi<-starting[2]; phi<-starting[3];
   #(0)# log-lik
   loglik<-loglikcube(m,freq,pai,csi,phi)
@@ -125,7 +121,7 @@ cube000<-function(m,ordinal,starting,maxiter,
     varmat<-varcovcubeobs(m,pai,csi,phi,freq)
   }
   
-  nomi<-rbind("pai  ","csi  ","phi  ")
+  # nomi<-rbind("pai  ","csi  ","phi  ")
   stime<-c(pai,csi,phi)
   nparam<-length(stime)
   if (isTRUE(varmat==matrix(NA,nrow=nparam,ncol=nparam))==TRUE){
@@ -137,7 +133,7 @@ cube000<-function(m,ordinal,starting,maxiter,
     ICOMP<- -2*loglik + nparam*log(trvarmat/nparam) - log(det(varmat)) 
     errstd<-sqrt(diag(varmat))
     wald<-stime/errstd
-    pval<-round(2*(1-pnorm(abs(wald))),20)
+    pval<-2*(1-pnorm(abs(wald)))
     ddd<-diag(sqrt(1/diag(varmat)))
   }
   ####################################################################
@@ -160,85 +156,8 @@ cube000<-function(m,ordinal,starting,maxiter,
   II2<-(loglik-llunif)/(logsat-llunif)
   stampa<-cbind(1:m,freq/n,theorpr,pearson,relares)
   durata<-proc.time()-tt0;durata<-durata[1];
-  if(summary==TRUE){
-    cat("\n")
-    cat("=======================================================================","\n")
-    cat("CUBE model Inference                                                 ","\n")
-    cat("=======================================================================","\n")
-    if(expinform==TRUE){
-      cat("Maximum Likelihood estimates (E-M algorithm) ..... Expected Information","\n")
-    }
-    else{
-      cat("Maximum Likelihood estimates (E-M algorithm) ..... Observed Information","\n")
-    }
-    cat("=======================================================================","\n")
-    cat("*** m=", m," *** Sample size: n=", n,"  *** Iterations=",nniter,"Maxiter=",maxiter,"\n")
-    cat("=======================================================================","\n")
-    cat("parameters  ML-estimates    stand.errors    estimates/stand.errors       ","\n")
-    cat("=======================================================================","\n")
-    for(i in 1:3){
-      cat(nomi[i],"        ",round(stime[i],5),"        ",round(errstd[i],5),"        ",round(wald[i],5),"      ","\n")
-    }
-    cat("=======================================================================","\n")
-    cat("Parameters correlation matrix","\n") 
-    print(round(ddd%*%varmat%*%ddd,5))
-    cat("\n")
-    cat("==================================================== Log-likelihoods ===","\n")
-    cat("Log-lik(pai^,csi^,phi^)  =",round(loglik,digits=8),"\n")
-    cat("Log-lik(Saturated)       =",round(logsat,digits=8),"\n")
-    cat("Log-lik(Shifted-Binomial)=",round(llsb,digits=8),"\n")
-    cat("Log-lik(Uniform)         =",round(llunif,digits=8),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("Mean Log-likelihood=",round(loglik/n,digits=8),"\n")
-    cat("Deviance           =",round(devian,digits=8),"\n")
-    ### Fitting measures #########################################################
-    cat("=========================================== Global fitting measures ===","\n")
-    cat("\n")
-    cat("Pearson Fitting measure    ==>  X^2 =",X2,"(p-val.=",1-pchisq(X2,m-4),")","\n")
-    cat("F^2 fitting measure        ==>  F^2 =",round(FF2,digits=5),"\n")
-    cat("Normed Dissimilarity index ==>  Diss=",round(dissimcube,digits=5),"\n")
-    cat("Lik-based fitting measure  ==>  L^2 =",round(LL2,digits=5),"\n")
-    cat("Relative Log-lik index     ==>  I   =",round(II2,digits=5),"\n")
-    cat("-----------------------------------------------------------------------","\n")
-    cat("AIC-CUBE          =",round(AICCUBE,digits=8),"\n")
-    cat("BIC-CUBE          =",round(BICCUBE,digits=8),"\n")
-    cat("ICOMP-CUBE        =",round(ICOMP,digits=8),"\n")
-    cat("=======================================================================","\n")
-    cat("(R=r) Observed CUBE-prob","Pearson","Relative res.","\n")
-    print(stampa,digits=5)
-    cat("=======================================================================","\n")
-    cat("Elapsed time     =",durata,"seconds","=====>>>",date(),"\n")
-    cat("=======================================================================","\n")  
-    
-  }
-  #############################################################################
-  #   /* CUBE ===> plot with Diss=.......... optioned by makeplot=TRUE/FALSE */
-  #############################################################################
-  if(makeplot==TRUE){
-    stringtitle="CUBE model estimation ";
-    plot(cbind(1:m,1:m),cbind(theorpr,(freq/n)),las=1,
-         main=paste(stringtitle,  "     (Diss =",round(dissimcube,digits=4),")"),
-         xlim=c(1,m),ylim=c(0.0,1.1*max(theorpr,(freq/n))),
-         xlab="Ordinal values of R=1,2,...,m",
-         ylab="Observed freq. (dots) and fitted prob. (circles)",cex.lab=0.9,cex.main=0.9);
-    ###
-    points(1:m,theorpr,pch=21,cex=1.5,lwd=2.0,type="b",lty=3); ### ex pch=8,col="red"
-    points(1:m,freq/n,pch=16,cex=1.25,lwd=1.5);
-    abline(h=0);
-  }
-  #####################################################################
-  # Assignments as global variables: assign('name',value,pos=1)
-  #####################################################################
-  #   assign('nniter',nniter,pos=1)
-  #   assign('pai',pai,pos=1)
-  #   assign('csi',csi,pos=1)
-  #   assign('phi',phi,pos=1)
-  #   assign('varmat',varmat,pos=1)
-  #   assign('loglik',loglik,pos=1)
-  ####################################
-  #cat("=======================================================================","\n")
-  # cat("Convergence code =",optimestim$convergence,"\n")
   
-  results<-list('estimates'= round(stime, digits=5), 'loglik'= loglik, 'niter'= nniter, 'varmat'= varmat,'BIC'=round(BICCUBE,digits=8))
+  results<-list('estimates'= stime, 'loglik'= loglik,
+                'niter'= nniter, 'varmat'= varmat,'BIC'=BICCUBE,'time'=durata)
   
 }

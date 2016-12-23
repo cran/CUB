@@ -10,7 +10,7 @@
 #' @param n Number of observations
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
 #' it returns a warning message and produces a matrix with NA entries.
-#' @seealso \code{\link{cube000}}, \code{\link{varcovcubeobs}}
+#' @seealso \code{\link{varcovcubeobs}}
 #' @keywords internal
 #' @references
 #' Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 

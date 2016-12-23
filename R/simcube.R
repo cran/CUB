@@ -1,9 +1,9 @@
 #' @title Simulation routine for CUBE models
 #' @aliases simcube
-#' @description Generate \eqn{n} pseudo-random numbers according to the CUBE 
-#' distribution with the given parameters.
+#' @description Generate \eqn{n} pseudo-random observations following the given CUBE 
+#' distribution.
 #' @keywords distribution
-#' @usage simcube(n, m, pai, csi, phi)
+#' @usage simcube(n,m,pai,csi,phi)
 #' @export simcube
 #' @param n Number of simulated observations
 #' @param m Number of ordinal categories
@@ -18,11 +18,12 @@
 #' csi<-0.4
 #' phi<-0.1
 #' simulation<-simcube(n,m,pai,csi,phi)
-#' plot(table(simulation), xlab="Ordinal categories",ylab="Frequencies")
+#' plot(table(simulation),xlab="Ordinal categories",ylab="Frequencies")
 
 
 simcube <-
 function(n,m,pai,csi,phi){
   prob<-probcube(m,pai,csi,phi)
-  return(sample(1:m,n,prob,replace=T))
+  ord<-sample(1:m,n,prob,replace=T)
+  return(factor(ord,ordered=TRUE))
 }

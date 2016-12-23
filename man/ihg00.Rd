@@ -4,17 +4,12 @@
 \alias{ihg00}
 \title{Main function for IHG models without covariates}
 \usage{
-ihg00(m, ordinal, makeplot, summary)
+ihg00(m, ordinal)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
 \item{ordinal}{Vector of ordinal responses}
-
-\item{makeplot}{Logical: if TRUE, the function returns a graphical plot comparing fitted probabilities
-and observed relative frequencies}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "IHG"

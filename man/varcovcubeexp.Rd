@@ -30,7 +30,7 @@ Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
 }
 \seealso{
-\code{\link{cube000}}, \code{\link{varcovcubeobs}}
+\code{\link{varcovcubeobs}}
 }
 \keyword{internal}
 

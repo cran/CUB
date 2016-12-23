@@ -4,7 +4,7 @@
 \alias{simihg}
 \title{Simulation routine for IHG models}
 \usage{
-simihg(n, m, theta)
+simihg(n,m,theta)
 }
 \arguments{
 \item{n}{Number of simulated observations}
@@ -14,15 +14,14 @@ simihg(n, m, theta)
 \item{theta}{Preference parameter}
 }
 \description{
-Generate n pseudo-random numbers according to the IHG distribution with given
- preference parameter \eqn{\theta}.
+Generate n pseudo-random observations following the given IHG distribution.
 }
 \examples{
 n<-300
 m<-9
 theta<-0.4
-simulation<-simihg(n, m, theta)
-plot(table(simulation), xlab="Number of categories", ylab="Frequencies")
+simulation<-simihg(n,m,theta)
+plot(table(simulation),xlab="Number of categories",ylab="Frequencies")
 }
 \seealso{
 \code{\link{probihg}}

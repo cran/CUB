@@ -2,7 +2,7 @@
 % Please edit documentation in R/CUB_package.R
 \name{CUB_package}
 \alias{CUB_package}
-\title{A Class of Mixture Models for Ordinal Data}
+\title{CUB package}
 \source{
 \url{http://www.labstat.it/home/research/resources/cub-data-sets-2/}
 }
@@ -14,28 +14,29 @@ the respondents' perceptions about a latent trait, by taking into account, at th
 the ordinal categorical scale of measurement of the   involved statistical variables. The new class of models 
 starts from a particular assumption about the unconscious mechanism leading individuals' responses  
  to choose an ordinal category on a rating scale. The basic idea derives from the awareness that two latent
-  components move the psychological process of   selection among discrete alternatives: attractiveness
+  components move the psychological process of selection among discrete alternatives: attractiveness
    towards the item and uncertainty in the response. Both components of models concern the stochastic 
  mechanism in term of feeling, which is an internal/personal movement of the subject towards the item,
   and uncertainty pertaining to the final choice.\cr
   Thus, on the basis of experimental data and statistical motivations, the response distribution is modelled 
-  as the convex Combination of a discrete Uniform and a shifted Binomial random variable (denoted as CUB models) 
+  as the convex Combination of a discrete Uniform and a shifted Binomial random variable (denoted as CUB model) 
   whose parameters may be consistently estimated and validated by maximum likelihood inference. 
   In addition, subjects' and objects' covariates can be included in the model in order to assess how the 
   characteristics of the respondents may affect the ordinal score. \cr
   CUB models have been firstly introduced by Piccolo (2003) and implemented on real datasets by D'Elia 
   and Piccolo (2005), Iannario and Piccolo (2012).\cr
   The CUB package allows the user to estimate and test CUB models and their extensions by using maximum 
-  likelihood methods.\cr
- ACKNOWLEDGEMENTS: The Authors are grateful to Maria Antonietta Del Ferraro, Francesco Miranda and
-  Giuseppe Porpora for their support in the implementation of the package.
+  likelihood methods. The package covers the main models of the class of Generalized Mixture Models with uncertainty 
+  (GEM - Iannario and Piccolo (2016a)), a comprehensive framework for modelling ordinal data. \cr
+ Acknowledgements: The Authors are grateful to Maria Antonietta Del Ferraro, Francesco Miranda and
+  Giuseppe Porpora for their preliminary support in the implementation of the package.
 }
 \details{
 \tabular{ll}{
 Package: \tab CUB\cr
 Type: \tab Package\cr
-Version: \tab 0.1\cr
-Date: \tab 2016-6-7\cr
+Version: \tab 1.0\cr
+Date: \tab 2016-12-23\cr
 License: GPL-2 | GPL-3
  }
 }
@@ -50,8 +51,14 @@ Piccolo D. (2003). On the moments of a mixture of uniform and shifted binomial r
  Iannario M. and Piccolo D. (2012). CUB models: Statistical methods and empirical evidence, in: 
  Kenett  R. S. and Salini S. (eds.), \emph{Modern Analysis of Customer Surveys: with applications using R},
   J. Wiley and   Sons, Chichester, 231--258\cr
-  Iannario M. and Piccolo D. (2014). Inference for CUB models: a program in R, 
-  \emph{Statistica & Applicazioni}, \bold{XII} n.2, 177--204
+  Iannario M. and Piccolo D. (2016a). A comprehensive framework for regression models of ordinal data.
+   \emph{Metron}, \bold{74}(2), 233--252.
+   Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data. 
+ \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr 
+ D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
+\emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78 \cr
+Capecchi S. and Piccolo D. (2016). Dealing with heterogeneity in ordinal responses,
+ \emph{Quality and Quantity}, DOI: 10.1007/s11135-016-0393-3 \cr
 }
 \keyword{package}
 

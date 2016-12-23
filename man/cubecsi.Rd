@@ -4,7 +4,7 @@
 \alias{cubecsi}
 \title{Main function for CUBE models with covariates only for feeling}
 \usage{
-cubecsi(m, ordinal, W, starting, maxiter, toler, summary)
+cubecsi(m, ordinal, W, starting, maxiter, toler)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -19,13 +19,11 @@ NCOL(W) + 3 to account for an intercept term for the feeling component (first en
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
 
 \item{toler}{Fixed error tolerance for final estimates}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUBE". For cubecsi, $niter will return a NULL value since the optimization procedure
  is not iterative but based on "optim" (method = "L-BFGS-B", option hessian=TRUE). \cr $varmat will return the inverse 
- of the numerically computed hessian when it is positive definite, otherwise the procedure will return a matrix of NA
+ of the numerically computed Hessian when it is positive definite, otherwise the procedure will return a matrix of NA
   entries.
 }
 \description{
@@ -44,7 +42,7 @@ nona=na.omit(cbind(ordinal,lage))
 ordinal=nona[,1]
 W=nona[,2]
 starting=rep(0.1,4)     
-fit=cubecsi(m, ordinal, W, starting, maxiter=100, toler=1e-3,summary=F)
+fit=cubecsi(m, ordinal, W, starting, maxiter=100, toler=1e-3)
 param=fit$estimates
 pai=param[1]                        ## ML estimates for the uncertainty parameter
 gama=param[2:(length(param)-1)]     ## ML estimates for the coefficients of the feeling covariates
@@ -54,12 +52,12 @@ varmat=fit$varmat
 BIC=fit$BIC
 ##########################################################
 data(univer)
-m=7 
+m<-7 
 ordinal=univer[,8]
 gender=univer[,4]
 initial=inibestcube(m,ordinal)
 starting=inibestcubecsi(m,ordinal,W=gender,initial,maxiter=500,toler=1e-6)
-fitcsi=cubecsi(m, ordinal, W=gender, starting, maxiter=100, toler=1e-3,summary=T)
+fitcsi=cubecsi(m, ordinal, W=gender, starting, maxiter=100, toler=1e-3)
 param=fitcsi$estimates
 pai=param[1]                       ## ML estimates for the uncertainty parameter
 gama=param[2:(length(param)-1)]    ## ML estimates for the coefficients of the feeling covariates

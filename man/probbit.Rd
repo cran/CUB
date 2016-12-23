@@ -4,7 +4,7 @@
 \alias{probbit}
 \title{Probability distribution of a shifted Binomial random variable}
 \usage{
-probbit(m, csi)
+probbit(m,csi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -20,8 +20,8 @@ Return the shifted Binomial probability distribution.
 \examples{
 m<-7
 csi<-0.7
-pr<-probbit(m, csi)
-plot(1:m, pr, type="h", main="Shifted Binomial probability distribution",xlab="Categories")
+pr<-probbit(m,csi)
+plot(1:m,pr,type="h",main="Shifted Binomial probability distribution",xlab="Categories")
 points(1:m,pr,pch=19)
 }
 \keyword{distribution}

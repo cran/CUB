@@ -13,8 +13,7 @@
 #'  as the function to minimize.
 
 
-effecush <-
-function(paravec,esternocush,shelter,m){
+effecush <-function(paravec,esternocush,shelter,m){
   ordinal<-esternocush[,1]
   ncovar<-ncol(esternocush)
   X<-esternocush[,3:ncovar]

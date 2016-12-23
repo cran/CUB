@@ -4,7 +4,7 @@
 \alias{expcube}
 \title{Expectation of CUBE models}
 \usage{
-expcube(m, pai, csi, phi)
+expcube(m,pai,csi,phi)
 }
 \arguments{
 \item{m}{Number of ordinal categories}

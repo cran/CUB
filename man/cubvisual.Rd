@@ -4,37 +4,27 @@
 \alias{cubvisual}
 \title{Plot an estimated CUB model}
 \usage{
-cubvisual(m, ordinal, caption, labelpoint="estim", xlim, ylim)
+cubvisual(ordinal,...)
 }
 \arguments{
-\item{m}{Number of ordinal categories}
-
 \item{ordinal}{Vector of ordinal responses}
 
-\item{caption}{Characters string for the plot caption (default is "CUB models parameter space")}
-
-\item{labelpoint}{Characters string describing the label to give to the point estimates (default is "estim")}
-
-\item{xlim}{Numeric vectors of length 2, giving the x coordinate range (if missing, xlim=c(0,1))}
-
-\item{ylim}{Numeric vectors of length 2, giving the y coordinate range (if missing, ylim=c(0,1))}
+\item{...}{Additional arguments to be passed to plot() and text()}
 }
 \value{
-A plot of the estimated parameter vector \eqn{(\pi, \xi)} as a point in the parameter space
+A plot of the estimated parameter vector \eqn{(\pi, \xi)} as a point in the parameter space.
 }
 \description{
 Plotting facility for the CUB estimation of ordinal responses.
 }
 \details{
-The estimation is performed via \code{\link{cubforsim}}. It represents an estimated CUB model as a point
- in the parameter space with some useful options. If necessary, other estimated models may be added with
-the standard commands of the R environment (as points(.), for instance).
+It represents an estimated CUB model as a point
+ in the parameter space with some useful options.
 }
 \examples{
 data(univer)
-m<-7
-ordinal<-univer[,12] 
-cubvisual(m, ordinal)
+attach(univer)
+cubvisual(global,xlim=c(0,0.5),ylim=c(0.5,1),cex=0.8)
 }
 \keyword{device}
 

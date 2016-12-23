@@ -2,7 +2,7 @@
 #' @aliases loglikihgcov
 #' @description Compute the log-likelihood function for the IHG model
 #'  with covariates to explain the preference parameter.
-#'  @usage loglikihgcov(m, ordinal, U, nu)
+#' @usage loglikihgcov(m, ordinal, U, nu)
 #' @keywords internal
 #' @seealso loglikIHG
 #' @param m Number of ordinal categories
@@ -14,5 +14,6 @@
 
 loglikihgcov <-
 function(m,ordinal,U,nu){
-  sum(log(probihgcovn(m,ordinal,U,nu)))
+  U<-as.matrix(U)
+  sum(log(probihgcovn(m,factor(ordinal,ordered=TRUE),U,nu)))
 }

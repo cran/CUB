@@ -4,12 +4,12 @@
 \alias{probcub0q}
 \title{Probability distribution of a CUB model with covariates for the feeling component}
 \usage{
-probcub0q(m, ordinal, W, pai, gama)
+probcub0q(m,ordinal,W,pai,gama)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (of factor type)}
 
 \item{W}{Matrix of covariates for explaining the feeling component
 NCOL(Y)+1 to include an intercept term in the model (first entry)}
@@ -21,8 +21,8 @@ NCOL(W)+1 to include an intercept term in the model (first entry)}
 }
 \value{
 A vector of the same length as ordinal, whose i-th component is the
-probability of the i-th observation according to a CUB model with the corresponding values 
-of the covariates for the feeling component and coefficients specified in gama
+probability of the i-th observation according to a CUB distribution with the corresponding values 
+of the covariates for the feeling component and coefficients specified in \code{gama}
 }
 \description{
 Compute the probability distribution of a CUB model with covariates
@@ -30,15 +30,15 @@ Compute the probability distribution of a CUB model with covariates
 }
 \examples{
 data(relgoods)
+attach(relgoods)
 m<-10
-ordinal<-relgoods[,29]
-gender<-relgoods[,2]
-data<-na.omit(cbind(ordinal,gender))
-ordinalnew<-data[,1]
-W<-data[,2]
-pai<-0.44
-gama<-c(-0.91,-0.7)
-pr<-probcub0q(m,ordinalnew,W,pai,gama)
+naord<-which(is.na(Physician))
+nacov<-which(is.na(Gender))
+na<-union(naord,nacov)
+ordinal<-Physician[-na]
+W<-Gender[-na]
+pai<-0.44; gama<-c(-0.91,-0.7)
+pr<-probcub0q(m,ordinal,W,pai,gama)
 }
 \references{
 Piccolo D. (2006). Observed Information Matrix for MUB Models, 

@@ -2,28 +2,12 @@
 #' @description Main function to estimate and validate a CUB model for explaining uncertainty 
 #' and feeling for given ratings, with or without covariates and shelter effect.
 #' @aliases CUB
-#' @usage CUB(ordinal,m=get('m',envir=.GlobalEnv),
-#' Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE,summary=TRUE)
-#' @param ordinal Vector of ordinal responses
-#' @param m Number of ordinal categories (if omitted, it will be assigned to the number of categories
-#'  specified in the global environment)
-#' @param Y Matrix of covariates for explaining the uncertainty component. If omitted (default), no covariate 
-#' is included in the model
-#' @param W Matrix of covariates for explaining the feeling component. If omitted (default), no covariate
-#' is included in the model
-#' @param shelter Category corresponding to the shelter choice. If omitted (default), no shelter effect
-#' is included in the model
-#' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
-#' (default: maxiter=500) 
-#' @param toler Fixed error tolerance for final estimates (default: toler = 1e-4)
-#' @param makeplot Logical: if TRUE (default), the algorithm returns a graphical plot comparing fitted 
-#' probabilities and observed relative frequencies for CUB models without covariates. If only one 
-#' explicative dichotomous variable is included in the model for the feeling or the uncertainty components, 
-#' then the function returns a graphical plot comparing the distributions of the responses conditioned to
-#'  the value of the covariate
-#' @param summary Logical: if TRUE (default), summary results of the fitting procedure are displayed on screen
-#' @export CUB
-#' @return An object of the class "CUB" is a list containing the following results: 
+#' @usage CUB(Formula, data, ...)
+#' @param Formula Object of class Formula.
+#' @param data Data frame from which model matrices and response variables are taken.
+#' @param ... Additional arguments to be passed for the specification of the model, including covariates matrices Y, W, X for 
+#' #' for uncertainty, feeling and shelter, respectively.
+#' @return An object of the class "GEM"-CUB": returns a list containing the following results: 
 #' \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi)}}
 #' \item{loglik}{Log-likelihood function at the final estimates}
 #' \item{varmat}{Variance-covariance matrix of final estimates}
@@ -50,30 +34,33 @@
 #'  \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635
 #' @seealso \code{\link{probcub00}}, \code{\link{probcubp0}}, \code{\link{probcub0q}}, \code{\link{probcubpq}},
 #' \code{\link{probcubshe1}}, \code{\link{loglikCUB}}, \code{\link{varmatCUB}} 
-#' @keywords models
+#' @keywords internal 
 #' @examples 
 #' \donttest{
 #' data(relgoods)
-#' m<-10
 #' ordinal<-na.omit(relgoods[,40]) 
-#' model<-CUB(ordinal)      # Equivalent calls: CUB(ordinal, m) or CUB(ordinal,m=10) 
-#'                          # if m has not been previously declared
+#' model<-CUB(ordinal)     
 #' estpar<-model$estimates  # Estimated parameter vector (pai,csi)
 #' maxlik<-model$loglik     # Log-likelihood function at ML estimates
 #' vmat<-model$varmat
 #' nniter<-model$niter
 #' BICCUB<-model$BIC
 #' ################
-#' ## CUB model
+#' ## CUB model with shelter effect
 #' data(univer)
-#' m<-7
 #' officeho<-univer[,10]
 #' model<-CUB(officeho,shelter=7)
 #' BICcub<-model$BIC
 #' ################
+#' ## CUB model with covariates for all components - GeCub
+#' data(univer)
+#' officeho<-univer[,10]
+#' gender<-relgoods[,7]
+#' model<-CUB(officeho,shelter=7,Y=gender,W=gender,X=gender)
+#' BICcub<-model$BIC
+#' ################
 #' ## CUB model with covariate for uncertainty
 #' data(relgoods)
-#' m<-10
 #' ordinal<-relgoods[,26] 
 #' gender<-relgoods[,7]
 #' data<-na.omit(cbind(ordinal,gender))
@@ -82,53 +69,146 @@
 ################
 #' ## CUB model with covariate for feeling
 #' data(univer)
-#' m<-7
 #' ordinal<-univer[,12]
 #' freqserv<-univer[,2]
 #' modelcovcsi<-CUB(ordinal,W=freqserv)
 #' ##################
 #' ## CUB model with covariates for both components
 #' data(univer)
-#' m<-7
 #' gender<-univer[,4]
 #' lage<-log(univer[,3])-mean(log(univer[,3]))
 #' ordinal<-univer[,12]
 #' maxiter<-500; toler<-1e-6;
-#' model<-CUB(ordinal,Y=gender,W=lage) # Makeplot is ignored
+#' model<-CUB(ordinal,Y=gender,W=lage) 
 #' param<-model$estimates
 #' bet<-param[1:2]      # ML estimates of coefficients for uncertainty covariate
 #' gama<-param[3:4]     # ML estimates of coefficients for feeling covariate
 #' }
 
 
-CUB<-function(ordinal,m=get('m',envir=.GlobalEnv),Y=0,W=0,shelter=0,maxiter,toler,makeplot=TRUE,summary=TRUE){
+
+CUB<-function(Formula, data, ...){
   
-  if (missing(maxiter)){
-    maxiter <- 500
+  ellipsis.arg<-list(...)
+  
+  mf<-model.frame(Formula,data=data)
+  ordinal<-as.numeric(model.response(mf))
+  #m<-length(levels(factor(ordinal,ordered=TRUE)))
+  
+  #generico:
+  #formula= ordinal~ covpai | covcsi | covshe 
+  
+  #solo con covariate per feeling...
+  # formula=ordinal ~ 0 | covcsi| 0  
+  
+  covpai<-model.matrix(Formula,data=data,rhs=1)
+  covcsi<-model.matrix(Formula,data=data,rhs=2)
+  covshe<-model.matrix(Formula,data=data,rhs=3)
+  
+  if (ncol(covpai)==0){
+    Y<-NULL
+  } else {
+    Y<-covpai[,-1]
   }
-  if (missing(toler)){
-    toler <- 1e-4
+  if (ncol(covcsi)==0){
+    W<-NULL
+  } else {
+    W<-covcsi[,-1]
+  }
+  if (ncol(covshe)==0){
+    X<-NULL
+  } else {
+    X<-covshe[,-1]
   }
   
+  lista<-ellipsis.arg[[1]]
   
-  ry<-NROW(Y);   rw<-NROW(W); shelter<-as.numeric(shelter)
-  if(shelter!=0){
-    if (ry==1 & rw==1){
-      cubshe(m,ordinal,shelter,maxiter,toler,makeplot,summary)
-    } else {
-      cat("CUB model with shelter effect available only with no covariates")
+  m<-lista$m
+  maxiter<-lista$maxiter
+  toler<-lista$toler
+  shelter<-lista$shelter
+  
+  # lev <- levels(factor(ordinal,ordered=TRUE))
+  # m <- length(lev) 
+  
+  if(!is.null(shelter)){
+    if(m <= 4) stop("Number of ordered categories should be at least 5")
+    
+    if (is.null(Y) & is.null(W) & is.null(X)){
+      shelter<-as.numeric(shelter)
+      # shelter<-cl$shelter
+      mod<-cubshe(m,ordinal,shelter,maxiter,toler)
+    } else if (!is.null(Y) & !is.null(W) & !is.null(X)){
+      W<-as.matrix(W)
+      Y<-as.matrix(Y)
+      X<-as.matrix(X)
+      theta0<-lista$theta0
+      s=NCOL(X); p=NCOL(Y); q=NCOL(W);
+      if (is.null(theta0)){
+        freq<-tabulate(ordinal,nbins=m)
+        inipaicsi=inibest(m,freq)
+        pai=inipaicsi[1]; bet0=log(pai/(1-pai)); bet=c(bet0,rep(0,p))
+        gama<-inibestgama(m,factor(ordinal,ordered=TRUE),W)
+        omega=rep(0.1,s+1);
+        theta0=c(bet,gama,omega);
+      }
+      mod<-gecubpqs(ordinal,Y,W,X,shelter,theta0,maxiter,toler)
+    } else{
+      cat("CUB model with shelter effect not available for this variables specification")
     }
   } else{
-    if(ry==1 & rw==1) cub00(m,ordinal,maxiter,toler,makeplot,summary)
+    if(is.null(Y) & is.null(W)) {
+      if(m <= 3) stop("Number of ordered categories should be at least 4")
+      mod<-cub00(m,ordinal,maxiter,toler)
+      
+    }
+    
     else{
-      if(ry!=1 & rw==1) cubp0(m,ordinal,Y,maxiter,toler,makeplot,summary)
+      if(!is.null(Y) & is.null(W)) {
+        Y<-as.matrix(Y)
+        mod<-cubp0(m,ordinal,Y,maxiter,toler)
+        
+      }
       else{
-        if(ry==1 & rw!=1) cub0q(m,ordinal,W,maxiter,toler,makeplot,summary)
+        if(is.null(Y) & !is.null(W)) {
+          W<-as.matrix(W)
+          mod<-cub0q(m,ordinal,W,maxiter,toler)
+          
+        }
         else{
-          if(ry!=1 & rw!=1) cubpq(m,ordinal,Y,W,maxiter,toler,summary)
+          if(!is.null(Y) & !is.null(W)) {
+            Y<-as.matrix(Y)
+            W<-as.matrix(W)
+            mod<-cubpq(m,ordinal,Y,W,maxiter,toler)
+            
+          }
           else cat("Wrong variables specification")
         }
       }                            
     }
   }
+  
+  
+  stime<-mod$estimates
+  durata<-mod$time
+  loglik<-as.numeric(mod$loglik)
+  niter<-mod$niter
+  varmat<-mod$varmat
+  BIC<-as.numeric(mod$BIC)
+  time<-mod$durata
+  ordinal<-factor(mod$ordinal,ordered=TRUE)
+  
+  
+  results<-list('estimates'=stime,'ordinal'=ordinal,'time'=durata,
+                'loglik'=loglik,'niter'=niter,'varmat'=varmat,
+                'BIC'=BIC)
+  #class(results)<-"cub"
+  return(results)
+  
 }
+
+
+
+
+#################################
+

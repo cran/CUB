@@ -4,7 +4,7 @@
 \alias{inibest}
 \title{Preliminary estimators for CUB models without covariates}
 \usage{
-inibest(m, freq)
+inibest(m,freq)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -22,20 +22,16 @@ Compute preliminary parameter estimates of a CUB model without covariates for gi
 \examples{
 m<-9
 freq<-c(10,24,28,36,50,43,23,12,5)
-estim<-inibest(m, freq) 
+estim<-inibest(m,freq) 
 pai<-estim[1]
 csi<-estim[2]
 }
-\references{
-Iannario M. (2008). Selecting feeling covariates in rating surveys, \emph{Rivista di Statistica Applicata}, 
-\bold{20}, 103--116 \cr
+\seealso{
+\code{\link{inibestgama}}
 Iannario M. (2009). A comparison of preliminary estimators in a class of ordinal data models, 
 \emph{Statistica & Applicazioni}, \bold{VII}, 25--44 \cr
  Iannario M. (2012). Preliminary estimators for a mixture model of ordinal data, 
  \emph{Advances in Data Analysis and Classification}, \bold{6}, 163--184
-}
-\seealso{
-\code{\link{inibestgama}}
 }
 \keyword{htest}
 \keyword{utilities}

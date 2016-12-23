@@ -4,7 +4,7 @@
 \alias{cubpq}
 \title{Main function for CUB models with covariates for both the uncertainty and the feeling components}
 \usage{
-cubpq(m, ordinal, Y, W, maxiter, toler, summary)
+cubpq(m, ordinal, Y, W, maxiter, toler)
 }
 \arguments{
 \item{m}{Number of ordinal categories}

@@ -4,7 +4,7 @@
 \alias{logis}
 \title{The logistic transform}
 \usage{
-logis(Y, param)
+logis(Y,param)
 }
 \arguments{
 \item{Y}{A generic matrix or one dimensional array}
@@ -13,7 +13,7 @@ logis(Y, param)
 }
 \value{
 Return a vector whose length is NROW(Y) and whose i-th component is the logistic function
-at the scalar product between the i-th row of YY and the vector param.
+at the scalar product between the i-th row of YY and the vector \code{param}.
 }
 \description{
 Create a matrix YY binding array Y with a vector of ones, placed as the first column of YY. 

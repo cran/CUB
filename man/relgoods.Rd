@@ -10,7 +10,7 @@
 \item{\code{Gender}}{A factor with levels: 0 = man, 1 = woman}
 \item{\code{BirthMonth}}{A variable indicating the month of  birth of the respondent}
 \item{\code{BirthYear}}{A variable indicating the year of  birth of the respondent}
-\item{\code{Family}}{A variable indicating the number of members of the family}
+\item{\code{Family}}{A factor variable indicating the number of members of the family}
 \item{\code{Year.12}}{A factor with levels: 1 = if there is any child aged less than 12  in the family,
  0 = otherwise}
 \item{\code{EducationDegree}}{A factor with levels: 1 = compulsory school, 2 = high school diploma,
@@ -29,7 +29,7 @@
 3 = Yes, team sport}
 \item{\code{Pets}}{A factor with levels: 1 = owning a pet, 0 = not owning any pet}
 } 
-1) Respondents were asked to evaluate the following items on a 10 point Likert scale, 
+1) Respondents were asked to evaluate the following items (ordered factor variables) on a 10 point Likert scale, 
 ranging from 1 = "never, at all" to 10 = "always, a lot":
  \describe{
 \item{\code{WalkOut}}{How often the respondent goes out for a walk}
@@ -52,7 +52,7 @@ preceding the interview}
   according to his/her feeling of happiness (left endpoint corresponding to completely unhappy,
    right-most endpoint corresponding to extremely happy}
 }   
-2) Respondents were asked to score the activities for leisure time listed below, according
+2) The same respondents were asked to score the activities for leisure time listed below (ordered factor variables), according
  to their involvement/degree of amusement, on a 10 point Likert scale 
  ranging from 1 = "At all, nothing, never" to 10 = "Totally, extremely important, always":
 \describe{
@@ -84,8 +84,9 @@ preceding the interview}
 data(relgoods)
 }
 \description{
-This dataset consists of the results of a survey aimed at measuring the evaluation
-of relational goods and leisure time collected in December 2014. Every participant was asked 
+This dataset consists of the results of a survey aimed at measuring the evaluation 
+of people living in the metropolitan area of Naples, Italy, with respect to of relational goods and 
+leisure time collected in December 2014. Every participant was asked 
 to measure on a 10 point ordinal scale his/her personal score for several relational goods 
 (for instance, time dedicated to friends and family) and to leisure time. 
 In addition, the survey asked respondents to self-evaluate their level of happiness by marking 
@@ -99,7 +100,7 @@ Mode of collection: questionnaire \cr
 Number of observations: 2459 \cr
 Number of subjects' covariates: 16 \cr
 Number of analyzed items: 34 \cr
-Warning: with missing values
+Warning: with a limited number of missing values
 }
 \keyword{datasets}
 

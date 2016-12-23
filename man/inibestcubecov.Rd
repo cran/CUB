@@ -4,12 +4,12 @@
 \alias{inibestcubecov}
 \title{Preliminary parameter estimates for CUBE models with covariates}
 \usage{
-inibestcubecov(m, ordinal, Y, W, Z)
+inibestcubecov(m,ordinal,Y,W,Z)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{Y}{Matrix of selected covariates to explain the uncertainty parameter}
 
@@ -19,7 +19,7 @@ inibestcubecov(m, ordinal, Y, W, Z)
 }
 \value{
 A vector (inibet, inigama, inialpha) of preliminary estimates of parameter vectors for 
- \eqn{\pi = \pi(\beta)}, \eqn{\xi=\xi(\gamma)}, \eqn{\phi=\phi(\alpha)}, respectively, of a CUBE model with covariates for all the three
+ \eqn{\pi = \pi(\bold{\beta})}, \eqn{\xi=\xi(\bold{\gamma})}, \eqn{\phi=\phi(\bold{\alpha})}, respectively, of a CUBE model with covariates for all the three
   parameters. In details, inibet, inigama and inialpha have length equal to NCOL(Y)+1, NCOL(W)+1 and
   NCOL(Z)+1, respectively, to account for an intercept term for each component
 }
@@ -29,17 +29,18 @@ These estimates are set as initial values to start the E-M algorithm within maxi
 }
 \examples{
 data(relgoods)
+attach(relgoods)
 m<-10
-covpai<-relgoods[,2]
-covcsi<-relgoods[,6]
-covphi<-relgoods[,7]
-ordinal<-relgoods[,37]
-nona<-na.omit(cbind(ordinal,covpai,covcsi,covphi))  # Omitting missing values
-ordinal<-nona[,1]
-Y<-nona[,2]
-W<-nona[,3]
-Z<-nona[,4]
-ini<-inibestcubecov(m, ordinal, Y, W, Z)
+naord<-which(is.na(Tv))
+nacovpai<-which(is.na(Gender))
+nacovcsi<-which(is.na(year.12))
+nacovphi<-which(is.na(EducationDegree))
+na<-union(union(naord,nacovpai),union(nacovcsi,nacovphi))
+ordinal<-Tv[-na]
+Y<-Gender[-na]
+W<-year.12[-na]
+Z<-EducationDegree[-na]
+ini<-inibestcubecov(m,ordinal,Y,W,Z)
 p<-NCOL(Y)
 q<-NCOL(W)
 inibet<-ini[1:(p+1)]               # Preliminary estimates for uncertainty 

@@ -2,15 +2,15 @@
 #' @aliases plotloglikihg
 #' @description Plot the log-likelihood function of an IHG model fitted to a given absolute frequency distribution,
 #'  over the whole support of the preference parameter. It returns also its argmax.
-#' @usage plotloglikihg(m, freq)
+#' @usage plotloglikihg(m,freq)
 #' @export plotloglikihg
 #' @param m Number of ordinal categories
 #' @param freq Vector of the absolute frequency distribution
 #' @seealso \code{\link{loglikIHG}}
 #' @examples
 #' m<-7
-#' freq<-c(828, 275, 202, 178, 143, 110, 101)
-#' max<-plotloglikihg(m, freq)
+#' freq<-c(828,275,202,178,143,110,101)
+#' max<-plotloglikihg(m,freq)
 
 plotloglikihg <-
 function(m,freq){

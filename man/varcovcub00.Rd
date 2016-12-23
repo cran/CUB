@@ -35,7 +35,7 @@ Piccolo D. (2006), Observed Information Matrix for MUB Models. \emph{Quaderni di
  \bold{8}, 33--78,
 }
 \seealso{
-\code{\link{probcub00}}, \code{\link{cub00}}
+\code{\link{probcub00}}
 }
 \keyword{internal}
 

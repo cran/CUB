@@ -4,23 +4,23 @@
 \alias{chi2cub}
 \title{Pearson \eqn{X^2} statistic}
 \usage{
-chi2cub(m, ordinal, W, pai, gama)
+chi2cub(m,ordinal,W,pai,gama)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (factor type)}
 
 \item{W}{Matrix of covariates for the feeling component}
 
 \item{pai}{Uncertainty parameter}
 
 \item{gama}{Vector of parameters for the feeling component, with length equal to NCOL(W)+1 
-to account for an intercept term (first enry of gama)}
+to account for an intercept term (first entry of \code{gama})}
 }
 \value{
-It returns the following results in a list: 
-\item{df}{Number of degrees of freedom}
+A list with the following components: 
+\item{df}{Degrees of freedom}
 \item{chi2}{Value of the Pearson fitting measure}
 \item{dev}{Deviance indicator}
 }
@@ -30,12 +30,11 @@ Compute the \eqn{X^2} statistic of Pearson for CUB models with one or two discre
 }
 \examples{
 data(univer)
+attach(univer)
 m<-7
-ordinal<-univer[,8]
-W<-univer[,4]
 pai<-0.3
 gama<-c(0.1,0.7)
-pearson<-chi2cub(m, ordinal, W, pai, gama)
+pearson<-chi2cub(m,informat,W=gender,pai,gama)
 degfree<-pearson$df
 statvalue<-pearson$chi2
 deviance<-pearson$dev

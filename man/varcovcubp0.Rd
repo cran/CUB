@@ -30,7 +30,7 @@ it returns a warning message and produces a matrix with NA entries.
 Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78
 }
 \seealso{
-\code{\link{probcubpq}}, \code{\link{cubpq}}
+\code{\link{probcubpq}}
 }
 \keyword{internal}
 

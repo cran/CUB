@@ -4,7 +4,7 @@
 \alias{cube000}
 \title{Main function for CUBE models without covariates}
 \usage{
-cube000(m, ordinal, starting, maxiter, toler, makeplot, expinform, summary)
+cube000(m, ordinal, starting, maxiter, toler, expinform)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
@@ -18,12 +18,7 @@ whose length equals the number of parameters of the model}
 
 \item{toler}{Fixed error tolerance for final estimates}
 
-\item{makeplot}{Logical: if TRUE, the function returns a graphical plot comparing fitted probabilities 
-and observed relative frequencies}
-
 \item{expinform}{Logical: if TRUE, the function returns the expected variance-covariance matrix}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUBE"

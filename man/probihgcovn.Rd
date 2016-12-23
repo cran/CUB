@@ -4,12 +4,12 @@
 \alias{probihgcovn}
 \title{Probability distribution of an IHG model with covariates}
 \usage{
-probihgcovn(m, ordinal, U, nu)
+probihgcovn(m,ordinal,U,nu)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses}
+\item{ordinal}{Vector of ordinal responses (of factory type)}
 
 \item{U}{Matrix of selected covariates for explaining the preference parameter}
 
@@ -18,7 +18,7 @@ an intercept term in the model (first entry)}
 }
 \description{
 Given a vector of \eqn{n} ratings over \eqn{m} categories, it returns a vector
- of length \eqn{n} whose i-th element is the  probability of observing the i-th rating for the 
+ of length \eqn{n} whose $i$-th element is the  probability of observing the $i$-th rating for the 
  corresponding IHG model with parameter \eqn{\theta_i}, obtained via logistic link with covariates
   and coefficients.
 }
@@ -33,10 +33,10 @@ theta<-0.30
 ordinal<-simihg(n,m,theta)
 U<-sample(c(0,1),n,replace=TRUE)
 nu<-c(0.12,-0.5)
-pr<-probihgcovn(m, ordinal, U, nu)
+pr<-probihgcovn(m,ordinal,U,nu)
 }
 \seealso{
-\code{\link{probihg}}, \code{\link{IHG}}
+\code{\link{probihg}}
 }
 \keyword{distribution}
 

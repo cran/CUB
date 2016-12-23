@@ -4,7 +4,7 @@
 \alias{cubshe}
 \title{Main function for CUB models with a shelter effect}
 \usage{
-cubshe(m, ordinal, shelter, maxiter, toler, makeplot,summary)
+cubshe(m, ordinal, shelter, maxiter, toler)
 }
 \arguments{
 \item{m}{Number of ordinal categories}
