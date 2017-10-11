@@ -22,6 +22,8 @@
 
 varcovgecub<-function(ordinal,Y,W,X,bet,gama,omega,shelter){
   
+  
+  
   Y<-as.matrix(Y);W<-as.matrix(W);  X<-as.matrix(X);
   if (ncol(W)==1){
     W<-as.numeric(W)
@@ -33,8 +35,8 @@ varcovgecub<-function(ordinal,Y,W,X,bet,gama,omega,shelter){
     X<-as.numeric(X)
   }
   
-  probi<-probgecub(factor(ordinal,ordered=TRUE),Y,W,X,bet,gama,omega,shelter);
-  vvi<-1/probi; dicotom<-ifelse(as.numeric(ordinal)==shelter,1,0)   
+  probi<-probgecub(ordinal,Y,W,X,bet,gama,omega,shelter);
+  vvi<-1/probi; dicotom<-ifelse(ordinal==shelter,1,0)   
 
   #   Y=as.matrix(Y)
   #   W=as.matrix(W)
@@ -43,7 +45,7 @@ varcovgecub<-function(ordinal,Y,W,X,bet,gama,omega,shelter){
   csii<-logis(W,gama); deltai<-logis(X,omega);
   m<-length(levels(factor(ordinal,ordered=TRUE)))
   
-  bierrei<-bitgama(m,factor(ordinal,ordered=TRUE),W,gama);
+  bierrei<-bitgama(m,ordinal,W,gama);
   YY<-cbind(1,Y);
   WW<-cbind(1,W); XX<-cbind(1,X);
   np<-NCOL(YY)+NCOL(WW)+NCOL(XX);

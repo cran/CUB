@@ -17,6 +17,10 @@
 loglikcubpq <-
 function(m,ordinal,Y,W,bet,gama){
   
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
+  
   Y<-as.matrix(Y); W<-as.matrix(W)
   
   if (ncol(Y)==1){
@@ -27,7 +31,7 @@ function(m,ordinal,Y,W,bet,gama){
   }
   
   
-  probn<-probcubpq(m,factor(ordinal,ordered=TRUE),Y,W,bet,gama)
+  probn<-probcubpq(m,ordinal,Y,W,bet,gama)
   return(sum(log(probn)))
 }
 

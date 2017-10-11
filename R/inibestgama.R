@@ -5,11 +5,11 @@
 #' @aliases inibestgama
 #' @usage inibestgama(m,ordinal,W)
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param W Matrix of selected covariates for explaining the feeling component
 #' @export inibestgama
 #' @return A vector of length equal to NCOL(W)+1, whose entries are the preliminary estimates
-#'  of the parameters for the feeling component, including an intercept term as first entry
+#'  of the parameters for the feeling component, including an intercept term as first entry.
 #' @references Iannario M. (2008). Selecting feeling covariates in rating surveys, 
 #' \emph{Rivista di Statistica Applicata}, \bold{20}, 103--116 \cr
 #' Iannario M. (2009). A comparison of preliminary estimators in a class of ordinal data models,
@@ -20,20 +20,15 @@
 #' @keywords htest utilities
 #' @examples
 #' data(univer)
-#' attach(univer)
-#' m<-7
-#' ordinal<-factor(global,ordered=TRUE)
-#' ini<-inibestgama(m,ordinal,W=diploma)
+#' m<-7; ordinal<-univer$global; cov<-univer$diploma
+#' ini<-inibestgama(m,ordinal,W=cov)
 
 
 inibestgama<-function(m,ordinal,W){
   
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
-  ordinal<-unclass(ordinal)
-  
   W<-as.matrix(W)
   if (ncol(W)==1){
     W<-as.numeric(W)

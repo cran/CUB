@@ -7,10 +7,10 @@
 #' @param m Number of ordinal categories
 #' @param freq Vector of the absolute frequency distribution of the categories
 #' @export iniihg
-#' @return Moment estimator of the preference parameter \eqn{\theta}
+#' @return Moment estimator of the preference parameter \eqn{\theta}.
 #' @seealso \code{\link{inibest}}, \code{\link{inibestcube}}
 #' @references D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
-#' \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78
+#' \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78.
 #' @keywords htest utilities
 #' @examples
 #' m<-9

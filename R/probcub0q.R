@@ -6,15 +6,15 @@
 #' @usage probcub0q(m,ordinal,W,pai,gama)
 #' @keywords distribution
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses (of factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param W Matrix of covariates for explaining the feeling component
 #' NCOL(Y)+1 to include an intercept term in the model (first entry)
 #' @param pai Uncertainty parameter
 #' @param gama Vector of parameters for the feeling component, whose length equals 
 #' NCOL(W)+1 to include an intercept term in the model (first entry)
-#' @return A vector of the same length as ordinal, whose i-th component is the
+#' @return A vector of the same length as \code{ordinal}, whose i-th component is the
 #' probability of the i-th observation according to a CUB distribution with the corresponding values 
-#' of the covariates for the feeling component and coefficients specified in \code{gama}
+#' of the covariates for the feeling component and coefficients specified in \code{gama}.
 #' @seealso \code{\link{bitgama}}, \code{\link{probcub00}}, \code{\link{probcubp0}}, 
 #' \code{\link{probcubpq}}
 #' @references 
@@ -27,21 +27,20 @@
 #' J. Wiley and Sons, Chichester, 231--258
 #' @examples
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Physician))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$Physician))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-Physician[-na]
-#' W<-Gender[-na]
+#' ordinal<-relgoods$Physician[-na]
+#' W<-relgoods$Gender[-na]
 #' pai<-0.44; gama<-c(-0.91,-0.7)
 #' pr<-probcub0q(m,ordinal,W,pai,gama)
 
 probcub0q <-
 function(m,ordinal,W,pai,gama){
-  
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
   W<-as.matrix(W)
   

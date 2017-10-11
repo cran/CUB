@@ -69,14 +69,14 @@ CUBE<-function(Formula,data,...){
   
   ellipsis.arg<-list(...)
   
-  mf<-model.frame(Formula,data=data)
+  mf<-model.frame(Formula,data=data,na.action=na.omit)
   
   ordinal<-as.numeric(model.response(mf))
   
   #formula given as Formula=ordinal~covpai|covcsi|covphi
-  covpai<-model.matrix(Formula,data=data,rhs=1)
-  covcsi<-model.matrix(Formula,data=data,rhs=2)
-  covphi<-model.matrix(Formula,data=data,rhs=3)
+  covpai<-model.matrix(Formula,data=mf,rhs=1)
+  covcsi<-model.matrix(Formula,data=mf,rhs=2)
+  covphi<-model.matrix(Formula,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
@@ -95,20 +95,15 @@ CUBE<-function(Formula,data,...){
   }
   
   lista<-ellipsis.arg[[1]]
-  # Y<-lista$Y
-  # W<-lista$W
-  # Z<-lista$Z
-  #m<-lista$m
+
+  m<-lista[['m']]
+  maxiter<-lista[['maxiter']]
   
-  maxiter<-lista$maxiter
   toler<-lista$toler
   starting<-lista$starting
   expinform<-lista$expinform
   
-  lev <- levels(factor(ordinal,ordered=TRUE))
-  m <- length(lev) 
-  
-  # if (is.null(maxiter)){
+    # if (is.null(maxiter)){
   #  maxiter <- 1000
   # }
   # if (is.null(toler)){
@@ -120,14 +115,14 @@ CUBE<-function(Formula,data,...){
   
   if(is.null(starting)){
     if(is.null(W) & is.null(Y) & is.null(Z)) {
-      starting<-inibestcube(m,factor(ordinal,ordered=TRUE))
+      starting<-inibestcube(m,ordinal)
     }else if(is.null(Y) & is.null(Z) & !is.null(W)){
       W<-as.matrix(W)
-      initial<-inibestcube(m,factor(ordinal,ordered=TRUE))
-      starting<-inibestcubecsi(m,factor(ordinal,ordered=TRUE),W,initial,maxiter=500,toler=1e-6)
+      initial<-inibestcube(m,ordinal)
+      starting<-inibestcubecsi(m,ordinal,W,initial,maxiter=500,toler=1e-6)
     } else {
       W<-as.matrix(W); Y<-as.matrix(Y); Z<-as.matrix(Z);
-      starting<-inibestcubecov(m,factor(ordinal,ordered=TRUE),Y,W,Z)
+      starting<-inibestcubecov(m,ordinal,Y,W,Z)
     }
   }
   

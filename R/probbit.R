@@ -6,8 +6,9 @@
 #' @param csi Feeling parameter 
 #' @import stats
 #' @export probbit
-#' @return The vector of the probability distribution of a shifted Binomial model
+#' @return The vector of the probability distribution of a shifted Binomial model.
 #' @keywords distribution
+#' @seealso \code{\link{bitcsi}}, \code{\link{probcub00}}
 #' @examples
 #' m<-7
 #' csi<-0.7

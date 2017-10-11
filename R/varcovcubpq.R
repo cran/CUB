@@ -29,8 +29,8 @@ function(m,ordinal,Y,W,bet,gama){
   if (ncol(Y)==1){
     Y<-as.numeric(Y)
   }
- 
-  qi<-1/(m*probcubpq(m,factor(ordinal,ordered=TRUE),Y,W,bet,gama))
+  
+  qi<-1/(m*probcubpq(m,ordinal,Y,W,bet,gama))
   ei<-logis(Y,bet)
   eitilde<-ei*(1-ei)
   qistar<-1-(1-ei)*qi

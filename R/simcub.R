@@ -24,5 +24,5 @@ simcub <-
 function(n,m,pai,csi){
   dico<-runif(n)<pai;
   vett<-dico*(1+rbinom(n,m-1,1-csi))+(1-dico)*sample(m,n,replace=TRUE)
-  return(factor(vett,ordered=TRUE))
+  return(vett)
 }

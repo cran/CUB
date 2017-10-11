@@ -17,9 +17,12 @@
 
 loglikcubecsi <-
 function(m,ordinal,W,pai,gama,phi){
+  
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   W<-as.matrix(W)
   csivett<-logis(W,gama)
-  ordinal<-factor(ordinal,ordered=TRUE)
   probi<-pai*(betabinomialcsi(m,ordinal,csivett,phi)-1/m)+1/m
   return(sum(log(probi)))
 }

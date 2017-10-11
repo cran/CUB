@@ -9,6 +9,7 @@
 #' @return A vector \eqn{(\pi,\xi)} of the initial parameter estimates for a CUB model without covariates,
 #'  given the absolute frequency distribution of ordinal responses
 #' @seealso \code{\link{inibestgama}}
+#' @references
 #'Iannario M. (2009). A comparison of preliminary estimators in a class of ordinal data models, 
 #' \emph{Statistica & Applicazioni}, \bold{VII}, 25--44 \cr
 #'  Iannario M. (2012). Preliminary estimators for a mixture model of ordinal data, 

@@ -1,6 +1,6 @@
 #' @title The logistic transform
-#' @description Create a matrix YY binding array Y with a vector of ones, placed as the first column of YY. 
-#' It applies the logistic transform componentwise to the standard matrix multiplication between YY and param.
+#' @description Create a matrix YY binding array \code{Y} with a vector of ones, placed as the first column of YY. 
+#' It applies the logistic transform componentwise to the standard matrix multiplication between YY and \code{param}.
 #' @aliases logis
 #' @usage logis(Y,param)
 #' @export logis
@@ -24,5 +24,12 @@ function(Y,param){
   }
   
   YY<-cbind(1,Y)          # add 1's first column to matrix Y
-  return(1/(1+exp(-YY%*%param)))
+  val<-1/(1+exp(-YY%*%param))
+  
+  if (all(dim(val)==c(1,1))){
+    return(as.numeric(val))
+    
+  } else{
+    return(val)
+  }
 }

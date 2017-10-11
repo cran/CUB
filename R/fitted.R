@@ -8,12 +8,11 @@
 #' @details Returns the fitted probability distribution for GEM models with no covariates. If only one dichotomous 
 #' covariate is included in the model to explain some components, it returns the fitted probability distribution for each profile.
 #' @import methods
+#' @seealso \code{GEM}
 #' @rdname fitted.GEM
 #' @keywords package
 #' @examples
-#' data(univer)
-#' attach(univer)
-#' fitcub<-GEM(Formula(global~0|freqserv|0),family="cub")
+#' fitcub<-GEM(Formula(global~0|freqserv|0),family="cub",data=univer)
 #' fitted(fitcub,digits=4)
 
 #fitted <- function(object,...) UseMethod("fitted", object)
@@ -41,7 +40,7 @@ profiles <- function(object) UseMethod("profiles", object)
 profiles.CUB<-function(object){
   
   ellipsis<-object$ellipsis
-  m<-ellipsis$m
+  m<-ellipsis[['m']]
   
   values<-c()
   for (j in 1:m){
@@ -51,12 +50,13 @@ profiles.CUB<-function(object){
   stime<-object$estimates
   
   modello<-object$formula
-  data<-object$data
+  data<-ellipsis$data
+  mf<-model.frame(modello,data=data,na.action=na.omit)
   
   
-  covpai<-model.matrix(modello,data=data,rhs=1)
-  covcsi<-model.matrix(modello,data=data,rhs=2)
-  covshe<-model.matrix(modello,data=data,rhs=3)
+  covpai<-model.matrix(modello,data=mf,rhs=1)
+  covcsi<-model.matrix(modello,data=mf,rhs=2)
+  covshe<-model.matrix(modello,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
@@ -278,15 +278,17 @@ profiles.CUBE<-function(object){
   ellipsis<-object$ellipsis
   
   stime<-object$estimates
-  m<-ellipsis$m
+  m<-ellipsis[['m']]
   
   modello<-object$formula
   # EFFE<-mod$Formula
-  data<-object$data
+  data<-ellipsis$data
   
-  covpai<-model.matrix(modello,data=data,rhs=1)
-  covcsi<-model.matrix(modello,data=data,rhs=2)
-  covphi<-model.matrix(modello,data=data,rhs=3)
+  mf<-model.frame(modello,data=data,na.action=na.omit)
+  
+  covpai<-model.matrix(modello,data=mf,rhs=1)
+  covcsi<-model.matrix(modello,data=mf,rhs=2)
+  covphi<-model.matrix(modello,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
@@ -371,7 +373,7 @@ profiles.CUBE<-function(object){
 profiles.IHG<-function(object){
   
   ellipsis<-object$ellipsis
-  m<-ellipsis$m
+  m<-ellipsis[['m']]
   
   values<-c()
   for (j in 1:m){
@@ -380,9 +382,10 @@ profiles.IHG<-function(object){
   
   modello<-object$formula
   #EFFE<-mod$Formula
-  data<-object$data
+  data<-ellipsis$data
+  mf<-model.frame(modello,data=data,na.action=na.omit)
   
-  covtheta<-model.matrix(modello,data=data,rhs=1)
+  covtheta<-model.matrix(modello,data=mf,rhs=1)
   
   if (ncol(covtheta)==0){
     U<-NULL
@@ -449,7 +452,7 @@ profiles.CUSH<-function(object,...){
   ellipsis<-object$ellipsis
   
   stime<-object$estimates
-  m<-ellipsis$m
+  m<-ellipsis[['m']]
   
  # X<-ellipsis$X
   shelter<-ellipsis$shelter
@@ -461,9 +464,10 @@ profiles.CUSH<-function(object,...){
   
   modello<-object$formula
   # EFFE<-mod$Formula
-  data<-object$data
+  data<-ellipsis$data
+  mf<-model.frame(modello,data=data,na.action=na.omit)
   
-  covshe<-model.matrix(modello,data=data,rhs=1)
+  covshe<-model.matrix(modello,data=mf,rhs=1)
  if (ncol(covshe)==0){
    X<-NULL
  } else {

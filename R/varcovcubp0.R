@@ -18,6 +18,8 @@
 
 varcovcubp0 <-
 function(m,ordinal,Y,bet,csi){
+  
+  
   Y<-as.matrix(Y);
 
   if (ncol(Y)==1){
@@ -26,7 +28,7 @@ function(m,ordinal,Y,bet,csi){
   
   vvi<-(m-ordinal)/csi-(ordinal-1)/(1-csi)
   ui<-(m-ordinal)/(csi^2)+(ordinal-1)/((1-csi)^2)
-  qi<-1/(m*probcubp0(m,factor(ordinal,ordered=TRUE),Y,bet,csi))
+  qi<-1/(m*probcubp0(m,ordinal,Y,bet,csi))
   ei<-logis(Y,bet)
   qistar<-1-(1-ei)*qi
   eitilde<-ei*(1-ei)

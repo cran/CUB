@@ -4,7 +4,7 @@
 #' is specified, or when covariates are included for all the three parameters.
 #' @usage varmatCUBE(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE)
 #' @export varmatCUBE
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified CUBE model
 #' @param Y Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
@@ -17,7 +17,8 @@
 #'  the expected variance-covariance matrix (default is FALSE: the function returns the observed 
 #'  variance-covariance matrix)
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
-#' it returns a warning message and produces a matrix with NA entries.
+#' it returns a warning message and produces a matrix with NA entries.  No missing value should be present neither
+#'   for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 #' @seealso  \code{\link{vcov}}, \code{\link{cormat}}
 #' @keywords htest
 #' @references Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
@@ -34,15 +35,14 @@
 #' ### Including covariates
 #' \donttest{
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Tv))
-#' nacov<-which(is.na(BirthYear))
+#' naord<-which(is.na(relgoods$Tv))
+#' nacov<-which(is.na(relgoods$BirthYear))
 #' na<-union(naord,nacov)
-#' age<-2014-BirthYear[-na]
+#' age<-2014-relgoods$BirthYear[-na]
 #' lage<-log(age)-mean(log(age))
 #' Y<-W<-Z<-lage
-#' ordinal<-Tv[-na]
+#' ordinal<-relgoods$Tv[-na]
 #' estbet<-c(0.18,1.03); estgama<-c(-0.6,-0.3); estalpha<-c(-2.3,0.92)
 #' param<-c(estbet,estgama,estalpha)
 #' varmat<-varmatCUBE(ordinal,m,param,Y=Y,W=W,Z=Z,expinform=TRUE)
@@ -52,12 +52,10 @@
 
 
 varmatCUBE<-function(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE){
-  
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
-  ordinal<-unclass(ordinal)
   
   ry<-NROW(Y); rw<-NROW(W); rz<-NROW(Z);
   

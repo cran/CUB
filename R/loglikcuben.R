@@ -35,6 +35,10 @@
 loglikcuben <-
 function(m,ordinal,assepai,assecsi,assephi){
   n<-length(ordinal)
+  
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   prob<-matrix(NA,nrow=n,ncol=m)
   pconi<-rep(NA,n)
   for (i in 1:n){

@@ -20,10 +20,14 @@
 
 loglikcubecov <-
 function(m,ordinal,Y,W,Z,bet,gama,alpha){
+  
+  
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   Y<-as.matrix(Y); W<-as.matrix(W); Z<-as.matrix(Z)
   paivett<-logis(Y,bet); csivett<-logis(W,gama); 
   phivett<-1/(-1+ 1/(logis(Z,alpha))) 
-  ordinal<-factor(ordinal,ordered=TRUE)
   probi<-paivett*(betabinomial(m,ordinal,csivett,phivett)-1/m)+1/m
   return(sum(log(probi)))
 }

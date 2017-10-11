@@ -6,7 +6,7 @@
 #' @param ...  Other arguments
 #' @export 
 #' @return Brief summary results of the fitting procedure, including parameter estimates, their standard errors and 
-#' the executed call
+#' the executed call.
 #' @import methods
 #' @rdname print.GEM
 #' @keywords package
@@ -31,13 +31,15 @@ print.GEM<-function(x,...){
   
   sterr<-as.numeric(round(sqrt(diag(vcov(x))),digits=digits))
   
-  mat<-cbind(coef(x,digits=digits),sterr)
+  mat<-cbind(round(x$estimates,digits=digits),sterr)
   rownames(mat)<-parnames(x)
   colnames(mat)<-c("Estimates","Standard Errors")
   
-  
-  cat("","\n")
-  print(mat)
+  object<-x$object
+  family<-object$family
+  stime<-object$estimates
+    cat("","\n")
+ print(mat)
 #   cat("Coefficients:","\n")
 #   print(coef(x,digits=digits))
   cat("","\n")
@@ -45,4 +47,17 @@ print.GEM<-function(x,...){
   
   invisible(x)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

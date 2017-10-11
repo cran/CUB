@@ -15,5 +15,5 @@ Q2gecub<-function(param,datidue){
   m<-length(levels(factor(ordd,ordered=TRUE)))
   W<-datidue[,3:(q+2)];
   
-  return(-sum(taudue*log(bitgama(m,factor(ordd,ordered=TRUE),W,gama)))); ### 
+  return(-sum(taudue*log(bitgama(m,ordd,W,gama)))); ### 
 }

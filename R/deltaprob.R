@@ -1,20 +1,21 @@
 #' @title Mean difference of a discrete random variable
-#' @description Compute the Gini mean difference of a discrete random variable.
-#' @usage deltaprob(m,prob)
+#' @description Compute the Gini mean difference of a discrete distribution
+#' @usage deltaprob(prob)
 #' @aliases deltaprob
-#' @param m Number of categories
-#' @param prob Probability distribution of the random variable
+#' @param prob Vector of the probability distribution 
 #' @keywords univar
+#' @return Numeric value of the Gini mean difference of the input probability distribution,
+#'  computed according to the de Finetti-Paciello formulation.
 #' @export deltaprob
 #' @examples
-#' m<-7
 #' prob<-c(0.04,0.04,0.05,0.10,0.21,0.32,0.24)
-#' deltaprob(m,prob)
+#' deltaprob(prob)
 
 
 deltaprob <-
-function(m,prob){
+function(prob){
   frip<-cumsum(prob)
+  m<-length(prob)
   frip1<-frip[1:(m-1)]
   2*sum(frip1*(1-frip1))
 }

@@ -30,5 +30,5 @@ function(n,m,pai,csi,delta,shelter){
   dicodelta<-runif(n)<delta
   cub00<-dicopai*(1+rbinom(n,m-1,1-csi))+(1-dicopai)*sample(m,n,replace=TRUE)
   ord<-(1-dicodelta)*cub00+dicodelta*shelter
-  return(factor(ord,ordered=TRUE))
+  return(ord)
 }

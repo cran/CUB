@@ -1,6 +1,7 @@
 #' @title Probability distribution of a GeCUB model
 #' @aliases probgecub
-#' @description Compute the probability distribution of a GeCUB model.
+#' @description Compute the probability distribution of a GeCUB model, that is a CUB model with 
+#' shelter effect with covariates specified for all component.
 #' @export probgecub
 #' @usage probgecub(ordinal,Y,W,X,bet,gama,omega,shelter)
 #' @keywords distribution
@@ -15,7 +16,7 @@
 #' @param omega Vector of parameters for the shelter effect, whose length equals 
 #' NCOL(X)+1 to include an intercept term in the model (first entry)
 #' @param shelter Category corresponding to the shelter choice
-#' @return A vector of the same length as ordinal, whose i-th component is the
+#' @return A vector of the same length as \code{ordinal}, whose i-th component is the
 #' probability of the i-th observation according to a GeCUB model with the corresponding values 
 #' of the covariates for all the components and coefficients specified in \code{bet}, \code{gama}, \code{omega}.
 #' @references 
@@ -24,9 +25,8 @@
 
 probgecub<-function(ordinal,Y,W,X,bet,gama,omega,shelter){
   
-  
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
   
   X<-as.matrix(X); Y<-as.matrix(Y); W<-as.matrix(W)
@@ -44,7 +44,8 @@ probgecub<-function(ordinal,Y,W,X,bet,gama,omega,shelter){
   alpha1<-logis(X,omega);
   alpha2<-(1-alpha1)*(logis(Y,bet));
   pshe<-ifelse(as.numeric(ordinal)==shelter,1,0)
-  m<-length(levels(ordinal))
+  ord<-factor(ordinal,ordered=TRUE)
+  m<-length(levels(ord))
   vettore<-alpha1*pshe + alpha2*(bitgama(m,ordinal,W,gama)) + (1-alpha1-alpha2)*(1/m);
   return(vettore)
 }

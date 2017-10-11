@@ -14,6 +14,9 @@
 
 
 loglikcushcov <-function(m,ordinal,X,omega,shelter){
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   X<-as.matrix(X)
   deltavett<-logis(X,omega)
   dummy<-ifelse(ordinal==shelter,1,0)

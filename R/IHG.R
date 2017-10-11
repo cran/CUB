@@ -59,10 +59,10 @@ IHG<-function(Formula,data,...){
   ellipsis.arg<-list(...)
   
   # U<-ellipsis.arg$U
-  mf<-model.frame(Formula,data=data)
+  mf<-model.frame(Formula,data=data,na.action=na.omit)
   ordinal<-as.numeric(model.response(mf))
   
-  covtheta<-model.matrix(Formula,data=data,rhs=1)
+  covtheta<-model.matrix(Formula,data=mf,rhs=1)
   
   if (ncol(covtheta)==0){
     U<-NULL
@@ -70,9 +70,10 @@ IHG<-function(Formula,data,...){
     U<-covtheta[,-1]
   }
   
-  lev <- levels(factor(ordinal,ordered=TRUE))
-  m <- length(lev) 
+  lista<-ellipsis.arg[[1]]
   
+  m<-lista[['m']]
+
   if (is.null(U)){
     mod<- ihg00(m,ordinal)
   } else {

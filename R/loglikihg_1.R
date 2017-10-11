@@ -4,14 +4,14 @@
 #' to explain the preference parameter.
 #' @usage loglikIHG(ordinal,m,param,U=0)
 #' @export loglikIHG
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified IHG model
 #' @param U Matrix of selected covariates to explain the preference parameter (default: no covariate is included 
 #' in the model)
 #' @details If no covariate is included in the model, then \code{param} is the estimate of the preference
-#' parameter (theta), otherwise \code{param} has length equal to NCOL(U) + 1 to account for an intercept  
-#' term (first entry)
+#' parameter (\eqn{theta}), otherwise \code{param} has length equal to NCOL(U) + 1 to account for an intercept  
+#' term (first entry). No missing value should be present neither for \code{ordinal} nor for \code{U}.
 #' @seealso  \code{\link{GEM}}, \code{\link{logLik}}
 #' @keywords htest
 #' @examples
@@ -22,26 +22,23 @@
 #' ##################################
 #' #### Log-likelihood of a IHG model with covariate 
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(HandWork))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$HandWork))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-HandWork[-na]; U<-Gender[-na]
+#' ordinal<-relgoods$HandWork[-na]; U<-relgoods$Gender[-na]
 #' nu<-c(-1.55,-0.11)     # first entry: intercept term
-#' loglik<-loglikIHG(ordinal,m,param=nu,U=U)
+#' loglik<-loglikIHG(ordinal,m,param=nu,U=U); loglik
 
 
 
 
 loglikIHG <-
 function(ordinal,m,param,U=0){
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
-  }
   
-  ordinal<-unclass(ordinal)
-
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   
   nu<-NROW(U)
   if (nu==1){

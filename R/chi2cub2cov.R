@@ -23,11 +23,6 @@
 
 chi2cub2cov <-function(m,ordinal,covar1,covar2,pai,gama){
   
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
-  }
-  
-  ordinal<-unclass(ordinal)
   
   n<-length(ordinal)
   W<-cbind(covar1,covar2)

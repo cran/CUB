@@ -5,7 +5,7 @@
 #' @aliases chi2cub1cov
 #' @usage chi2cub1cov(m, ordinal, covar, pai, gama)
 #' @param m Integer: number of ordinal categories
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param covar Vector of the selected covariate for explaining the feeling component
 #' @param pai Uncertainty parameter 
 #' @param gama gama}{Vector of parameters for the feeling component, with length equal to 2
@@ -23,11 +23,6 @@
 
 chi2cub1cov <-function(m,ordinal,covar,pai,gama){
   
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
-  }
-  
-  ordinal<-unclass(ordinal)
   
   covar<-as.matrix(covar)
   

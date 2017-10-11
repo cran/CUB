@@ -4,7 +4,7 @@
 #' @aliases chi2cub
 #' @usage chi2cub(m,ordinal,W,pai,gama)
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param W Matrix of covariates for the feeling component
 #' @param pai Uncertainty parameter 
 #' @param gama Vector of parameters for the feeling component, with length equal to NCOL(W)+1 
@@ -14,16 +14,19 @@
 #' \item{df}{Degrees of freedom}
 #' \item{chi2}{Value of the Pearson fitting measure}
 #' \item{dev}{Deviance indicator}
+#' @details No missing value should be present neither
+#'   for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be
+#'    preliminarily run.
 #' @keywords htest
 #' @references 
 #' Tutz, G. (2012). \emph{Regression for Categorical Data}, Cambridge University Press, Cambridge 
 #' @examples 
 #' data(univer)
-#' attach(univer)
 #' m<-7
 #' pai<-0.3
 #' gama<-c(0.1,0.7)
-#' pearson<-chi2cub(m,informat,W=gender,pai,gama)
+#' ordinal<-univer$informat; W<-univer$gender;
+#' pearson<-chi2cub(m,ordinal,W,pai,gama)
 #' degfree<-pearson$df
 #' statvalue<-pearson$chi2
 #' deviance<-pearson$dev
@@ -31,11 +34,9 @@
 
 chi2cub <-
 function(m,ordinal,W,pai,gama){
-  
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
   W <- as.matrix(W)
   nw<-NCOL(W)
   if(nw==1){

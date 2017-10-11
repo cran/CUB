@@ -25,6 +25,10 @@
 
 varcovcub00 <-
 function(m,ordinal,pai,csi){
+  
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   vvi<-(m-ordinal)/csi-(ordinal-1)/(1-csi)
   ui<-(m-ordinal)/(csi^2)+(ordinal-1)/((1-csi)^2)
   pri<-probcub00(m,pai,csi)

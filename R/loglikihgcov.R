@@ -14,6 +14,10 @@
 
 loglikihgcov <-
 function(m,ordinal,U,nu){
+  
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   U<-as.matrix(U)
-  sum(log(probihgcovn(m,factor(ordinal,ordered=TRUE),U,nu)))
+  sum(log(probihgcovn(m,ordinal,U,nu)))
 }

@@ -6,14 +6,12 @@
 #' @param pai Uncertainty parameter 
 #' @param csi Feeling parameter
 #' @export probcub00
-#' @return The vector of the probability distribution of a CUB model
+#' @return The vector of the probability distribution of a CUB model.
 #' @keywords distribution
+#' @seealso \code{\link{bitcsi}}, \code{\link{probcub0q}}, \code{\link{probcubp0}}, \code{\link{probcubpq}}
 #' @references 
 #' Piccolo D. (2003). On the moments of a mixture of uniform and shifted binomial random variables. 
 #' \emph{Quaderni di Statistica}, \bold{5}, 85--104\cr
-#' Iannario M. and Piccolo D. (2012). CUB models: Statistical methods and empirical evidence, in: 
-#' Kenett R. S. and Salini S. (eds.), \emph{Modern Analysis of Customer Surveys: with applications using R}, 
-#' J. Wiley and Sons, Chichester, 231--258 
 #' @examples 
 #' m<-9
 #' pai<-0.3

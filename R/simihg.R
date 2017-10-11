@@ -1,6 +1,6 @@
 #' @title Simulation routine for IHG models
 #' @aliases simihg
-#' @description Generate n pseudo-random observations following the given IHG distribution.
+#' @description Generate \eqn{n} pseudo-random observations following the given IHG distribution.
 #' @keywords distribution
 #' @usage simihg(n,m,theta)
 #' @export simihg
@@ -22,5 +22,5 @@ function(n,m,theta){
   B<-(m-1)*theta/(1-theta)
   psi<-1-runif(n)^(1/B)
   vett<-1+rbinom(n,m-1,psi)
-  return(factor(vett,ordered=TRUE))
+  return(vett)
 }

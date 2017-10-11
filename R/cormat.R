@@ -8,6 +8,7 @@
 #' @export 
 #' @return Parameters correlation matrix for fitted GEM models. 
 #' @keywords models
+#' @seealso \code{GEM}, \code{vcov}
 
 
 cormat<-function(object,digits=options()$digits){

@@ -1,4 +1,4 @@
-#' @title Expectation of CUB models
+#' @title Expectation of CUB distributions
 #' @description Compute the expectation of a CUB model without covariates.
 #' @aliases expcub00
 #' @usage expcub00(m,pai,csi)

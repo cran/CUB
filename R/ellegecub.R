@@ -17,6 +17,6 @@ ellegecub<-function(ordinal,Y,W,X,bet,gama,omega,shelter){
   
   
   
-  probn<-probgecub(factor(ordinal,ordered=TRUE),Y,W,X,bet,gama,omega,shelter);
+  probn<-probgecub(ordinal,Y,W,X,bet,gama,omega,shelter);
   return(sum(log(probn)));
 }

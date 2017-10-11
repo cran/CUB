@@ -4,30 +4,29 @@
 #' @aliases inibestcubecov
 #' @usage inibestcubecov(m,ordinal,Y,W,Z)
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param Y Matrix of selected covariates to explain the uncertainty parameter
 #' @param W Matrix of selected covariates to explain the feeling parameter
 #' @param Z Matrix of selected covariates to explain the overdispersion parameter
 #' @export inibestcubecov
-#' @return A vector (inibet, inigama, inialpha) of preliminary estimates of parameter vectors for 
+#' @return A vector \code{(inibet, inigama, inialpha)} of preliminary estimates of parameter vectors for 
 #'  \eqn{\pi = \pi(\bold{\beta})}, \eqn{\xi=\xi(\bold{\gamma})}, \eqn{\phi=\phi(\bold{\alpha})}, respectively, of a CUBE model with covariates for all the three
-#'   parameters. In details, inibet, inigama and inialpha have length equal to NCOL(Y)+1, NCOL(W)+1 and
-#'   NCOL(Z)+1, respectively, to account for an intercept term for each component 
+#'   parameters. In details, \code{inibet}, \code{inigama} and \code{inialpha} have length equal to NCOL(Y)+1, NCOL(W)+1 and
+#'   NCOL(Z)+1, respectively, to account for an intercept term for each component. 
 #' @keywords htest utilities
 #' @seealso \code{\link{inibestcube}}, \code{\link{inibestcubecsi}}, \code{\link{inibestgama}}
 #' @examples
 #' data(relgoods)
-#' attach(relgoods)
-#' m<-10
-#' naord<-which(is.na(Tv))
-#' nacovpai<-which(is.na(Gender))
-#' nacovcsi<-which(is.na(year.12))
-#' nacovphi<-which(is.na(EducationDegree))
+#' m<-10 
+#' naord<-which(is.na(relgoods$Tv))
+#' nacovpai<-which(is.na(relgoods$Gender))
+#' nacovcsi<-which(is.na(relgoods$year.12))
+#' nacovphi<-which(is.na(relgoods$EducationDegree))
 #' na<-union(union(naord,nacovpai),union(nacovcsi,nacovphi))
-#' ordinal<-Tv[-na]
-#' Y<-Gender[-na]
-#' W<-year.12[-na]
-#' Z<-EducationDegree[-na]
+#' ordinal<-relgoods$Tv[-na]
+#' Y<-relgoods$Gender[-na]
+#' W<-relgoods$year.12[-na]
+#' Z<-relgoods$EducationDegree[-na]
 #' ini<-inibestcubecov(m,ordinal,Y,W,Z)
 #' p<-NCOL(Y)
 #' q<-NCOL(W)
@@ -39,9 +38,10 @@
 inibestcubecov <-
 function(m,ordinal,Y,W,Z){
   
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
+
   Y<-as.matrix(Y); W<-as.matrix(W);Z<-as.matrix(Z)
   
   if (ncol(W)==1){

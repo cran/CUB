@@ -11,13 +11,12 @@
 #' shelter effect
 #' @param csi Feeling parameter
 #' @param shelter Category corresponding to the shelter choice
-#' @return The vector of the probability distribution of a CUB model with shelter effect
+#' @return The vector of the probability distribution of a CUB model with shelter effect.
 #' @details The "satisficing interpretation" provides a parametrization for CUB models with explicit 
 #' shelter effect as a mixture of two components: a shifted Binomial distribution with feeling parameter
 #' \eqn{\xi} (meditated choice), and a mixture of a degenerate distribution with unit mass at the shelter
 #' category (\code{shelter}) and a discrete uniform distribution over \eqn{m} categories, with mixing 
-#' coefficient specified by \eqn{\eta} (lazy selection of a category). Both components of the mixtures
-#' are weighted by \eqn{\lambda} coefficient.
+#' coefficient specified by \eqn{\eta} (lazy selection of a category). 
 #' @references 
 #' Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
 #' \emph{Statistical Methods and Applications}, \bold{21}, 1--22 \cr

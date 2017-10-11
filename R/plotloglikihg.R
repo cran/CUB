@@ -1,7 +1,7 @@
 #' @title Plot of the log-likelihood function of the IHG distribution
 #' @aliases plotloglikihg
 #' @description Plot the log-likelihood function of an IHG model fitted to a given absolute frequency distribution,
-#'  over the whole support of the preference parameter. It returns also its argmax.
+#'  over the whole support of the preference parameter. It returns also the ML estimate.
 #' @usage plotloglikihg(m,freq)
 #' @export plotloglikihg
 #' @param m Number of ordinal categories

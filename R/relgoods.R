@@ -1,8 +1,8 @@
 #' @title Relational goods and Leisure time dataset
-#' @description This dataset consists of the results of a survey aimed at measuring the evaluation 
+#' @description Dataset consists of the results of a survey aimed at measuring the evaluation 
 #' of people living in the metropolitan area of Naples, Italy, with respect to of relational goods and 
 #' leisure time collected in December 2014. Every participant was asked 
-#' to measure on a 10 point ordinal scale his/her personal score for several relational goods 
+#' to assess on a 10 point ordinal scale his/her personal score for several relational goods 
 #' (for instance, time dedicated to friends and family) and to leisure time. 
 #' In addition, the survey asked respondents to self-evaluate their level of happiness by marking 
 #' a sign along a horizontal line of 110 millimeters according to their feeling, with the left-most 
@@ -35,7 +35,7 @@
 #' 3 = Yes, team sport}
 #' \item{\code{Pets}}{A factor with levels: 1 = owning a pet, 0 = not owning any pet}
 #'} 
-#' 1) Respondents were asked to evaluate the following items (ordered factor variables) on a 10 point Likert scale, 
+#' 1) Respondents were asked to evaluate the following items on a 10 point Likert scale, 
 #' ranging from 1 = "never, at all" to 10 = "always, a lot":
 #'  \describe{
 #' \item{\code{WalkOut}}{How often the respondent goes out for a walk}
@@ -58,7 +58,7 @@
 #'   according to his/her feeling of happiness (left endpoint corresponding to completely unhappy,
 #'    right-most endpoint corresponding to extremely happy}
 #' }   
-#' 2) The same respondents were asked to score the activities for leisure time listed below (ordered factor variables), according
+#' 2) The same respondents were asked to score the activities for leisure time listed below, according
 #'  to their involvement/degree of amusement, on a 10 point Likert scale 
 #'  ranging from 1 = "At all, nothing, never" to 10 = "Totally, extremely important, always":
 #' \describe{

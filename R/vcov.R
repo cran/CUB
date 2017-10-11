@@ -1,4 +1,4 @@
-#' @title S3 method  vcov()for class "GEM"
+#' @title S3 method  vcov() for class "GEM"
 #' @description S3 method: vcov for objects of class \code{\link{GEM}}. 
 #' @aliases vcov.GEM
 #' @param object An object of class \code{\link{GEM}}

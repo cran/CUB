@@ -88,10 +88,14 @@
 
 
 CUB<-function(Formula, data, ...){
+  call <- match.call()
   
   ellipsis.arg<-list(...)
-  
-  mf<-model.frame(Formula,data=data)
+#   m<-ellipsis.arg[[1]]$m
+
+#   
+ # print(ellipsis.arg)
+  mf<-model.frame(Formula,data=data,na.action=na.omit)
   ordinal<-as.numeric(model.response(mf))
   #m<-length(levels(factor(ordinal,ordered=TRUE)))
   
@@ -101,9 +105,9 @@ CUB<-function(Formula, data, ...){
   #solo con covariate per feeling...
   # formula=ordinal ~ 0 | covcsi| 0  
   
-  covpai<-model.matrix(Formula,data=data,rhs=1)
-  covcsi<-model.matrix(Formula,data=data,rhs=2)
-  covshe<-model.matrix(Formula,data=data,rhs=3)
+  covpai<-model.matrix(Formula,data=mf,rhs=1)
+  covcsi<-model.matrix(Formula,data=mf,rhs=2)
+  covshe<-model.matrix(Formula,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
@@ -122,16 +126,15 @@ CUB<-function(Formula, data, ...){
   }
   
   lista<-ellipsis.arg[[1]]
-  
-  m<-lista$m
-  maxiter<-lista$maxiter
+
+  m<-lista[['m']]
+  maxiter<-lista[['maxiter']]
   toler<-lista$toler
   shelter<-lista$shelter
-  
-  # lev <- levels(factor(ordinal,ordered=TRUE))
-  # m <- length(lev) 
+
   
   if(!is.null(shelter)){
+   
     if(m <= 4) stop("Number of ordered categories should be at least 5")
     
     if (is.null(Y) & is.null(W) & is.null(X)){

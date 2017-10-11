@@ -25,5 +25,5 @@ simcube <-
 function(n,m,pai,csi,phi){
   prob<-probcube(m,pai,csi,phi)
   ord<-sample(1:m,n,prob,replace=T)
-  return(factor(ord,ordered=TRUE))
+  return(ord)
 }

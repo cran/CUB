@@ -25,5 +25,5 @@ function(n,m,delta,shelter){
   dicodelta<-runif(n)<delta
   uncert<-sample(m,n,replace=TRUE)
   vett<-dicodelta*shelter+(1-dicodelta)*uncert
-  return(factor(vett,ordered=TRUE))
+  return(vett)
 }

@@ -1,10 +1,11 @@
 #' @title Normalized dissimilarity measure
 #' @description Compute the normalized dissimilarity measure between observed
-#'  relative frequencies and estimated (theoretical) probabilities.
+#'  relative frequencies and estimated (theoretical) probabilities of a discrete distribution.
 #' @usage dissim(proba,probb)
 #' @aliases dissim
 #' @param proba Vector of observed relative frequencies
 #' @param probb Vector of estimated (theoretical) probabilities
+#' @return Numeric value of the dissimilarity index, assessing the distance to a perfect fit.
 #' @keywords univar
 #' @export dissim
 #' @examples 
@@ -14,4 +15,15 @@
 
 
 dissim <-
-function(proba,probb){0.5*sum(abs(proba-probb))}
+function(proba,probb){
+  
+  if (length(proba)==length(probb)){
+    
+    return(0.5*sum(abs(proba-probb)))
+  } else {
+    cat("Error: input vectors should have the same length","\n")
+  }
+  
+
+  
+  }

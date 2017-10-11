@@ -14,10 +14,9 @@
 
 loglikcubp0 <-
 function(m,ordinal,Y,bbet,ccsi){
-  
+
   if (is.factor(ordinal)){
     ordinal<-unclass(ordinal)
-    
   }
   Y<-as.matrix(Y)
   prob<-probbit(m,ccsi)

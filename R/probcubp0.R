@@ -6,14 +6,14 @@
 #' @usage probcubp0(m,ordinal,Y,bet,csi)
 #' @keywords distribution
 #' @param m Number of ordinal categories
-#' @param ordinal Vector of ordinal responses (of factor type)
+#' @param ordinal Vector of ordinal responses
 #' @param Y Matrix of covariates for explaining the uncertainty component
 #' @param bet Vector of parameters for the uncertainty component, whose length equals 
 #'  NCOL(Y) + 1 to include an intercept term in the model (first entry)
 #' @param csi Feeling parameter
-#' @return A vector of the same length as ordinal, whose i-th component is the probability of the i-th 
+#' @return A vector of the same length as \code{ordinal}, whose i-th component is the probability of the i-th 
 #' observation according to a CUB model with the corresponding values of the covariates for the 
-#' uncertainty component and coefficients for the covariates specified in \code{bet} 
+#' uncertainty component and coefficients for the covariates specified in \code{bet}.
 #' @references 
 #' Piccolo D. (2006). Observed Information Matrix for MUB Models, 
 #' \emph{Quaderni di Statistica}, \bold{8}, 33--78 \cr
@@ -25,21 +25,20 @@
 #' @seealso \code{\link{bitgama}}, \code{\link{probcub00}}, \code{\link{probcubpq}}, \code{\link{probcub0q}}
 #' @examples
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Physician))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$Physician))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-Physician[-na]
-#' Y<-Gender[-na]
+#' ordinal<-relgoods$Physician[-na]
+#' Y<-relgoods$Gender[-na]
 #' bet<-c(-0.81,0.93); csi<-0.20
 #' probi<-probcubp0(m,ordinal,Y,bet,csi)
 
 probcubp0 <-
 function(m,ordinal,Y,bet,csi){
   
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
   Y<-as.matrix(Y)
 

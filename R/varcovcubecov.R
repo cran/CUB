@@ -37,12 +37,14 @@ function(m,ordinal,Y,W,Z,estbet,estgama,estalpha){
   if (ncol(Z)==1){
     Z<-as.numeric(Z)
   }
+  
+
   p<-NCOL(Y);q<-NCOL(W);v<-NCOL(Z);
   paivett<-logis(Y,estbet)
   csivett<-logis(W,estgama)
   phivett<-1/(-1+ 1/(logis(Z,estalpha)))
   # Probability
-  probi<-paivett*(betabinomial(m,factor(ordinal,ordered=TRUE),csivett,phivett)-1/m)+1/m
+  probi<-paivett*(betabinomial(m,ordinal,csivett,phivett)-1/m)+1/m
   uui<-1-1/(m*probi)
   ubari<-uui+paivett*(1-uui)
   ### Matrix computations

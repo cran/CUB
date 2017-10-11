@@ -68,7 +68,7 @@ cub0q<-function(m,ordinal,W,maxiter,toler){
   WW<-cbind(1,W)                   
   ##############################################################
   freq<-tabulate(ordinal,nbins=m); inipaicsi<-inibest(m,freq);  paijj<-inipaicsi[1]; 
-  gamajj<-inibestgama(m,factor(ordinal,ordered=TRUE),W)
+  gamajj<-inibestgama(m,ordinal,W)
   ##############################################################
   loglikjj<-loglikcub0q(m,ordinal,W,paijj,gamajj)
   # ********************************************************************
@@ -76,8 +76,9 @@ cub0q<-function(m,ordinal,W,maxiter,toler){
   # ********************************************************************
   nniter<-1
   while(nniter<=maxiter){
+
     loglikold<-loglikjj
-    vettn<-bitgama(m,factor(ordinal,ordered=TRUE),W,gamajj)
+    vettn<-bitgama(m,ordinal,W,gamajj)
     ttau<-1/(1+(1-paijj)/(m*paijj*vettn)) 
     ################################# maximize w.r.t. gama  ########
     ordd<-ordinal;covar<-WW;
@@ -86,9 +87,13 @@ cub0q<-function(m,ordinal,W,maxiter,toler){
     ################################################################
     gamajj<-optimgama$par
     paijj<-sum(ttau)/n                    #updated pai estimate
+ 
+    
     loglikjj<-loglikcub0q(m,ordinal,W,paijj,gamajj)## needed for nlm version
     # print(c(nniter,paijj,gamajj,loglikjj)); #OPTIONAL PRINTING OF ITERATIONS
     testll<-abs(loglikjj-loglikold)
+    
+   
     if(testll<=toler) break else {loglikold<-loglikjj}
     nniter<-nniter+1
   }

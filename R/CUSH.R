@@ -31,12 +31,16 @@ CUSH<-function(Formula,data,...){
   
   ellipsis.arg<-list(...)
   
-  mf<-model.frame(Formula,data=data)
+  lista<-ellipsis.arg[[1]]
+  
+  m<-lista[['m']]
+  
+  mf<-model.frame(Formula,data=data,na.action=na.omit)
   ordinal<-as.numeric(model.response(mf))
   
   #covpai<-model.matrix(Formula,data=data,rhs=1)
   #covcsi<-model.matrix(Formula,data=data,rhs=2)
-  covshe<-model.matrix(Formula,data=data,rhs=1)
+  covshe<-model.matrix(Formula,data=mf,rhs=1)
   
   # if (ncol(covpai)==0){
   #   Y<-NULL
@@ -56,10 +60,10 @@ CUSH<-function(Formula,data,...){
     X<-covshe[,-1]
   }
   
-  lev <- levels(factor(ordinal,ordered=TRUE))
-  m <- length(lev) 
+#   lev <- levels(factor(ordinal,ordered=TRUE))
+#   m <- length(lev) 
   
-  shelter<-ellipsis.arg$shelter
+  shelter<-lista$shelter
   
   if (is.null(shelter)) stop("Shelter category missing")
   

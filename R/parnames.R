@@ -36,25 +36,44 @@ parnames.CUB<-function(object){
   
   effe<-object$formula
   #   EFFE<-modello$Formula
-  data<-object$data
-  covpai<-model.matrix(effe,data=data,rhs=1)
-  covcsi<-model.matrix(effe,data=data,rhs=2)
-  covshe<-model.matrix(effe,data=data,rhs=3)
+  data<-object$ellipsis$data
+  mf<-model.frame(effe,data=data,na.action=na.omit)
+  
+  covpai<-model.matrix(effe,data=mf,rhs=1)
+  covcsi<-model.matrix(effe,data=mf,rhs=2)
+  covshe<-model.matrix(effe,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
   } else {
-    Y<-covpai[,-1]
+    
+    if (NCOL(covpai)==2){
+      Y<-as.matrix(covpai[,-1])
+      colnames(Y)<-colnames(covpai)[2]
+    } else {
+      Y<-covpai[,-1]
+    }
   }
   if (ncol(covcsi)==0){
     W<-NULL
   } else {
-    W<-covcsi[,-1]
+    if (NCOL(covcsi)==2){
+      W<-as.matrix(covcsi[,-1])
+      colnames(W)<-colnames(covcsi)[2]
+    } else {
+      W<-covcsi[,-1]
+    }
   }
+  
   if (ncol(covshe)==0){
     X<-NULL
   } else {
-    X<-covshe[,-1]
+    if (NCOL(covshe)==2){
+      X<-as.matrix(covshe[,-1])
+      colnames(X)<-colnames(covshe)[2]
+    } else {
+      X<-covshe[,-1]
+    }
   }
   
  
@@ -62,13 +81,32 @@ parnames.CUB<-function(object){
   listanomi<-c()
   if (!is.null(ellipsis$shelter)){
     if (is.null(X) & is.null(Y) & is.null(W)){
+      
       listanomi<-c("pai1","pai2","csi")
+      
     } else if (!is.null(X) & !is.null(Y) & !is.null(W)){
       Y<-as.matrix(Y); W<-as.matrix(W); X<-as.matrix(X);
       p<-NCOL(Y);
       q<-NCOL(W); 
       s<-NCOL(X); 
-      listanomi<-c(paste("beta",0:p,sep="_"),paste("gamma",0:q,sep="_"),paste("omega",0:s,sep="_"));
+      
+      if (is.null(colnames(Y))){
+        nomiY<- paste("beta",0:p,sep="_")
+      } else {
+        nomiY<-c("constant",colnames(Y))
+      }
+      if (is.null(colnames(W))){
+        nomiW<- paste("gamma",0:q,sep="_")
+      } else {
+        nomiW<-c("constant",colnames(W))
+      }
+      if (is.null(colnames(X))){
+        nomiX<- paste("omega",0:s,sep="_")
+      } else {
+        nomiX<-c("constant",colnames(X))
+      }
+      
+      listanomi<-c(nomiY,nomiW,nomiX);
     }
     
   } else {
@@ -78,29 +116,58 @@ parnames.CUB<-function(object){
      if (!is.null(Y) & is.null(W)){
       betacoef<-c()
       npar<-length(object$estimates)
-      for (j in 1:(npar-1)){
+      if (!is.null(colnames(Y))){
+        betacoef<-c("constant",colnames(Y))
+      } else {
+      
+       for (j in 1:(npar-1)){
         betacoef[j]<-paste("beta",j-1,sep="_")
+       }
       }
-      listanomi<-c(betacoef,"csi")
-    } 
+       listanomi<-c(betacoef,"csi")
+     } 
+    
     if (is.null(Y) & !is.null(W)){
       gamacoef<-c()
       npar<-length(object$estimates)
-      for (j in 1:(npar-1)){
-        gamacoef[j]<-paste("gamma",j-1,sep="_")
+     
+      if (!is.null(colnames(W))){
+        gamacoef<-c("constant",colnames(W))
+      } else {
+        for (j in 1:(npar-1)){
+          gamacoef[j]<-paste("gamma",j-1,sep="_")
+        }
       }
+      
       listanomi<-c("pai",gamacoef)
     }
+    
     if (!is.null(Y) & !is.null(W)) {
       betacoef<-gamacoef<-c()
       Y<-as.matrix(Y); W<-as.matrix(W)
       ny<-NCOL(Y); nw<-NCOL(W);
-      for (j in 1:(ny+1)){
-        betacoef[j]<-paste("beta",j-1,sep="_")
+      
+      if (is.null(colnames(Y))){
+        for (j in 1:(ny+1)){
+          betacoef[j]<-paste("beta",j-1,sep="_")
+        }
+        
+        } else {
+          betacoef<-c("constant",colnames(Y))
+        }
+        
+      
+      
+      if (is.null(colnames(W))){
+        for (j in 1:(nw+1)){
+          gamacoef[j]<-paste("gamma",j-1,sep="_")
+        }
+        
+      } else {
+        gamacoef<-c("constant",colnames(W))
+        
       }
-      for (j in 1:(nw+1)){
-        gamacoef[j]<-paste("gamma",j-1,sep="_")
-      }
+     
       listanomi<-c(betacoef,gamacoef)
     }
     
@@ -117,43 +184,85 @@ parnames.CUBE<-function(object){
   
   effe<-object$formula
   #   EFFE<-modello$Formula
-  data<-object$data
-  covpai<-model.matrix(effe,data=data,rhs=1)
-  covcsi<-model.matrix(effe,data=data,rhs=2)
-  covphi<-model.matrix(effe,data=data,rhs=3)
+  data<-object$ellipsis$data
+  mf<-model.frame(effe,data=data,na.action=na.omit)
+  
+  covpai<-model.matrix(effe,data=mf,rhs=1)
+  covcsi<-model.matrix(effe,data=mf,rhs=2)
+  covphi<-model.matrix(effe,data=mf,rhs=3)
+  
   
   if (ncol(covpai)==0){
     Y<-NULL
   } else {
-    Y<-covpai[,-1]
+    if (NCOL(covpai)==2){
+      Y<-as.matrix(covpai[,-1])
+      colnames(Y)<-colnames(covpai)[2]
+    } else {
+      Y<-covpai[,-1]
+    }
   }
+  
   if (ncol(covcsi)==0){
     W<-NULL
   } else {
-    W<-covcsi[,-1]
+    if (NCOL(covcsi)==2){
+      W<-as.matrix(covcsi[,-1])
+      colnames(W)<-colnames(covcsi)[2]
+    } else {
+      W<-covcsi[,-1]
+    }
   }
+
   if (ncol(covphi)==0){
     Z<-NULL
   } else {
-    Z<-covphi[,-1]
+    if (NCOL(covphi)==2){
+      Z<-as.matrix(covphi[,-1])
+      colnames(Z)<-colnames(covphi)[2]
+    } else {
+      Z<-covphi[,-1]
+    }
   }
-  
-  # Y<-ellipsis$Y
-  # W<-ellipsis$W
-  # Z<-ellipsis$Z
-  
+    
   listanomi<-c()
   
   if (is.null(Y) & is.null(W) & is.null(Z)){
     listanomi<-rbind("pai","csi","phi")
   } else if (is.null(Y) & is.null(Z) & !is.null(W)){
     W<-as.matrix(W)
-    listanomi<-c("pai",paste("gamma",0:NCOL(W),sep="_"),"phi")
+    
+    if (is.null(colnames(W))){
+      gamacoef<- paste("gamma",0:NCOL(W),sep="_")
+    } else {
+      gamacoef<-c("constant",colnames(W))
+    }
+    
+   listanomi<-c("pai",gamacoef,"phi")
+   
   } else if (!is.null(Y) & !is.null(Z) & !is.null(W)){
     W<-as.matrix(W); Y<-as.matrix(Y); Z<-as.matrix(Z);
-    listanomi<-c(paste("beta",0:NCOL(Y),sep="_"),
-                 paste("gamma",0:NCOL(W),sep="_"),
-                 paste("alpha",0:NCOL(Z),sep="_"))
+    
+    
+    if (is.null(colnames(W))){
+      gamacoef<- paste("gamma",0:NCOL(W),sep="_")
+    } else {
+      gamacoef<-c("constant",colnames(W))
+    }
+    
+    if (is.null(colnames(Y))){
+      betacoef<- paste("beta",0:NCOL(Y),sep="_")
+    } else {
+      betacoef<-c("constant",colnames(Y))
+    }
+    
+    if (is.null(colnames(Z))){
+      alfacoef<- paste("alpha",0:NCOL(Z),sep="_")
+    } else {
+      alfacoef<-c("constant",colnames(Z))
+    }
+    
+    listanomi<-c(betacoef, gamacoef, alfacoef)
   } else {
     cat("CUBE models not available for this variables specification")
     listanomi<-c()
@@ -168,26 +277,36 @@ parnames.IHG<-function(object){
  # U<-ellipsis$U
  
  effe<-object$formula
- data<-object$data
-#   EFFE<-mod$Formula
-#   data<-mod$data
-  
-  covtheta<-model.matrix(effe,data=data,rhs=1)
+ data<-object$ellipsis$data
+ mf<-model.frame(effe,data=data,na.action=na.omit)
+ 
+
+  covtheta<-model.matrix(effe,data=mf,rhs=1)
   
   
   if (ncol(covtheta)==0){
     U<-NULL
   } else {
-    U<-covtheta[,-1]
+    if (NCOL(covtheta)==2){
+      U<-as.matrix(covtheta[,-1])
+      colnames(U)<-colnames(covtheta)[2]
+    } else {
+      U<-covtheta[,-1]
+    }
   }
-  
+   
    
   listanomi<-c()
   if (is.null(U)){
     listanomi<-"theta"
   } else {
     U<-as.matrix(U)
-    listanomi<-paste("nu",0:NCOL(U),sep="_")
+    
+    if (is.null(colnames(U))){
+      listanomi<-paste("nu",0:NCOL(U),sep="_")
+    } else {
+      listanomi<-c("constant",colnames(U))
+    }
   }
   return(listanomi)
 }
@@ -200,22 +319,32 @@ parnames.CUSH<-function(object){
  # X<-ellipsis$X
   effe<-object$formula
  # EFFE<-mod$Formula
-  data<-object$data
+  data<-object$ellipsis$data
+  mf<-model.frame(effe,data=data,na.action=na.omit)
+ 
+  covshe<-model.matrix(effe,data=mf,rhs=1)
   
-  covshe<-model.matrix(effe,data=data,rhs=1)
-  
-  if (ncol(covshe)==0){
-    X<-NULL
-  } else {
-    X<-covshe[,-1]
-  }
+ if (ncol(covshe)==0){
+   X<-NULL
+ } else {
+   if (NCOL(covshe)==2){
+     X<-as.matrix(covshe[,-1])
+     colnames(X)<-colnames(covshe)[2]
+   } else {
+     X<-covshe[,-1]
+   }
+ }
   
   listanomi<-c()
   if (is.null(X)){
     listanomi<-"delta"
   } else {
     X<-as.matrix(X)
-    listanomi<-paste("omega",0:NCOL(X),sep="_")
+    if (is.null(colnames(X))){
+      listanomi<-paste("omega",0:NCOL(X),sep="_")
+    } else {
+      listanomi<-c("constant",colnames(X))
+    }
   }
   return(listanomi)
 }

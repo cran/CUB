@@ -4,7 +4,7 @@
 #'  covariates in the model for explaining the feeling component or all the three parameters.
 #' @usage loglikCUBE(ordinal,m,param,Y=0,W=0,Z=0)
 #' @export loglikCUBE
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified CUBE model
 #' @param Y Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
@@ -16,7 +16,8 @@
 #' @details If no covariate is included in the model, then \code{param} has the form \eqn{(\pi,\xi,\phi)}. More generally, 
 #' it has the form \eqn{(\bold{\beta,\gamma,\alpha)}} where, respectively, \eqn{\bold{\beta}},\eqn{\bold{\gamma}}, \eqn{\bold{\alpha}}
 #'  are the vectors of  coefficients explaining the uncertainty, the feeling and the overdispersion components, with length NCOL(Y)+1, 
-#'  NCOL(W)+1, NCOL(Z)+1 to account for an intercept term in the first entry.
+#'  NCOL(W)+1, NCOL(Z)+1 to account for an intercept term in the first entry. No missing value should be present neither
+#'   for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 #' @seealso  \code{\link{logLik}}
 #' @keywords htest
 #' @examples
@@ -28,14 +29,13 @@
 #' ##################################
 #' #### Log-likelihood of a CUBE model with covariate for feeling
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' nacov<-which(is.na(BirthYear))
-#' naord<-which(is.na(Tv))
+#' nacov<-which(is.na(relgoods$BirthYear))
+#' naord<-which(is.na(relgoods$Tv))
 #' na<-union(nacov,naord)
-#' age<-2014-BirthYear[-na]
+#' age<-2014-relgoods$BirthYear[-na]
 #' lage<-log(age)-mean(log(age))
-#' ordinal<-Tv[-na]; W<-lage
+#' ordinal<-relgoods$Tv[-na]; W<-lage
 #' pai<-0.63; gama<-c(-0.61,-0.31); phi<-0.16
 #' param<-c(pai,gama,phi)
 #' loglik<-loglikCUBE(ordinal,m,param,W=W)
@@ -48,13 +48,10 @@
 
 loglikCUBE <-
 function(ordinal,m,param,Y=0,W=0,Z=0){
-  
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
-  ordinal<-unclass(ordinal)
-  
   ry<-NROW(Y); rw<-NROW(W); rz<-NROW(Z);
   
   freq<-tabulate(ordinal,nbins=m)

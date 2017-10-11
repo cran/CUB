@@ -4,7 +4,7 @@
 #' to explain the shelter effect.
 #' @usage loglikCUSH(ordinal,m,param,shelter,X=0)
 #' @export loglikCUSH
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified CUSH model
 #' @param shelter Category corresponding to the shelter choice
@@ -12,7 +12,7 @@
 #' is included in the model)
 #' @details If no covariate is included in the model, then \code{param} is the estimate of the shelter 
 #' parameter (delta), otherwise \code{param} has length equal to NCOL(X) + 1 to account for an intercept  
-#' term (first entry)
+#' term (first entry). No missing value should be present neither for \code{ordinal} nor for \code{X}.
 #' @seealso  \code{\link{GEM}}, \code{\link{logLik}}
 #' @keywords htest
 #' @examples
@@ -24,23 +24,20 @@
 #' loglik<-loglikCUSH(ordinal,m,param=delta,shelter)
 #' #####################
 #' ## Log-likelihood of CUSH model with covariates
-#' data(relgoods); attach(relgoods)
+#' data(relgoods)
 #' m<-10
-#' naord<-which(is.na(SocialNetwork))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$SocialNetwork))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(nacov,naord)
-#' ordinal<-SocialNetwork[-na]; cov<-Gender[-na]
+#' ordinal<-relgoods$SocialNetwork[-na]; cov<-relgoods$Gender[-na]
 #' omega<-c(-2.29, 0.62)
 #' loglikcov<-loglikCUSH(ordinal,m,param=omega,shelter=1,X=cov)
 
 loglikCUSH<-function(ordinal,m,param,shelter,X=0){
-  
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
-  ordinal<-unclass(ordinal)
-  
   nx<-NROW(X)
   if (nx==1){
     delta<-param

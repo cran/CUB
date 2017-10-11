@@ -7,7 +7,7 @@
 #' @param pai Uncertainty parameter
 #' @param csi Feeling parameter
 #' @param phi Overdispersion parameter
-#' @return The vector of the probability distribution of a CUBE model without covariates
+#' @return The vector of the probability distribution of a CUBE model without covariates.
 #' @seealso \code{\link{betar}}, \code{\link{betabinomial}}
 #' @references 
 #' Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 

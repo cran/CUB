@@ -1,12 +1,12 @@
 #' @title Beta-Binomial distribution
-#' @description Return the Beta-Binomial distribution with parameters m, csi and phi.
+#' @description Return the Beta-Binomial distribution with parameters \eqn{m}, \eqn{csi} and \eqn{phi}.
 #' @aliases betar
 #' @usage betar(m,csi,phi)
 #' @param m Number of ordinal categories
 #' @param csi Feeling parameter of the Beta-Binomial distribution
 #' @param phi Overdispersion parameter of the Beta-Binomial distribution 
 #' @export betar
-#' @return The vector of length \eqn{m} of the  Beta-Binomial distribution
+#' @return The vector of length \eqn{m} of the  Beta-Binomial distribution.
 #' @seealso   \code{\link{betabinomial}}
 #' @references Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
 #' \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786

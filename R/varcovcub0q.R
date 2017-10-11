@@ -28,12 +28,13 @@
 
 varcovcub0q <-
 function(m,ordinal,W,pai,gama){
+
   W<-as.matrix(W)
   if (ncol(W)==1){
     W<-as.numeric(W)
   }
   
-  qi<-1/(m*probcub0q(m,factor(ordinal,ordered=TRUE),W,pai,gama))
+  qi<-1/(m*probcub0q(m,ordinal,W,pai,gama))
   
   qistar<-1-(1-pai)*qi
   qitilde<-qistar*(1-qistar)

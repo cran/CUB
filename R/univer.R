@@ -2,7 +2,7 @@
 #' @description A sample survey on students evaluation of the Orientation services was conducted across the
 #' 13 Faculties of University of Naples  Federico II in five waves: participants were asked to express their ratings
 #'  on a 7 point scale (1 = "very unsatisfied", 7 = "extremely satisfied").
-#' Here only the dataset collected during 2002 is loaded.
+#' Here  dataset collected during 2002 is loaded.
 #' @aliases univer
 #' @usage data(univer)
 #' @format The description of subjects' covariates is:

@@ -12,6 +12,10 @@
 
 
 loglikcush00<-function(m,ordinal,delta,shelter){
+  
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
+  }
   n<-length(ordinal);
   freq<-tabulate(ordinal,nbins=m)
   fc<-freq[shelter]/n

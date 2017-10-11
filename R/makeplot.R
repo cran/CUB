@@ -9,7 +9,8 @@
 #' then the function returns a plot comparing the distributions of the responses conditioned to
 #' the value of the covariate. 
 #' @keywords models device package
-#' @seealso \code{\link{cubvisual}}, \code{\link{cubevisual}}, \code{\link{multicub}}, \code{\link{multicube}} 
+#' @seealso \code{\link{cubvisual}}, \code{\link{cubevisual}}, \code{\link{cubshevisual}},
+#' \code{\link{multicub}}, \code{\link{multicube}} 
 
 
 makeplot<-function(object){
@@ -27,41 +28,27 @@ makeplot<-function(object){
   }
 }
 
-#makeplot <- function(object) UseMethod("makeplot", object)
-# 
-# makeplot.GEM<-function(object){
-#   
-#   if (object$family=="CUB"){
-#     makeplot.CUB(object)
-#   }
-#   if (object$family=="CUBE"){
-#     makeplot.CUBE(object)
-#   }
-#   if (object$family=="IHG"){
-#     makeplot.IHG(object)
-#   }
-#   if (object$family=="CUSH"){
-#     makeplot.CUSH(object)
-#   }
-# }
 
 makeplotCUB<-function(object){
   
   ellipsis<-object$ellipsis
   ordinal<-object$ordinal
   family<-object$family
-  m <- ellipsis$m
+  m <- ellipsis[['m']]
   
-  ordinal <- unclass(ordinal)
   n<-length(ordinal)
   
   modello<-object$formula
   #EFFE<-mod$Formula
-  data<-object$data
+  data<-ellipsis$data
   
-  covpai<-model.matrix(modello,data=data,rhs=1)
-  covcsi<-model.matrix(modello,data=data,rhs=2)
-  covshe<-model.matrix(modello,data=data,rhs=3)
+  mf<-model.frame(modello,data=data,na.action=na.omit)
+
+  #covpai<-model.matrix(Formula,data=data,rhs=1)
+  #covcsi<-model.matrix(Formula,data=data,rhs=2)
+  covpai<-model.matrix(modello,data=mf,rhs=1)
+  covcsi<-model.matrix(modello,data=mf,rhs=2)
+  covshe<-model.matrix(modello,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
@@ -198,7 +185,7 @@ makeplotCUB<-function(object){
           prob1<-theorpr[,2]
           maxpr<-max(prob0,prob1)
           
-          plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.9,las=1,
+          plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.lab=0.9,cex.main=0.9,las=1,
                main="CUB distributions, given pai-csi covariate=0, 1",
                cex=1.2,xlab="Ordinal values of R=1,2,...,m",
                ylab="Prob(R|D=0) (circles) and  Prob(R|D=1) (dots)",pch=1,lty=1,type="b");
@@ -224,17 +211,16 @@ makeplotCUBE<-function(object){
   ellipsis<-object$ellipsis
   ordinal<-object$ordinal
   family<-object$family
-  m <- ellipsis$m
-  
-  ordinal <- unclass(ordinal)
+  m <- ellipsis[['m']]
   
   modello<-object$formula
  # EFFE<-mod$Formula
-  data<-object$data
-  
-  covpai<-model.matrix(modello,data=data,rhs=1)
-  covcsi<-model.matrix(modello,data=data,rhs=2)
-  covphi<-model.matrix(modello,data=data,rhs=3)
+  data<-ellipsis$data
+
+  mf<-model.frame(modello,data=data,na.action=na.omit)
+  covpai<-model.matrix(modello,data=mf,rhs=1)
+  covcsi<-model.matrix(modello,data=mf,rhs=2)
+  covphi<-model.matrix(modello,data=mf,rhs=3)
   
   if (ncol(covpai)==0){
     Y<-NULL
@@ -269,7 +255,7 @@ makeplotCUBE<-function(object){
   if (is.null(Y) & is.null(W) & is.null(Z)){
     #par(mfrow=c(2,1))
     stringtitle="CUBE model estimation ";
-    plot(cbind(1:m,1:m),cbind(theorpr,(freq/n)),las=1,
+    plot(cbind(1:m,1:m),cbind(theorpr,(freq/n)),las=1,cex=1.2,
          main=paste(stringtitle,  "     (Diss =",round(dissimcube,digits=4),")"),
          xlim=c(1,m),ylim=c(0.0,1.1*max(theorpr,(freq/n))),
          xlab="Ordinal values of R=1,2,...,m",
@@ -288,9 +274,9 @@ makeplotCUBE<-function(object){
       csi0<-logis(vett[1],gama); prob0<-probcube(m,pai,csi0,phi); #theorpr[,1]? (ordine)
       csi1<-logis(vett[2],gama); prob1<-probcube(m,pai,csi1,phi);
       maxpr<-max(prob0,prob1)
-      plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.9,las=1,
+      plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),las=1,
            main="CUBE distributions, given csi-covariate=0, 1",
-           cex=1.2,xlab="Ordinal values of R=1,2,...,m",
+           cex.lab=0.9,cex.main=0.9,xlab="Ordinal values of R=1,2,...,m",
            ylab="Prob(R|D=0) (circles) and  Prob(R|D=1) (dots)",pch=1,lty=1,type="b");
       lines(1:m,prob1,cex=1.2,pch=19,lty=2,type="b");
       abline(h=0);
@@ -307,16 +293,16 @@ makeplotIHG<-function(object){
   ellipsis<-object$ellipsis
   
   ordinal<-object$ordinal
-  m <- ellipsis$m
-  ordinal<-unclass(ordinal)
+  m <- ellipsis[['m']]
   freq<-tabulate(ordinal,nbins=m)
   n <-length(ordinal)
   
   modello<-object$formula
   #EFFE<-mod$Formula
-  data<-object$data
+  data<-ellipsis$data
+  mf<-model.frame(modello,data=data,na.action=na.omit)
   
-  covtheta<-model.matrix(modello,data=data,rhs=1)
+  covtheta<-model.matrix(modello,data=mf,rhs=1)
   
   
   if (ncol(covtheta)==0){
@@ -335,7 +321,7 @@ makeplotIHG<-function(object){
          xlim=c(1,m),ylim=c(0,1.1*max(theorpr[,1],(freq/n))),las=1,
          xlab="Ordinal values of R=1,2,...,m",
          ylab=expression(paste("Obs. relative frequencies (dots) and fitted prob. (circles)")),
-         cex.lab=0.9,cex.main=0.9)
+         cex.lab=0.9,cex.main=0.9,cex=1.2)
     points(1:m,theorpr,pch=21,cex=1.5,  lwd=2.0,type="b",lty=3)
     points(1:m,freq/n,pch=16,cex=1.2)
     ### points(shelter,theorpr[shelter]-delta,pch=8);
@@ -353,7 +339,7 @@ makeplotIHG<-function(object){
       maxpr<-max(prob0,prob1)
       
       plot(1:m,prob0,ylim=c(0.0,1.1*maxpr),cex.main=0.9,las=1,
-           main="IHG distributions, given theta-covariate=0, 1",cex=1.2, cex.lab=0.9,
+           main="IHG distributions, given theta-covariate=0, 1",cex.lab=0.9,cex.main=0.9,
            xlab="Ordinal values of R=1,2,...,m",
            ylab="Prob(R|D=0) (circles) and  Prob(R|D=1) (dots)",pch=1,lty=1,type="b");
       lines(1:m,prob1,cex=1.2,pch=19,lty=2,type="b");
@@ -374,16 +360,15 @@ makeplotCUSH<-function(object){
   
   ordinal<-object$ordinal
   shelter<-ellipsis$shelter
-  m <- ellipsis$m
-  ordinal<-unclass(ordinal)
+  m <- ellipsis[['m']]
   freq<-tabulate(ordinal,nbins=m)
   n <-length(ordinal)
   
   modello<-object$formula
  # EFFE<-mod$Formula
-  data<-object$data
-  
-  covshe<-model.matrix(modello,data=data,rhs=1)
+  data<-ellipsis$data
+  mf<-model.frame(modello,data=data,na.action=na.omit)
+  covshe<-model.matrix(modello,data=mf,rhs=1)
   
   if (ncol(covshe)==0){
     X<-NULL
@@ -407,7 +392,7 @@ makeplotCUSH<-function(object){
          xlim=c(1,m),ylim=c(0.0,1.1*max(theorpr[,1],(freq/n))),
          xlab="Ordinal values of R=1,2,...,m", 
          ylab="Obs. freq (dots) and fitted prob. (circles)",
-         cex.lab=0.9,cex.main=0.9); 
+         cex.lab=0.9,cex.main=0.9,cex=1.2); 
     points(1:m,theorpr,pch=21,cex=1.5,lwd=2.0,type="b",lty=3);
     points(1:m,freq/n,pch=16,cex=1.5,lwd=1.5);
     abline(h=0);

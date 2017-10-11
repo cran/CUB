@@ -4,7 +4,7 @@
 #' explain the feeling and uncertainty components, or for extended CUB models with shelter effect.
 #' @usage loglikCUB(ordinal,m,param,Y=0,W=0,X=0,shelter=0)
 #' @export loglikCUB
-#' @param ordinal Vector of ordinal responses (factor type)
+#' @param ordinal Vector of ordinal responses 
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified CUB model
 #' @param Y Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
@@ -15,11 +15,14 @@
 #' in the model)
 #' @param shelter Category corresponding to the shelter choice (default: no shelter effect is included in the 
 #' model)
-#' @details If no covariate is included in the model, then \code{param} has the form \eqn{(\pi,\xi)}. More generally, 
-#' it has the form \eqn{(\bold{\beta,\gamma)}} where, respectively, \eqn{\bold{\beta}} and \eqn{\bold{\gamma}} are the vectors of 
+#' @details If no covariate is included in the model, then \code{param} should be given in the form \eqn{(\pi,\xi)}. 
+#' More generally, it should have the form \eqn{(\bold{\beta,\gamma)}} where, 
+#' respectively, \eqn{\bold{\beta}} and \eqn{\bold{\gamma}} are the vectors of 
 #' coefficients explaining the uncertainty and the feeling components, with length NCOL(Y)+1 and
 #'  NCOL(W)+1 to account for an intercept term in the first entry. When shelter effect is considered, \code{param} corresponds 
-#'  to the first possibile parameterization and hence should be given as \code{(pai1,pai2,csi)}
+#'  to the first possibile parameterization and hence should be given as \code{(pai1,pai2,csi)}. 
+#'  No missing value should be present neither
+#'   for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 #' @seealso  \code{\link{logLik}}
 #' @keywords htest
 #' @examples
@@ -33,41 +36,39 @@
 #' ## Log-likelihood of a CUB model with covariate for uncertainty
 #' \donttest{
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Physician))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$Physician))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-Physician[-na]; Y<-Gender[-na]
+#' ordinal<-relgoods$Physician[-na]; Y<-relgoods$Gender[-na]
 #' bbet<-c(-0.81,0.93); ccsi<-0.2
 #' param<-c(bbet,ccsi)
 #' loglikcubp0<-loglikCUB(ordinal,m,param,Y=Y)
 #' #######################
 #' ## Log-likelihood of a CUB model with covariate for feeling
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Physician))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$Physician))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-Physician[-na]; W<-Gender[-na]
+#' ordinal<-relgoods$Physician[-na]; W<-relgoods$Gender[-na]
 #' pai<-0.44; gama<-c(-0.91,-0.7)
 #' param<-c(pai,gama)
 #' loglikcub0q<-loglikCUB(ordinal,m,param,W=W)
 #' #######################
 #' ## Log-likelihood of a CUB model with covariates for both parameters
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Walking))
-#' nacovpai<-which(is.na(Gender))
-#' nacovcsi<-which(is.na(Smoking))
+#' naord<-which(is.na(relgoods$Walking))
+#' nacovpai<-which(is.na(relgoods$Gender))
+#' nacovcsi<-which(is.na(relgoods$Smoking))
 #' na<-union(naord,union(nacovpai,nacovcsi))
-#' ordinal<-Walking[-na]
-#' Y<-Gender[-na]; W<-Smoking[-na]
+#' ordinal<-relgoods$Walking[-na]
+#' Y<-relgoods$Gender[-na]; W<-relgoods$Smoking[-na]
 #' bet<-c(-0.45,-0.48); gama<-c(-0.55,-0.43)
 #' param<-c(bet,gama)
 #' loglikcubpq<-loglikCUB(ordinal,m,param,Y=Y,W=W)
+#' #######################
 #' ### Log-likelihood of a CUB model with shelter effect
 #' m<-7; n<-400
 #' pai<-0.7; csi<-0.16; delta<-0.15
@@ -79,23 +80,20 @@
 #' ##############
 #' ### Log-likelihood of a GeCUB
 #' data(univer)
-#' attach(univer)
-#' shelter<-7
-#' modelgecub<-GEM(Formula(officeho~gender|gender|gender),family="cub",shelter=shelter,maxiter=100)
+#' ordinal<-univer$officeho; Y<-W<-X<-univer$gender;
+#' modelgecub<-GEM(Formula(ordinal~Y|W|X),family="cub",shelter=7,maxiter=100)
 #' logLik(modelgecub)
-#' param=rep(0.1,6)
-#' loglik<-loglikCUB(officeho,m=7,param=param,shelter=shelter,Y=gender,W=gender,X=gender)
+#' param<-rep(0.1,6)
+#' loglik<-loglikCUB(ordinal,m=7,param=param,shelter=7,Y=Y,W=W,X=X)
 #' }
 #' 
 
 
 loglikCUB<-function(ordinal,m,param,Y=0,W=0,X=0,shelter=0){
 
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
-  ordinal<-unclass(ordinal)
   
   freq<-tabulate(ordinal,nbins=m)
   

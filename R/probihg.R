@@ -1,12 +1,12 @@
 #' @title Probability distribution of an IHG model
 #' @aliases probihg
-#' @description Compute the probability distribution of an IHG model without covariates.
+#' @description Compute the probability distribution of an IHG model (Inverse Hypergeometric) without covariates.
 #' @keywords distribution
 #' @export probihg
 #' @usage probihg(m,theta)
 #' @param m Number of ordinal categories
 #' @param theta Preference parameter
-#' @return The vector of the probability distribution of an IHG model
+#' @return The vector of the probability distribution of an IHG model.
 #' @references 
 #' D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
 #' \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78

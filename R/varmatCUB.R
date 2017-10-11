@@ -1,10 +1,10 @@
 #' @title Variance-covariance matrix for CUB models
 #' @aliases varmatCUB
 #' @description Compute the variance-covariance matrix of parameter estimates for CUB models with or without
-#' covariates for the feeling and the overdispersion parameter, and for extended CUB models with shelter effect.
+#' covariates for the feeling and the uncertainty parameter, and for extended CUB models with shelter effect.
 #' @usage varmatCUB(ordinal,m,param,Y=0,W=0,X=0,shelter=0)
 #' @export varmatCUB
-#' @param ordinal Vector of ordinal responses (of factory type)
+#' @param ordinal Vector of ordinal responses 
 #' @param m Number of ordinal categories
 #' @param param Vector of parameters for the specified CUB model
 #' @param Y Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
@@ -16,7 +16,8 @@
 #' @param shelter Category corresponding to the shelter choice (default: no shelter effect is included in the 
 #' model)
 #' @details The function checks if the variance-covariance matrix is positive-definite: if not, 
-#' it returns a warning message and produces a matrix with NA entries.
+#' it returns a warning message and produces a matrix with NA entries.  No missing value should be present neither
+#'   for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 #' @seealso  \code{\link{vcov}}, \code{\link{cormat}}
 #' @keywords htest
 #' @references Piccolo D. (2006). Observed Information Matrix for MUB Models, 
@@ -27,42 +28,39 @@
 #'  \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr 
 #' @examples
 #' data(univer)
-#' attach(univer)
 #' m<-7
 #' ### CUB model with no covariate
 #' pai<-0.87; csi<-0.17 
 #' param<-c(pai,csi)
-#' varmat<-varmatCUB(global,m,param)
+#' varmat<-varmatCUB(univer$global,m,param)
 #' #######################
 #' ### and with covariates for feeling
 #' data(univer)
 #' m<-7
 #' pai<-0.86; gama<-c(-1.94,-0.17)
 #' param<-c(pai,gama)
-#' W<-gender      
-#' varmat<-varmatCUB(willingn,m,param,W=W)
+#' ordinal<-univer$willingn; W<-univer$gender      
+#' varmat<-varmatCUB(ordinal,m,param,W)
 #' #######################
 #' ### CUB model with uncertainty covariates
-#' #' data(relgoods)
-#' attach(relgoods)
+#' data(relgoods)
 #' m<-10
-#' naord<-which(is.na(Physician))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$Physician))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-Physician[-na]
-#' Y<-Gender[-na]
+#' ordinal<-relgoods$Physician[-na]
+#' Y<-relgoods$Gender[-na]
 #' bet<-c(-0.81,0.93); csi<-0.20
 #' varmat<-varmatCUB(ordinal,m,param=c(bet,csi),Y=Y)
 #' #######################
 #' ### and with covariates for both parameters
 #' data(relgoods)
-#' attach(relgoods)
 #' m<-10
-#' naord<-which(is.na(Physician))
-#' nacov<-which(is.na(Gender))
+#' naord<-which(is.na(relgoods$Physician))
+#' nacov<-which(is.na(relgoods$Gender))
 #' na<-union(naord,nacov)
-#' ordinal<-Physician[-na]
-#' W<-Y<-Gender[-na]
+#' ordinal<-relgoods$Physician[-na]
+#' W<-Y<-relgoods$Gender[-na]
 #' gama<-c(-0.91,-0.7); bet<-c(-0.81,0.93)
 #' varmat<-varmatCUB(ordinal,m,param=c(bet,gama),Y=Y,W=W)
 #' #######################
@@ -71,7 +69,7 @@
 #' pai1<-0.5; pai2<-0.3; csi<-0.4
 #' shelter<-6
 #' pr<-probcubshe1(m,pai1,pai2,csi,shelter)
-#' ordinal<-factor(sample(1:m,n,prob=pr,replace=TRUE),ordered=TRUE)
+#' ordinal<-sample(1:m,n,prob=pr,replace=TRUE)
 #' param<-c(pai1,pai2,csi)
 #' varmat<-varmatCUB(ordinal,m,param,shelter=shelter)
 
@@ -84,11 +82,9 @@
 varmatCUB<-function(ordinal,m,param,Y=0,W=0,X=0,shelter=0){
   
 
-  if (!is.factor(ordinal)){
-    stop("Response must be an ordered factor")
+  if (is.factor(ordinal)){
+    ordinal<-unclass(ordinal)
   }
-  
-  ordinal<-unclass(ordinal)
   
   ry<-NROW(Y);   rw<-NROW(W); rx<-NROW(X); shelter<-as.numeric(shelter)
   
