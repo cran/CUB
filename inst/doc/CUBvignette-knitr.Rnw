@@ -39,7 +39,7 @@
 %% an abstract and keywords
 \Abstract{The \proglang{R} package \pkg{CUB} has been developed for the analysis of ordinal rating data with a class of finite mixture distributions whose main feature is the probabilistic specification of the decision-making process as the combination of uncertainty and feeling components. Extensions include models for overdispersion, inflated categories and large heterogeneity occurrences. The parameter estimation procedure is based on maximum likelihood methods, with the implementation of the Expectation-Maximization (EM) algorithm.  Several features of package \pkg{CUB}, including simulation routines, are presented on two data sets loaded within the package.
 }
-\Keywords{Raging data, \cub\, models, \cube\, models, \textit{Shelter effect}, \cush models, \ihg models}
+\Keywords{Rating data, \cub\, models, \cube\, models, \textit{Shelter effect}, \cush models, \ihg models}
 \Plainkeywords{Rating data, \cub\, models, \cube\, models, \textit{Shelter effect}, \cush models, \ihg models} %% without formatting
 %% at least one keyword must be supplied
 
