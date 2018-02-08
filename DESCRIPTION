@@ -1,6 +1,6 @@
 Package: CUB
 Title: A Class of Mixture Models for Ordinal Data
-Version: 1.1.1
+Version: 1.1.2
 Author: Maria Iannario <maria.iannario@unina.it>, Domenico Piccolo
     <domenico.piccolo@unina.it>, Rosaria Simone <rosaria.simone@unina.it>
 Maintainer: Rosaria Simone <rosaria.simone@unina.it>
@@ -13,10 +13,10 @@ License: GPL-2 | GPL-3
 Encoding: UTF-8
 Imports: methods
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
-Suggests: knitr
+Suggests: knitr, digest
 VignetteBuilder: knitr
-Packaged: 2017-10-11 20:55:10 UTC; rosaria.simone
 Repository: CRAN
-Date/Publication: 2017-10-11 22:51:42 UTC
+Packaged: 2018-02-08 18:16:15 UTC; Rosaria
+Date/Publication: 2018-02-08 19:26:58 UTC

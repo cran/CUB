@@ -1,7 +1,14 @@
+## ----include=FALSE,eval=TRUE,echo=FALSE----------------------------------
+library(knitr)
+library(digest)
+opts_chunk$set(
+engine='R',dev='pdf',fig.width=7,fig.height=5,strip.white=TRUE,tidy=FALSE
+)
+
 ## ----include=FALSE-------------------------------------------------------
 library(knitr)
 opts_chunk$set(
-engine='R',dev='pdf',fig.width=7,fig.height=5,strip.white=TRUE,tidy=FALSE
+concordance=TRUE
 )
 
 ## ----eval=TRUE,echo=FALSE,comment=NA-------------------------------------

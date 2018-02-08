@@ -68,8 +68,9 @@
 }
 
 
-<<include=FALSE>>=
+<<include=FALSE,eval=TRUE,echo=FALSE>>=
 library(knitr)
+library(digest)
 opts_chunk$set(
 engine='R',dev='pdf',fig.width=7,fig.height=5,strip.white=TRUE,tidy=FALSE
 )
@@ -81,6 +82,16 @@ engine='R',dev='pdf',fig.width=7,fig.height=5,strip.white=TRUE,tidy=FALSE
 % \VignettePackage{CUB} \\
 
 \begin{document}
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
+%\SweaveOpts{concordance=TRUE}
+%\SweaveOpts{concordance=TRUE}
 
 
 \maketitle
