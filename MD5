@@ -1,4 +1,4 @@
-8a57c87d361459ea64c62cb26ab6f754 *DESCRIPTION
+bc05b01e70c7cbf03a6a255e07b5f85e *DESCRIPTION
 49e9cc77151a0bfa0d57178cdefaff01 *NAMESPACE
 6b76ea2a18bac94d179da2ac8ce97957 *R/BIC.R
 06c31a02391fe0b3539939b9a7e84366 *R/CUB.R
@@ -124,12 +124,12 @@ fd1260d9e24205bcbc9a24bb99610980 *R/varcovcubpq.R
 20ca47b42d6844b3f6cf462915673d65 *R/varmatCUB.R
 e84ace5e9660e0853479906420ae6766 *R/varmatCUBE.R
 07fd6923bfe317625ff639c7ec961f07 *R/vcov.R
-3ba95650e95ff5bfd6d5f35a270f8ecc *build/vignette.rds
+eb3a0efc45f5479f3b0dc494dbdc6da3 *build/vignette.rds
 7c39ad710a099902fc0e99b97bc2f6ac *data/relgoods.rda
 3ddb7940d5605505ce8280f325fbbfc9 *data/univer.rda
 db8649a76057d6ed67e13253a340030e *inst/doc/CUBvignette-knitr.R
-effb3f1bcac2e114f126d60407bf3168 *inst/doc/CUBvignette-knitr.Rnw
-610ee02a17636a8d621d9d72d93942f7 *inst/doc/CUBvignette-knitr.pdf
+82424c61746d3077c8fb6e60e7ba8e2d *inst/doc/CUBvignette-knitr.Rnw
+8f8dc49a0a2a3ce5f30fb446cd44e827 *inst/doc/CUBvignette-knitr.pdf
 3f84753acfb15c42fe1b27fdcef2bf88 *man/BIC.GEM.Rd
 c88e4623ae2bd2039d9207b7f3eceb9d *man/CUB.Rd
 cd7cedaef170de43dce19012c6ebe7f6 *man/CUBE.Rd
@@ -252,4 +252,4 @@ ec7e36f86c4f1a8fabd5381ae32c942d *man/varcovcubshe.Rd
 f75e56292db0de26d618e0ae583c48ed *man/varmatCUB.Rd
 3c042968911253bfc9dd0b1c7bbd837e *man/varmatCUBE.Rd
 b9d1e1e24d3c4e44b91e8d92281b8fa5 *man/vcov.GEM.Rd
-effb3f1bcac2e114f126d60407bf3168 *vignettes/CUBvignette-knitr.Rnw
+82424c61746d3077c8fb6e60e7ba8e2d *vignettes/CUBvignette-knitr.Rnw

@@ -24,8 +24,7 @@
 \newcommand{\gecub}{\textsc{g}\textit{e}\textsc{cub\,}}
 
 
-\usepackage[usenames,dvipsnames]{xcolor}
-\newcommand{\orange}{\color{Orange}}
+
 
 \author{Maria Iannario\\\small University of Naples Federico II \And
         Domenico Piccolo\\\small University of Naples Federico II \And Rosaria Simone\\\small University of Naples Federico II}
