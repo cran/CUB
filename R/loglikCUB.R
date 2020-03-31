@@ -34,7 +34,6 @@
 #' loglikcub<-loglikCUB(ordinal,m,param)
 #' ##################################
 #' ## Log-likelihood of a CUB model with covariate for uncertainty
-#' \donttest{
 #' data(relgoods)
 #' m<-10
 #' naord<-which(is.na(relgoods$Physician))
@@ -77,16 +76,6 @@
 #' pai1<- pai*(1-delta); pai2<-1-pai1-delta
 #' param<-c(pai1,pai2,csi)
 #' loglik<-loglikCUB(ordinal,m,param,shelter=shelter)
-#' ##############
-#' ### Log-likelihood of a GeCUB
-#' data(univer)
-#' ordinal<-univer$officeho; Y<-W<-X<-univer$gender;
-#' modelgecub<-GEM(Formula(ordinal~Y|W|X),family="cub",shelter=7,maxiter=100)
-#' logLik(modelgecub)
-#' param<-rep(0.1,6)
-#' loglik<-loglikCUB(ordinal,m=7,param=param,shelter=7,Y=Y,W=W,X=X)
-#' }
-#' 
 
 
 loglikCUB<-function(ordinal,m,param,Y=0,W=0,X=0,shelter=0){

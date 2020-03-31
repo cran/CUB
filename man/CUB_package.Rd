@@ -36,7 +36,7 @@ the ordinal categorical scale of measurement of the   involved statistical varia
 \tabular{ll}{
 Package: \tab CUB\cr
 Type: \tab Package\cr
-Version: \tab 1.1.1\cr
+Version: \tab 1.1.4\cr
 Date: \tab 2017-10-11\cr
 License: GPL-2 | GPL-3
  }

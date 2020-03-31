@@ -68,7 +68,7 @@ It is the main function for GEM models estimation, calling for the corresponding
  warning message and produces a matrix with NA entries.
 }
 \examples{
-\donttest{
+
 library(CUB)
 ## CUB models with no covariates
 model<-GEM(Formula(Walking~0|0|0),family="cub",data=relgoods)
@@ -83,58 +83,26 @@ makeplot(model)
 model<-GEM(Formula(officeho~0|0|0),family="cub",shelter=7,data=univer)
 BICshe<-BIC(model,digits=4)
 ################
-## CUB model with covariate for all components - GeCUB
-data(univer)
-dichoage<-ifelse(univer$age<=25,0,1)
-modelgecub<-GEM(Formula(officeho~gender|dichoage|freqserv),family="cub",shelter=7,data=univer)
-BICgecub<-BIC(modelgecub)
-################
 ## CUB model with covariate for uncertainty
 modelcovpai<-GEM(Formula(Parents~Smoking|0|0),family="cub",data=relgoods)
 fitted(modelcovpai)
 makeplot(modelcovpai)
 ################
-## CUB model with covariate for feeling
-# all methods are available for this variable specification
-modelcovcsi<-GEM(Formula(RelFriends~0|WalkAlone|0),family="cub",data=relgoods,maxiter=10)
-fitted(modelcovcsi)
-makeplot(modelcovcsi)
-##################
 ## CUB model with covariates for both uncertainty and feeling components
 data(univer)
-lage<-log(univer$age)-mean(log(univer$age))
-model<-GEM(Formula(global~gender|lage|0),family="cub",data=univer,maxiter=150)
+model<-GEM(Formula(global~gender|freqserv|0),family="cub",data=univer,maxiter=50,toler=1e-2)
 param<-coef(model)
 bet<-param[1:2]      # ML estimates of coefficients for uncertainty covariate: gender
 gama<-param[3:4]     # ML estimates of coefficients for feeling covariate: lage
 ##################
 ## CUBE models with no covariates
 model<-GEM(Formula(MeetRelatives~0|0|0),family="cube",starting=c(0.5,0.5,0.1),
-  data=relgoods,expinform=TRUE)
+  data=relgoods,expinform=TRUE,maxiter=50,toler=1e-2)
 coef(model,digits=4)       # Final ML estimates
-logLik(model)              # Maximum value of the log-likelihood function
 vcov(model)
-print(model)
-BIC(model)
 fitted(model)
 makeplot(model)
 summary(model)
-##############
-## CUBE with covariate 'WalkAlone' only for the feeling component
-modelcovcsi<-GEM(Formula(MeetRelatives~0|WalkAlone|0),family="cube",data=relgoods)
-summary(modelcovcsi)
-##################
-## CUBE with covariates for all components
-modelcov<-GEM(Formula(MeetRelatives~WalkAlone|WalkAlone|WalkAlone),family="cube",
-     maxiter=50,toler=1e-2,data=relgoods)
-BIC(modelcovcsi)    
-BIC(modelcov)       
-####################
-## IHG models without covariates
-model<-GEM(willingn~0,family="ihg",data=univer)
-coef(model)                ## ML estimate of preference parameter theta
-fitted(model)              ## fitted probabilities
-makeplot(model)
 ##################
 ## IHG with covariates
 modelcov<-GEM(willingn~freqserv,family="ihg",data=univer)
@@ -149,16 +117,6 @@ delta<-coef(model)      # ML estimates of delta
 maxlik<-logLik(model)   # Log-likelihood at ML estimates
 summary(model)
 makeplot(model)
-#####################
-## CUSH model with covariates
-modelcov<-GEM(MusicInstr~Smoking,family="cush",shelter=1,data=relgoods)
-omega<-coef(modelcov)
-maxlik<-logLik(modelcov)
-varmat<-vcov(modelcov)
-summary(modelcov,digits=3)
-fitted(modelcov,digits=3)
-}
-
 }
 \references{
 D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 

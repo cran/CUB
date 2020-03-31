@@ -38,27 +38,6 @@ The optimization procedure is run via "optim". The variance-covariance matrix (o
  Hessian matrix (option: hessian=TRUE as argument for optim). If not positive definite,
  it returns a warning message and produces a matrix with NA entries.
 }
-\examples{
-\donttest{
-data(relgoods)
-m<-10
-ordinal<-na.omit(relgoods[,41]) 
-model<-IHG(ordinal)
-theta<-model$estimates      # ML estimates for the preference parameter theta
-maxlik<-model$loglik
-sqerrst<-model$varmat         # Squared standard error of theta
-BICIHG<-model$BIC
-#################################
-ordinal<-relgoods[,41]
-gender<-relgoods[,9]
-data<-na.omit(cbind(ordinal,gender))
-modelcov<-IHG(data[,1],U=data[,2])
-omega<-modelcov$estimates     #  ML estimates (intercept term: omega[1])
-maxlik<-modelcov$loglik
-varmat<-modelcov$varmat
-BICcov<-modelcov$BIC
-}
-}
 \references{
 D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
 \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78 \cr

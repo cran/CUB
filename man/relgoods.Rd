@@ -4,7 +4,8 @@
 \name{relgoods}
 \alias{relgoods}
 \title{Relational goods and Leisure time dataset}
-\format{The description of subjects' covariates is the following:
+\format{
+The description of subjects' covariates is the following:
 \describe{
 \item{\code{ID}}{An identification number}
 \item{\code{Gender}}{A factor with levels: 0 = man, 1 = woman}
@@ -76,7 +77,8 @@ preceding the interview}
 \item{\code{MusicInstr}}{Playing a musical instrument}
 \item{\code{GoAroundCar}}{ Hanging out by car}
 \item{\code{Dog}}{Walking out the dog}
-\item{\code{GoOutEat}}{Go to restaurants/pubs}}}
+\item{\code{GoOutEat}}{Go to restaurants/pubs}}
+}
 \source{
 \url{http://www.labstat.it/home/wp-content/uploads/2015/09/relgoods.txt}
 }

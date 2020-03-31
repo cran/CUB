@@ -33,7 +33,6 @@
 #' varmat<-varmatCUBE(ordinal,m,param)
 #' ##########################
 #' ### Including covariates
-#' \donttest{
 #' data(relgoods)
 #' m<-10
 #' naord<-which(is.na(relgoods$Tv))
@@ -46,7 +45,7 @@
 #' estbet<-c(0.18,1.03); estgama<-c(-0.6,-0.3); estalpha<-c(-2.3,0.92)
 #' param<-c(estbet,estgama,estalpha)
 #' varmat<-varmatCUBE(ordinal,m,param,Y=Y,W=W,Z=Z,expinform=TRUE)
-#' }
+
 
 
 

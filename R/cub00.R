@@ -10,27 +10,6 @@
 #' @seealso \code{\link{CUB}}, \code{\link{probbit}}, \code{\link{probcub00}}, \code{\link{loglikCUB}}
 #' @keywords internal 
 #' @import stats graphics
-#' @examples 
-#' #Running donttest option since the proposed examples require a long time run for check 
-#' \donttest{
-#' data(univer)
-#' m=7
-#' ordinal=univer[,12]
-#' model=cub00(m, ordinal, maxiter=500, toler=1e-6, makeplot=TRUE,summary=TRUE)
-#' parest=model$estimates  #ML estimates (pai,csi)
-#' maxlik=model$loglik
-#' nniter=model$niter
-#' vmat=model$varmat
-#' BICCUB=model$BIC
-#' #############################
-#' informat=univer[,8]
-#' model=cub00(m,informat,maxiter=500,toler=1e-6,makeplot=FALSE,summary=FALSE)
-#' parest=model$estimates   #ML estimates (pai,csi)
-#' maxlik=model$loglik
-#' nniter=model$niter
-#' vmat=model$varmat
-#' BICCUB=model$BIC
-#' }
 
 cub00<-function(m,ordinal,maxiter,toler){
   tt0<-proc.time()

@@ -1,74 +1,74 @@
-## ----include=FALSE,eval=TRUE,echo=FALSE----------------------------------
+## ----include=FALSE,eval=TRUE,echo=FALSE---------------------------------------
 library(knitr)
 library(digest)
 opts_chunk$set(
 engine='R',dev='pdf',fig.width=7,fig.height=5,strip.white=TRUE,tidy=FALSE
 )
 
-## ----include=FALSE-------------------------------------------------------
+## ----include=FALSE------------------------------------------------------------
 library(knitr)
 opts_chunk$set(
 concordance=TRUE
 )
 
-## ----eval=TRUE,echo=FALSE,comment=NA-------------------------------------
+## ----eval=TRUE,echo=FALSE,comment=NA------------------------------------------
 options(warn=-1)
 suppressMessages(library(CUB))
 library(knitr)
 options(warn=-1)
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula, family, ...)
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~Y|W|X), family="cub", ...)
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~0|0|0), family="cub")
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~Y|0|0), family="cub")
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~0|W|0), family="cub")
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~Y|W|0), family="cub")
 
-## ----eval=FALSE,echo=TRUE------------------------------------------------
+## ----eval=FALSE,echo=TRUE-----------------------------------------------------
 #  GEM(Formula(ordinal~0|0|0), family="cub", shelter=s)
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~Y|W|X), family="cub", shelter=s)
 
-## ----eval=FALSE,echo=TRUE------------------------------------------------
+## ----eval=FALSE,echo=TRUE-----------------------------------------------------
 #  GEM(Formula(ordinal~0), family="cush", shelter = s)     # without covariates
 #  GEM(Formula(ordinal~X), family="cush", shelter = s)     # with covariates
 
-## ----eval=FALSE,echo=TRUE------------------------------------------------
+## ----eval=FALSE,echo=TRUE-----------------------------------------------------
 #  GEM(Formula(ordinal~0|0|0), family="cube")    # without covariates
 #  GEM(Formula(ordinal~0|W|0), family="cube")    # with covariates for feeling
 #  GEM(Formula(ordinal~Y|W|Z), family="cube")    # with covariates for all parameters
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  GEM(Formula(ordinal~0),family="ihg")         # without covariates
 #  GEM(Formula(ordinal~U),family="ihg")         # with covariates
 
-## ----eval=FALSE,echo=TRUE------------------------------------------------
+## ----eval=FALSE,echo=TRUE-----------------------------------------------------
 #  llCUB  <- loglikCUB(ordinal,m,param,Y=Y,W=W,X=X,shelter=s)
 #  llCUBE <- loglikCUBE(ordinal,m,param,Y=Y,W=W,Z=Z)
 #  llIHG  <- loglikIHG(ordinal,m,param,U=U)
 #  llCUSH <- loglikCUSH(ordinal,m,param,X=X,shelter=s)
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  varCUB <- varmatCUB(ordinal, m, param, Y = Ycovar, W = Wcovar, X = Xcovar,
 #                      shelter = shelter)
 
-## ----echo=TRUE,eval=FALSE------------------------------------------------
+## ----echo=TRUE,eval=FALSE-----------------------------------------------------
 #  varCUBE <- varmatCUBE(ordinal, m, param, Y = Ycovar, W = Wcovar, Z = Zcovar,
 #    			expinform = FALSE)
 
-## ----eval=FALSE,echo=TRUE------------------------------------------------
+## ----eval=FALSE,echo=TRUE-----------------------------------------------------
 #  ###########################################################################
 #  ### Selection of 9 CUBE models with csi = 0.3 over 9 ordinal categories  ***
 #  ###########################################################################
@@ -98,7 +98,7 @@ options(warn=-1)
 #  par(mar = c(5,4,4,2)+0.1)             ### reset standard margins
 #  par(mfrow = c(1,1))                   ### reset plot screen
 
-## ----eval=TRUE,echo=FALSE,comment=NA,fig.width=5, fig.height=5.5---------
+## ----eval=TRUE,echo=FALSE,comment=NA,fig.width=5, fig.height=5.5--------------
 m<-9; csi<-0.3
 ########### varying pai and phi parameters 
 paival<-seq(0.9,0.1,by=-0.1)
@@ -125,7 +125,7 @@ for (jmod in 1:nmodels){
 par(mar = c(5,4,4,2)+0.1);                ### reset standard margins
 par(mfrow = c(1,1));  
 
-## ----eval=FALSE,echo=TRUE------------------------------------------------
+## ----eval=FALSE,echo=TRUE-----------------------------------------------------
 #  data(univer)
 #  listord<-univer[,8:12] # only ratings, excluding covariates
 #  labels<-names(univer)[8:12]
@@ -133,7 +133,7 @@ par(mfrow = c(1,1));
 #      	caption ="CUB models on Univer data set", pch = 19,
 #      	pos = c(1,rep(3, ncol(listord)-1)),ylim=c(0.75,1),xlim=c(0,0.4))
 
-## ----eval=TRUE,echo=FALSE,comment=NA,fig.width=4.5, fig.height=5---------
+## ----eval=TRUE,echo=FALSE,comment=NA,fig.width=4.5, fig.height=5--------------
 data(univer)
 listord<-univer[,8:12] # only ratings, excluding covariates
 labels<-names(univer)[8:12]
@@ -141,12 +141,12 @@ multicub(listord, labels = labels,
     	caption ="CUB models on Univer data set", symbols = 19,
     	pos = c(1,rep(3, ncol(listord)-1)),ylim=c(0.75,1),xlim=c(0,0.4))
 
-## ----cub00,eval=TRUE,echo=TRUE,fig.width=5, fig.height=5.5,comment=NA----
+## ----cub00,eval=TRUE,echo=TRUE,fig.width=5, fig.height=5.5,comment=NA---------
 ## CUB model without covariates for "officeho"
 cub_00<-GEM(Formula(officeho~0|0|0), family="cub",data=univer)
 summary(cub_00,digits=5)
 
-## ----eval=TRUE,echo=TRUE,cache=TRUE,comment=NA---------------------------
+## ----eval=TRUE,echo=TRUE,cache=TRUE,comment=NA--------------------------------
 param<-coef(cub_00,digits=3)
 param
 uncertainty<-1-param[1]
@@ -158,29 +158,29 @@ feeling
 #  ## CUB model without covariates
 #  makeplot(cub_00)
 
-## ----eval=TRUE,echo=TRUE,comment=NA--------------------------------------
+## ----eval=TRUE,echo=TRUE,comment=NA-------------------------------------------
 data(univer)
 freq<-tabulate(univer$officeho,nbins = 7)
 ini<-inibest(m,freq) # preliminary estimates for c(pai,csi)
 ini
 
-## ----cub_csi,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA-------------------
+## ----cub_csi,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA------------------------
 cub_csi<-GEM(Formula(officeho~0|freqserv|0), family="cub",data=univer)
 summary(cub_csi,digits=3)
 
-## ----cache=TRUE,eval=TRUE,echo=TRUE,comment=NA---------------------------
+## ----cache=TRUE,eval=TRUE,echo=TRUE,comment=NA--------------------------------
 gama<-coef(cub_csi)[2:3]
 gama
 gama0<-gama[1]  ## intercept term
 gama1<-gama[2]
 
-## ----eval=TRUE,echo=TRUE-------------------------------------------------
+## ----eval=TRUE,echo=TRUE------------------------------------------------------
 csi_nru <- logis(0, gama)   ## csi parameter for non regular user (freqserv=0)
 csi_nru
 csi_ru  <- logis(1, gama)   ## csi parameter for regular user (freqserv=1)
 csi_ru
 
-## ----cache=TRUE,echo=TRUE,eval=TRUE,comment=NA---------------------------
+## ----cache=TRUE,echo=TRUE,eval=TRUE,comment=NA--------------------------------
 pai<-coef(cub_csi)[1]
 gama<-coef(cub_csi)[2:3]
 data(univer)
@@ -193,22 +193,22 @@ makeplot(cub_00)
 ## ----cache=TRUE,eval=TRUE,echo=FALSE,fig.width=5, fig.height=5.5,comment=NA----
 makeplot(cub_csi)
 
-## ----cache=TRUE,eval=TRUE,echo=TRUE,comment=NA---------------------------
+## ----cache=TRUE,eval=TRUE,echo=TRUE,comment=NA--------------------------------
 data(univer)
 inicsicov<-inibestgama(m,univer$officeho,W=univer$freqserv)
 inicsicov
 
-## ----cub_pai_csi,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA---------------
+## ----cub_pai_csi,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA--------------------
 data(univer)
 age<-univer$age
 lage<-log(age)-mean(log(age))         # Deviation from mean of logged Age
 cub_pai_csi<-GEM(Formula(officeho~lage+gender|lage+freqserv|0),family="cub",data=univer)
 summary(cub_pai_csi,correlation=TRUE,digits=3)
 
-## ----eval=TRUE,echo=TRUE-------------------------------------------------
+## ----eval=TRUE,echo=TRUE------------------------------------------------------
 coef(cub_pai_csi,digits=3)
 
-## ----eval=FALSE,echo=TRUE,cache=TRUE,comment=NA--------------------------
+## ----eval=FALSE,echo=TRUE,cache=TRUE,comment=NA-------------------------------
 #  data(univer)
 #  age<-univer$age
 #  average<-mean(log(age))
@@ -237,7 +237,7 @@ coef(cub_pai_csi,digits=3)
 #  text(0.1, 0.85, labels = "Young", offset = 0.3, cex = 0.8, font = 4)
 #  text(0.5, 0.5, labels = "Elderly", offset = 0.3, cex = 0.8, font = 4)
 
-## ----eval=TRUE,echo=FALSE,fig.width=4.5,fig.height=4.5,comment=NA--------
+## ----eval=TRUE,echo=FALSE,fig.width=4.5,fig.height=4.5,comment=NA-------------
 average<-mean(log(age))
 ageseq<-log(seq(17, 51, by = 0.1))-average;
 param<-coef(cub_pai_csi)
@@ -264,65 +264,65 @@ legend("bottomleft", legend = c("Man-User", "Man-Not User",
 text(0.08, 0.95, labels = "Young", offset = 0.3, cex = 0.8, font = 4)
 text(0.4, 0.7, labels = "Elderly", offset = 0.3, cex = 0.8, font = 4)
 
-## ----cube,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA----------------------
+## ----cube,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA---------------------------
 starting<-c(0.5, 0.5, 0.1)       
 cubefit<-GEM(Formula(willingn~0|0|0),family="cube", starting = starting, 
              maxiter = 100, toler = 1e-4,data=univer)
 summary(cubefit,digits=7)
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #  GEM(Formula(ordinal~0|W|0),family="cube")
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #  GEM(Formula(ordinal~Y|W|Z),family="cube")
 
-## ----ihg,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA-----------------------
+## ----ihg,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA----------------------------
 ihgfit<-GEM(Formula(willingn~0),family="ihg",data=univer)
 summary(ihgfit,digits=7)
 
-## ----cache=TRUE,eval=TRUE,echo=TRUE,comment=NA---------------------------
+## ----cache=TRUE,eval=TRUE,echo=TRUE,comment=NA--------------------------------
 llcube<-logLik(cubefit)
 llihg<-logLik(ihgfit)
 lrt<- -2*(llihg - llcube)   ### 495.9135
 pv<- 1-pchisq(lrt, 2)       ### 0
 
-## ----eval=TRUE,echo=FALSE,cache=TRUE,comment=NA--------------------------
+## ----eval=TRUE,echo=FALSE,cache=TRUE,comment=NA-------------------------------
 data(univer)
 starting<-c(0.5, 0.5, 0.1)
 cubefit<-GEM(Formula(willingn~0|0|0),family="cube", starting = starting, maxiter = 100, toler = 1e-4,data=univer)
 makeplot(cubefit)
 
-## ----eval=TRUE,echo=FALSE,cache=TRUE,comment=NA--------------------------
+## ----eval=TRUE,echo=FALSE,cache=TRUE,comment=NA-------------------------------
 ihgfit<-GEM(Formula(willingn~0),family="ihg",data=univer)
 makeplot(ihgfit)
 
-## ----cub_she,eval=TRUE,echo=TRUE,comment=NA------------------------------
+## ----cub_she,eval=TRUE,echo=TRUE,comment=NA-----------------------------------
 cub_she<-GEM(Formula(Writing~0|0|0),family="cub", shelter = 1,
              maxiter=500,toler=1e-3,data=relgoods) 
 summary(cub_she)
 
-## ----cush,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA----------------------
+## ----cush,cache=TRUE,eval=TRUE,echo=TRUE,comment=NA---------------------------
 cush<-GEM(Formula(Writing~0),family="cush",shelter = 1,data=relgoods) 
 summary(cush,digits=3)
 
-## ----eval=TRUE,echo=FALSE,comment=NA-------------------------------------
+## ----eval=TRUE,echo=FALSE,comment=NA------------------------------------------
 data(relgoods)
 cub_she<-GEM(Formula(Writing~0|0|0),family="cub", shelter = 1,
              maxiter=500,toler=1e-3,data=relgoods) 
 makeplot(cub_she)
 
-## ----eval=TRUE,echo=FALSE,comment=NA-------------------------------------
+## ----eval=TRUE,echo=FALSE,comment=NA------------------------------------------
 cush<-GEM(Formula(Writing~0),family="cush",shelter = 1,data=relgoods) 
 makeplot(cush)
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #  simCUB   <- simcub(n, m, pai, csi)
 #  simCUBE  <- simcube(n, m, pai, csi, phi)
 #  simCUBshe <- simcubshe(n, m, pai, csi, delta, shelter)
 #  simCUSH  <- simcush(n, m, delta, shelter)
 #  simIHG   <- simihg(n, m, theta)
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #  m<-9; n<-500
 #  pai<-0.7; csi<-0.2
 #  pr<-probcub00(m, pai, csi)
@@ -337,7 +337,7 @@ makeplot(cush)
 #  legend(1, 0.3, legend = c("Theoretical", "Fitted"), col = c("black", "blue"),
 #         lty = c(1, 2), lwd = 3, text.col = c("black", "blue"), bty = "n")
 
-## ----eval=TRUE,echo=FALSE,fig.height=3.8,fig.width=3.8,comment=NA--------
+## ----eval=TRUE,echo=FALSE,fig.height=3.8,fig.width=3.8,comment=NA-------------
 m<-9; n<-500
 pai<-0.7; csi<-0.2
 pr<-probcub00(m, pai, csi)
@@ -353,7 +353,7 @@ lines(vett, pr_est, type = "h", col = "blue", lwd = 3, lty = 2)
 legend(1, 0.3, legend = c("Theoretical", "Fitted"), col = c("black", "blue"),
        lty = c(1, 2), lwd = 3, text.col = c("black", "blue"), bty = "n")
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #     omega0<- -1.5
 #     omega1<- -2
 #     delta0<-as.numeric(logis(0, c(omega0, omega1)))  ## 0.1824255
@@ -370,7 +370,7 @@ legend(1, 0.3, legend = c("Theoretical", "Fitted"), col = c("black", "blue"),
 #     coef(cushcov)
 #     makeplot(cushcov)
 
-## ----eval=TRUE,echo=FALSE,fig.height=4,fig.width=4,comment=NA------------
+## ----eval=TRUE,echo=FALSE,fig.height=4,fig.width=4,comment=NA-----------------
 omega0<- -1.5
 omega1<- -2
 delta0<-as.numeric(logis(0, c(omega0, omega1)))  ## 0.1824255
@@ -387,7 +387,7 @@ cushcov<-GEM(Formula(ordinal~X), family="cush", shelter = s)
 coef(cushcov)
 makeplot(cushcov)
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #  m<-7
 #  pai<-0.4
 #  csi<-0.2
@@ -401,7 +401,7 @@ makeplot(cushcov)
 #                    paste("Laakso  =", Laaksoindex),
 #                    paste("Delta     =", Delta)), cex = 0.8)
 
-## ----eval=TRUE,echo=FALSE,comment=NA,fig.height=4,fig.width=4------------
+## ----eval=TRUE,echo=FALSE,comment=NA,fig.height=4,fig.width=4-----------------
 m<-7
 pai<-0.4
 csi<-0.2
@@ -414,7 +414,7 @@ legend("topleft", xjust = 1, legend = c(paste("Gini       =", Giniindex),
                   paste("Laakso  =", Laaksoindex),
                   paste("Delta     =", Delta)), cex = 0.8)
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #    pai<-0.3; csi<-0.8
 #    nsimul<-10000
 #    n<-300; m<-7
@@ -450,7 +450,7 @@ legend("topleft", xjust = 1, legend = c(paste("Gini       =", Giniindex),
 #            col = "gray")
 #    abline(h=0)
 
-## ----eval=TRUE,echo=FALSE,fig.width=5,fig.height=5,comment=NA------------
+## ----eval=TRUE,echo=FALSE,fig.width=5,fig.height=5,comment=NA-----------------
   pai<-0.3; csi<-0.8
   nsimul<-10000
   n<-300; m<-7
@@ -487,7 +487,7 @@ legend("topleft", xjust = 1, legend = c(paste("Gini       =", Giniindex),
           col = "gray")
   abline(h=0)
 
-## ----eval=FALSE,echo=TRUE,comment=NA-------------------------------------
+## ----eval=FALSE,echo=TRUE,comment=NA------------------------------------------
 #  data(univer)
 #  ordinal<-univer$global
 #  lage<-log(univer$age)-mean(log(univer$age)) #Deviation from mean of logged Age
@@ -516,7 +516,7 @@ legend("topleft", xjust = 1, legend = c(paste("Gini       =", Giniindex),
 #         cex=0.7,text.col=c("red","black","blue"),pch=c(0,1,2),
 #         col=c("red","black","blue"))
 
-## ----eval=TRUE,echo=FALSE,fig.width=4.5,fig.height=4.5,comment=NA--------
+## ----eval=TRUE,echo=FALSE,fig.width=4.5,fig.height=4.5,comment=NA-------------
 data(univer)
 ordinal<-univer$global
 lage<-log(univer$age)-mean(log(univer$age)) #Deviation from mean of logged Age
