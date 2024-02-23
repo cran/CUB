@@ -15,28 +15,28 @@ probgecub(ordinal,Y,W,X,bet,gama,omega,shelter)
 
 \item{X}{Matrix of covariates for explaining the shelter effect}
 
-\item{bet}{Vector of parameters for the uncertainty component, whose length equals 
+\item{bet}{Vector of parameters for the uncertainty component, whose length equals
 NCOL(Y)+1 to include an intercept term in the model (first entry)}
 
-\item{gama}{Vector of parameters for the feeling component, whose length equals 
+\item{gama}{Vector of parameters for the feeling component, whose length equals
 NCOL(W)+1 to include an intercept term in the model (first entry)}
 
-\item{omega}{Vector of parameters for the shelter effect, whose length equals 
+\item{omega}{Vector of parameters for the shelter effect, whose length equals
 NCOL(X)+1 to include an intercept term in the model (first entry)}
 
 \item{shelter}{Category corresponding to the shelter choice}
 }
 \value{
 A vector of the same length as \code{ordinal}, whose i-th component is the
-probability of the i-th observation according to a GeCUB model with the corresponding values 
+probability of the i-th observation according to a GeCUB model with the corresponding values
 of the covariates for all the components and coefficients specified in \code{bet}, \code{gama}, \code{omega}.
 }
 \description{
-Compute the probability distribution of a GeCUB model, that is a CUB model with 
+Compute the probability distribution of a GeCUB model, that is a CUB model with
 shelter effect with covariates specified for all component.
 }
 \references{
-Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data. 
- \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
+Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data.
+\emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
 }
 \keyword{distribution}

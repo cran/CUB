@@ -18,15 +18,15 @@ varcovcubeobs(m, pai, csi, phi, freq)
 \item{freq}{Vector of the observed absolute frequencies}
 }
 \description{
-Compute the variance-covariance matrix of parameter estimates for a CUBE model without covariates 
+Compute the variance-covariance matrix of parameter estimates for a CUBE model without covariates
 as the inverse of the observed information matrix.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
 }
 \seealso{

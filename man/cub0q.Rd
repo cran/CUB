@@ -22,16 +22,16 @@ An object of the class "CUB"
 }
 \description{
 Function to estimate and validate a CUB model for given ordinal responses, with covariates for
- explaining the feeling component.
+explaining the feeling component.
 }
 \references{
 Piccolo D. and D'Elia A. (2008), A new approach for modelling consumers' preferences,
-  \emph{Food Quality and Preference}, \bold{18}, 247--259 \cr
+\emph{Food Quality and Preference}, \bold{18}, 247--259 \cr
 
 Iannario M. and Piccolo D. (2010), A new statistical model for the analysis of customer
- satisfaction, #' \emph{Quality Technology and Quantity management}, \bold{7}(2) 149--168 \cr
+satisfaction, #' \emph{Quality Technology and Quantity management}, \bold{7}(2) 149--168 \cr
 Iannario M. and Piccolo D. (2012), CUB models: Statistical methods and empirical evidence, in:
 Kenett R. S. and Salini S. (eds.), \emph{Modern Analysis of Customer Surveys: with applications using R},
- J. Wiley and Sons, Chichester, 231--258.
+J. Wiley and Sons, Chichester, 231--258.
 }
 \keyword{internal}

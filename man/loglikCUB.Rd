@@ -13,31 +13,31 @@ loglikCUB(ordinal,m,param,Y=0,W=0,X=0,shelter=0)
 
 \item{param}{Vector of parameters for the specified CUB model}
 
-\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
+\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included
 in the model)}
 
-\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included 
+\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included
 in the model)}
 
-\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate is included 
+\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate is included
 in the model)}
 
-\item{shelter}{Category corresponding to the shelter choice (default: no shelter effect is included in the 
+\item{shelter}{Category corresponding to the shelter choice (default: no shelter effect is included in the
 model)}
 }
 \description{
-Compute the log-likelihood value of a CUB model fitting given data, with or without covariates to 
+Compute the log-likelihood value of a CUB model fitting given data, with or without covariates to
 explain the feeling and uncertainty components, or for extended CUB models with shelter effect.
 }
 \details{
-If no covariate is included in the model, then \code{param} should be given in the form \eqn{(\pi,\xi)}. 
-More generally, it should have the form \eqn{(\bold{\beta,\gamma)}} where, 
-respectively, \eqn{\bold{\beta}} and \eqn{\bold{\gamma}} are the vectors of 
+If no covariate is included in the model, then \code{param} should be given in the form \eqn{(\pi,\xi)}.
+More generally, it should have the form \eqn{(\bold{\beta,\gamma)}} where,
+respectively, \eqn{\bold{\beta}} and \eqn{\bold{\gamma}} are the vectors of
 coefficients explaining the uncertainty and the feeling components, with length NCOL(Y)+1 and
- NCOL(W)+1 to account for an intercept term in the first entry. When shelter effect is considered, \code{param} corresponds 
- to the first possibile parameterization and hence should be given as \code{(pai1,pai2,csi)}. 
- No missing value should be present neither
-  for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
+NCOL(W)+1 to account for an intercept term in the first entry. When shelter effect is considered, \code{param} corresponds
+to the first possibile parameterization and hence should be given as \code{(pai1,pai2,csi)}.
+No missing value should be present neither
+for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 }
 \examples{
 ## Log-likelihood of a CUB model with no covariate

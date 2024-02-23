@@ -18,7 +18,7 @@ simcube(n,m,pai,csi,phi)
 \item{phi}{Overdispersion parameter}
 }
 \description{
-Generate \eqn{n} pseudo-random observations following the given CUBE 
+Generate \eqn{n} pseudo-random observations following the given CUBE
 distribution.
 }
 \examples{

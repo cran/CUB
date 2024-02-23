@@ -13,7 +13,7 @@ plotloglikihg(m,freq)
 }
 \description{
 Plot the log-likelihood function of an IHG model fitted to a given absolute frequency distribution,
- over the whole support of the preference parameter. It returns also the ML estimate.
+over the whole support of the preference parameter. It returns also the ML estimate.
 }
 \examples{
 m<-7

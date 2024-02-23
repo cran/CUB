@@ -9,7 +9,6 @@
 #' @param W Matrix of selected covariates for explaining the feeling component
 #' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
 #' @param toler Fixed error tolerance for final estimates 
-#' @param summary Logical: if TRUE, summary results of the fitting procedure are displayed on screen
 #' @return An object of the class "CUB"
 #' @import stats
 #' @seealso \code{\link{varcovcubpq}}, \code{\link{loglikcubpq}}, \code{\link{inibestgama}}, \code{\link{CUB}}

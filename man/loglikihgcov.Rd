@@ -18,7 +18,7 @@ an intercept term in the model (first entry of nu)}
 }
 \description{
 Compute the log-likelihood function for the IHG model
- with covariates to explain the preference parameter.
+with covariates to explain the preference parameter.
 }
 \seealso{
 loglikIHG

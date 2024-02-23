@@ -15,16 +15,16 @@ loglikCUSH(ordinal,m,param,shelter,X=0)
 
 \item{shelter}{Category corresponding to the shelter choice}
 
-\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate 
+\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate
 is included in the model)}
 }
 \description{
-Compute the log-likelihood function for CUSH models with or without covariates 
+Compute the log-likelihood function for CUSH models with or without covariates
 to explain the shelter effect.
 }
 \details{
-If no covariate is included in the model, then \code{param} is the estimate of the shelter 
-parameter (delta), otherwise \code{param} has length equal to NCOL(X) + 1 to account for an intercept  
+If no covariate is included in the model, then \code{param} is the estimate of the shelter
+parameter (delta), otherwise \code{param} has length equal to NCOL(X) + 1 to account for an intercept
 term (first entry). No missing value should be present neither for \code{ordinal} nor for \code{X}.
 }
 \examples{

@@ -16,7 +16,7 @@ inigrid(m,freq,x,y)
 \item{y}{A set of values to assign to the feeling parameter \eqn{\xi}}
 }
 \value{
-It returns the parameter vector corresponding to the maximum value of the log-likelihood 
+It returns the parameter vector corresponding to the maximum value of the log-likelihood
 for a CUB model without covariates for given frequencies.
 }
 \description{

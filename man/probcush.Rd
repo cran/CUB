@@ -17,7 +17,7 @@ probcush(m,delta,shelter)
 The vector of the probability distribution of a CUSH model without covariates.
 }
 \description{
-Compute the probability distribution of a CUSH model without covariates, that is a mixture of a 
+Compute the probability distribution of a CUSH model without covariates, that is a mixture of a
 degenerate random variable with mass at the shelter category and the Uniform distribution.
 }
 \examples{
@@ -30,8 +30,8 @@ points(1:m,pr,pch=19)
 }
 \references{
 Capecchi S. and Piccolo D. (2017). Dealing with heterogeneity in ordinal responses,
- \emph{Quality and Quantity}, \bold{51}(5), 2375--2393 \cr
+\emph{Quality and Quantity}, \bold{51}(5), 2375--2393 \cr
 Capecchi S. and Iannario M. (2016). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
- \emph{Metron}, \bold{74}(2), 223--232
+\emph{Metron}, \bold{74}(2), 223--232
 }
 \keyword{distribution}

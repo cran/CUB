@@ -11,14 +11,14 @@ ellecub(m,ordinal,assepai,assecsi)
 
 \item{ordinal}{Vector of ordinal responses}
 
-\item{assepai}{Vector of uncertainty parameters for given observations 
+\item{assepai}{Vector of uncertainty parameters for given observations
 (with the same length as \code{ordinal})}
 
 \item{assecsi}{Vector of feeling parameters for given observations
 (with the same length as \code{ordinal})}
 }
 \description{
-Compute the log-likelihood function of a CUB model without covariates fitting 
+Compute the log-likelihood function of a CUB model without covariates fitting
 ordinal responses, possibly with subjects' specific parameters.
 }
 \examples{

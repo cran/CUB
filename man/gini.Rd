@@ -10,7 +10,7 @@ gini(prob)
 \item{prob}{Vector of  probability distribution or relative frequencies}
 }
 \description{
-Compute the normalized Gini heterogeneity 
+Compute the normalized Gini heterogeneity
 index for a given discrete probability distribution.
 }
 \examples{

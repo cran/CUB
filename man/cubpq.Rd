@@ -18,20 +18,18 @@ cubpq(m, ordinal, Y, W, maxiter, toler)
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
 
 \item{toler}{Fixed error tolerance for final estimates}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUB"
 }
 \description{
 Estimate and validate a CUB model for given ordinal responses, with covariates for explaining both the
- feeling and the uncertainty components by means of logistic transform.
+feeling and the uncertainty components by means of logistic transform.
 }
 \references{
 Piccolo D. and D'Elia A. (2008), A new approach for modelling consumers' preferences, \emph{Food Quality and Preference},
 \bold{18}, 247--259 \cr
-Iannario M. and Piccolo D. (2010), A new statistical model for the analysis of customer satisfaction, 
+Iannario M. and Piccolo D. (2010), A new statistical model for the analysis of customer satisfaction,
 \emph{Quality Technology and Quantitative Management}, \bold{17}(2)  149--168
 }
 \seealso{

@@ -18,13 +18,13 @@ inibestcubecov(m,ordinal,Y,W,Z)
 \item{Z}{Matrix of selected covariates to explain the overdispersion parameter}
 }
 \value{
-A vector \code{(inibet, inigama, inialpha)} of preliminary estimates of parameter vectors for 
- \eqn{\pi = \pi(\bold{\beta})}, \eqn{\xi=\xi(\bold{\gamma})}, \eqn{\phi=\phi(\bold{\alpha})}, respectively, of a CUBE model with covariates for all the three
-  parameters. In details, \code{inibet}, \code{inigama} and \code{inialpha} have length equal to NCOL(Y)+1, NCOL(W)+1 and
-  NCOL(Z)+1, respectively, to account for an intercept term for each component.
+A vector \code{(inibet, inigama, inialpha)} of preliminary estimates of parameter vectors for
+\eqn{\pi = \pi(\bold{\beta})}, \eqn{\xi=\xi(\bold{\gamma})}, \eqn{\phi=\phi(\bold{\alpha})}, respectively, of a CUBE model with covariates for all the three
+parameters. In details, \code{inibet}, \code{inigama} and \code{inialpha} have length equal to NCOL(Y)+1, NCOL(W)+1 and
+NCOL(Z)+1, respectively, to account for an intercept term for each component.
 }
 \description{
-Compute preliminary parameter estimates for a CUBE model with covariates for all the three parameters. 
+Compute preliminary parameter estimates for a CUBE model with covariates for all the three parameters.
 These estimates are set as initial values to start the E-M algorithm within maximum likelihood estimation.
 }
 \examples{

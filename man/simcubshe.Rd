@@ -21,7 +21,7 @@ simcubshe(n,m,pai,csi,delta,shelter)
 }
 \description{
 Generate \eqn{n} pseudo-random observations following the given CUB distribution
- with shelter effect.
+with shelter effect.
 }
 \examples{
 n<-300

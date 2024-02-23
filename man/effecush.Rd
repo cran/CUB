@@ -22,6 +22,6 @@ with covariates to explain the shelter effect.
 }
 \details{
 It is called as an argument for "optim" within CUSH function (when no covariate is included)
- as the function to minimize.
+as the function to minimize.
 }
 \keyword{internal}

@@ -11,7 +11,7 @@ cube000(m, ordinal, starting, maxiter, toler, expinform)
 
 \item{ordinal}{Vector of ordinal responses}
 
-\item{starting}{Vector of initial estimates to start the optimization algorithm, 
+\item{starting}{Vector of initial estimates to start the optimization algorithm,
 whose length equals the number of parameters of the model}
 
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
@@ -28,8 +28,8 @@ Estimate and validate a CUBE model without covariates.
 }
 \references{
 Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
-  \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
-Iannario, M. (2015). Detecting latent components in ordinal data with overdispersion by means 
+\emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
+Iannario, M. (2015). Detecting latent components in ordinal data with overdispersion by means
 of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987
 }
 \keyword{#models}

@@ -28,7 +28,7 @@ plot(1:m,pr,type="h", main="Beta-Binomial distribution",xlab="Ordinal categories
 points(1:m,pr,pch=19)
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
 }
 \seealso{

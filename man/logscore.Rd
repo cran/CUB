@@ -15,20 +15,20 @@ logscore(m,ordinal,Y,W,bet,gama)
 
 \item{W}{Matrix of covariates for explaining the feeling component}
 
-\item{bet}{Vector of parameters for the uncertainty component, with length NCOL(Y)+1 
+\item{bet}{Vector of parameters for the uncertainty component, with length NCOL(Y)+1
 to account for an intercept term (first entry of \code{bet})}
 
-\item{gama}{Vector of parameters for the feeling component, with length NCOL(W)+1 
+\item{gama}{Vector of parameters for the feeling component, with length NCOL(W)+1
 to account for an intercept term (first entry of \code{gama})}
 }
 \description{
-Compute the logarithmic score of a CUB model with covariates both for the uncertainty 
+Compute the logarithmic score of a CUB model with covariates both for the uncertainty
 and the feeling parameters.
 }
 \details{
 No missing value should be present neither
-  for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be
-   preliminarily run.
+for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be
+preliminarily run.
 }
 \examples{
 data(relgoods)

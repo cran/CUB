@@ -2,7 +2,7 @@
 % Please edit documentation in R/effecubecsi.R
 \name{effecubecsi}
 \alias{effecubecsi}
-\title{Auxiliary function for the log-likelihood estimation of CUBE models with covariates 
+\title{Auxiliary function for the log-likelihood estimation of CUBE models with covariates
 only for the feeling component}
 \usage{
 effecubecsi(param, ordinal, W, m)
@@ -17,7 +17,7 @@ effecubecsi(param, ordinal, W, m)
 \item{m}{Number of ordinal categories}
 }
 \description{
-Compute the opposite of the scalar function that is maximized when running the 
+Compute the opposite of the scalar function that is maximized when running the
 E-M algorithm for CUBE models with covariates only for the feeling component.
 }
 \keyword{internal}

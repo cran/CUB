@@ -28,8 +28,8 @@ Returns an auxiliary matrix needed for computing the variance-covariance matrix 
 }
 \references{
 Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
-  \emph{ Communications in Statistics- Theory and Methods}, \bold{43}, 771--786 \cr
- Piccolo, D. (2014). Inferential issues on CUBE models with covariates, 
- \emph{Communications in Statistics. Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487
+\emph{ Communications in Statistics- Theory and Methods}, \bold{43}, 771--786 \cr
+Piccolo, D. (2014). Inferential issues on CUBE models with covariates,
+\emph{Communications in Statistics. Theory and Methods}, \bold{44}, DOI: 10.1080/03610926.2013.821487
 }
 \keyword{internal}

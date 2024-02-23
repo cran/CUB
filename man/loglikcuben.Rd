@@ -11,17 +11,17 @@ loglikcuben(m, ordinal, assepai, assecsi, assephi)
 
 \item{ordinal}{Vector of ordinal responses}
 
-\item{assepai}{Vector of uncertainty parameters for the given 
+\item{assepai}{Vector of uncertainty parameters for the given
 observations (with the same length as ordinal)}
 
 \item{assecsi}{Vector of feeling parameters for the given observations
 (with the same length as ordinal)}
 
-\item{assephi}{Vector of overdispersion parameters for the given 
+\item{assephi}{Vector of overdispersion parameters for the given
 observations (with the same length as ordinal)}
 }
 \description{
-Compute the log-likelihood function of a CUBE model 
+Compute the log-likelihood function of a CUBE model
 without covariates for ordinal responses, possibly with different
 vectors of parameters for each observation.
 }

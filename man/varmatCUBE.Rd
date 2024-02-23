@@ -13,17 +13,17 @@ varmatCUBE(ordinal,m,param,Y=0,W=0,Z=0,expinform=FALSE)
 
 \item{param}{Vector of parameters for the specified CUBE model}
 
-\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
+\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included
 in the model)}
 
-\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included 
+\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included
 in the model)}
 
-\item{Z}{Matrix of selected covariates to explain the overdispersion component (default: no covariate is included 
+\item{Z}{Matrix of selected covariates to explain the overdispersion component (default: no covariate is included
 in the model)}
 
 \item{expinform}{Logical: if TRUE  and no covariate is included in the model, the function returns
-the expected variance-covariance matrix (default is FALSE: the function returns the observed 
+the expected variance-covariance matrix (default is FALSE: the function returns the observed
 variance-covariance matrix)}
 }
 \description{
@@ -31,9 +31,9 @@ Compute the variance-covariance matrix of parameter estimates for CUBE models wh
 is specified, or when covariates are included for all the three parameters.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.  No missing value should be present neither
-  for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
+for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 }
 \examples{
 m<-7; n<-500
@@ -57,10 +57,10 @@ param<-c(estbet,estgama,estalpha)
 varmat<-varmatCUBE(ordinal,m,param,Y=Y,W=W,Z=Z,expinform=TRUE)
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
 Piccolo D. (2015). Inferential issues for CUBE models with covariates,
- \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
+\emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
 }
 \seealso{
 \code{\link{vcov}}, \code{\link{cormat}}

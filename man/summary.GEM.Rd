@@ -16,7 +16,7 @@
 \value{
 Extended summary results of the fitting procedure, including parameter estimates, their standard errors and
 Wald statistics, maximized log-likelihood compared with that of the saturated model and of a Uniform sample.
-AIC, BIC and ICOMP indeces are also displayed for model selection. Execution time and number of exectued iterations 
+AIC, BIC and ICOMP indeces are also displayed for model selection. Execution time and number of exectued iterations
 for the fitting procedure are aslo returned.
 }
 \description{

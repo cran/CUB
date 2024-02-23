@@ -11,13 +11,13 @@ CUBE(Formula,data,...)
 
 \item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{...}{Additional arguments to be passed for the specification of the model, Including Y, W, Z for 
+\item{...}{Additional arguments to be passed for the specification of the model, Including Y, W, Z for
 explanatory variables for uncertainty, feeling and overdispersion. Set expinform=TRUE if inference should
- be based on expected information matrix for model with no covariate. Set starting = ... to pass initial 
- values for EM iterations.}
+be based on expected information matrix for model with no covariate. Set starting = ... to pass initial
+values for EM iterations.}
 }
 \value{
-An object of the class "GEM"-"CUBE" is a list containing the following results: 
+An object of the class "GEM"-"CUBE" is a list containing the following results:
 \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi, \phi)}}
 \item{loglik}{Log-likelihood function at the final estimates}
 \item{varmat}{Variance-covariance matrix of final estimates}
@@ -25,35 +25,35 @@ An object of the class "GEM"-"CUBE" is a list containing the following results:
 \item{BIC}{BIC index for the estimated model}
 }
 \description{
-Main function to estimate and validate a CUBE model for given ratings, 
+Main function to estimate and validate a CUBE model for given ratings,
 explaining uncertainty, feeling and overdispersion.
 }
 \details{
 It is the main function for CUBE models, calling for the corresponding functions whenever
- covariates are specified: it is possible to select covariates for explaining all the three parameters
-  or only the feeling component. \cr
+covariates are specified: it is possible to select covariates for explaining all the three parameters
+or only the feeling component. \cr
 The program also checks if the estimated variance-covariance matrix is positive definite: if not,
- it prints a warning message and returns a matrix and related results with NA entries.
- The optimization procedure is run via "optim". If covariates are included only for feeling,
+it prints a warning message and returns a matrix and related results with NA entries.
+The optimization procedure is run via "optim". If covariates are included only for feeling,
 the variance-covariance matrix is computed as the inverse of the returned numerically differentiated
- Hessian matrix (option: hessian=TRUE as argument for "optim"), and the estimation procedure is not
- iterative, so a NULL result for $niter is produced.
- If the estimated variance-covariance matrix is not positive definite, the function returns a 
- warning message and produces a matrix with NA entries.
+Hessian matrix (option: hessian=TRUE as argument for "optim"), and the estimation procedure is not
+iterative, so a NULL result for $niter is produced.
+If the estimated variance-covariance matrix is not positive definite, the function returns a
+warning message and produces a matrix with NA entries.
 }
 \references{
-Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
 Piccolo D. (2015). Inferential issues for CUBE models with covariates,
- \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
+\emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
 Iannario M. (2015). Detecting latent components in ordinal data with overdispersion by means
- of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987 \cr
- Iannario M. (2016). Testing the overdispersion parameter in CUBE models. 
- \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635.\cr
+of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987 \cr
+Iannario M. (2016). Testing the overdispersion parameter in CUBE models.
+\emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635.\cr
 }
 \seealso{
 \code{\link{probcube}}, \code{\link{loglikCUBE}}, \code{\link{loglikcuben}},  \code{\link{inibestcube}},
- \code{\link{inibestcubecsi}}, \code{\link{inibestcubecov}},
+\code{\link{inibestcubecsi}}, \code{\link{inibestcubecov}},
 \code{\link{varmatCUBE}}
 }
 \keyword{#models}

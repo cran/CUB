@@ -22,6 +22,6 @@ for the preference parameter.
 }
 \details{
 It is called as an argument for "optim" within IHG function (with covariates)
- as the function to minimize.
+as the function to minimize.
 }
 \keyword{internal}

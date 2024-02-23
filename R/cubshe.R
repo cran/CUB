@@ -7,9 +7,6 @@
 #' @param shelter Category corresponding to the shelter choice
 #' @param maxiter Maximum number of iterations allowed for running the optimization algorithm 
 #' @param toler Fixed error tolerance for final estimates 
-#' @param makeplot Logical: if TRUE (default), the algorithm returns a graphical plot comparing fitted 
-#' probabilities and observed relative frequencies
-#' @param summary Logical: if TRUE, summary results of the fitting procedure are displayed on screen
 #' @return An object of the class "CUB"
 #' @import stats
 #' @references

@@ -13,16 +13,16 @@ varmatCUB(ordinal,m,param,Y=0,W=0,X=0,shelter=0)
 
 \item{param}{Vector of parameters for the specified CUB model}
 
-\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
+\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included
 in the model)}
 
-\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included 
+\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included
 in the model)}
 
-\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate is included 
+\item{X}{Matrix of selected covariates to explain the shelter effect (default: no covariate is included
 in the model)}
 
-\item{shelter}{Category corresponding to the shelter choice (default: no shelter effect is included in the 
+\item{shelter}{Category corresponding to the shelter choice (default: no shelter effect is included in the
 model)}
 }
 \description{
@@ -30,9 +30,9 @@ Compute the variance-covariance matrix of parameter estimates for CUB models wit
 covariates for the feeling and the uncertainty parameter, and for extended CUB models with shelter effect.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.  No missing value should be present neither
-  for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
+for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 }
 \examples{
 data(univer)
@@ -82,12 +82,12 @@ param<-c(pai1,pai2,csi)
 varmat<-varmatCUB(ordinal,m,param,shelter=shelter)
 }
 \references{
-Piccolo D. (2006). Observed Information Matrix for MUB Models, 
+Piccolo D. (2006). Observed Information Matrix for MUB Models,
 \emph{Quaderni di Statistica}, \bold{8}, 33--78 \cr
-Iannario, M. (2012). Modelling shelter choices in ordinal data surveys. 
+Iannario, M. (2012). Modelling shelter choices in ordinal data surveys.
 \emph{Statistical Modelling and Applications}, \bold{21}, 1--22 \cr
-Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data. 
- \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
+Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data.
+\emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
 }
 \seealso{
 \code{\link{vcov}}, \code{\link{cormat}}

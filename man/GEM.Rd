@@ -17,7 +17,7 @@ containing the variables in the model. If missing, the variables are taken from 
 \item{...}{Additional arguments to be passed for the specification of the model. See details and examples.}
 }
 \value{
-An object of the class "GEM" is a list containing the following elements: 
+An object of the class "GEM" is a list containing the following elements:
 \item{estimates}{Maximum likelihood estimates of parameters}
 \item{loglik}{Log-likelihood function at the final estimates}
 \item{varmat}{Variance-covariance matrix of final estimates}
@@ -35,37 +35,37 @@ Main function to estimate and validate GEneralized Mixture models with uncertain
 }
 \details{
 It is the main function for GEM models estimation, calling for the corresponding function for
- the specified subclass. The number of categories \code{m} is internally retrieved but it is advisable to pass
- it as an argument to the call if some category has zero frequency.\cr
- If  \code{family="cub"}, then a CUB mixture model is fitted to the data to explain uncertainty, 
- feeling and possible shelter effect by further passing the extra argument \code{shelter} for the corresponding category.
- Subjects' covariates can be included by specifying covariates matrices in the 
- Formula as \code{ordinal~Y|W|X},  to explain uncertainty (Y), feeling (W) or shelter (X).  Notice that
- covariates for shelter effect can be included only if specified for both feeling and uncertaint (GeCUB models). \cr
- If \code{family="cube"}, then a CUBE mixture model (Combination of Uniform and Beta-Binomial) is fitted to the data
-  to explain uncertainty, feeling and overdispersion.   Subjects' covariates can be also included to explain the
-   feeling component or all the three components by  specifying covariates matrices in the Formula as 
-   \code{ordinal~Y|W|Z} to explain uncertainty (Y), feeling (W) or 
- overdispersion (Z). An extra logical argument \code{expinform} indicates whether or not to use the expected or the 
- observed information matrix (default is FALSE). \cr
- If \code{family="ihg"}, then an IHG model is fitted to the data. IHG models (Inverse Hypergeometric) are nested into
-  CUBE models (see the references below). The parameter \eqn{\theta} gives the probability of observing 
-  the first category and is therefore a direct measure of preference, attraction, pleasantness toward the 
- investigated item. This is the reason why \eqn{\theta} is customarily referred to as the preference parameter of the 
- IHG model. Covariates for the preference parameter \eqn{\theta} have to be specified in matrix form in the Formula as 
- \code{ordinal~U}. \cr
- If \code{family="cush"}, then a CUSH model is fitted to the data (Combination of Uniform and SHelter effect).
-  The category corresponding to the inflation should be
- passed via argument \code{shelter}. Covariates for the shelter parameter \eqn{\delta}
- are specified in matrix form Formula as \code{ordinal~X}. \cr
- Even if no covariate is included in the model for a given component, the corresponding model matrix needs always
- to be specified: in this case, it should be set to 0 (see examples below). Extra arguments include the maximum 
- number of iterations (\code{maxiter}, default: \code{maxiter}=500) for the optimization algorithm and 
- the required error tolerance (\code{toler}, default: \code{toler}=1e-6). \cr
- Standard methods: \code{logLik()}, \code{BIC()}, \code{vcov()}, \code{fitted()}, \code{coef()}, \code{print()}, \code{summary()}
- are implemented.\cr
- The optimization procedure is run via \code{optim()} when required. If the estimated variance-covariance matrix is not positive definite, the function returns a 
- warning message and produces a matrix with NA entries.
+the specified subclass. The number of categories \code{m} is internally retrieved but it is advisable to pass
+it as an argument to the call if some category has zero frequency.\cr
+If  \code{family="cub"}, then a CUB mixture model is fitted to the data to explain uncertainty,
+feeling and possible shelter effect by further passing the extra argument \code{shelter} for the corresponding category.
+Subjects' covariates can be included by specifying covariates matrices in the
+Formula as \code{ordinal~Y|W|X},  to explain uncertainty (Y), feeling (W) or shelter (X).  Notice that
+covariates for shelter effect can be included only if specified for both feeling and uncertaint (GeCUB models). \cr
+If \code{family="cube"}, then a CUBE mixture model (Combination of Uniform and Beta-Binomial) is fitted to the data
+to explain uncertainty, feeling and overdispersion.   Subjects' covariates can be also included to explain the
+feeling component or all the three components by  specifying covariates matrices in the Formula as
+\code{ordinal~Y|W|Z} to explain uncertainty (Y), feeling (W) or
+overdispersion (Z). An extra logical argument \code{expinform} indicates whether or not to use the expected or the
+observed information matrix (default is FALSE). \cr
+If \code{family="ihg"}, then an IHG model is fitted to the data. IHG models (Inverse Hypergeometric) are nested into
+CUBE models (see the references below). The parameter \eqn{\theta} gives the probability of observing
+the first category and is therefore a direct measure of preference, attraction, pleasantness toward the
+investigated item. This is the reason why \eqn{\theta} is customarily referred to as the preference parameter of the
+IHG model. Covariates for the preference parameter \eqn{\theta} have to be specified in matrix form in the Formula as
+\code{ordinal~U}. \cr
+If \code{family="cush"}, then a CUSH model is fitted to the data (Combination of Uniform and SHelter effect).
+The category corresponding to the inflation should be
+passed via argument \code{shelter}. Covariates for the shelter parameter \eqn{\delta}
+are specified in matrix form Formula as \code{ordinal~X}. \cr
+Even if no covariate is included in the model for a given component, the corresponding model matrix needs always
+to be specified: in this case, it should be set to 0 (see examples below). Extra arguments include the maximum
+number of iterations (\code{maxiter}, default: \code{maxiter}=500) for the optimization algorithm and
+the required error tolerance (\code{toler}, default: \code{toler}=1e-6). \cr
+Standard methods: \code{logLik()}, \code{BIC()}, \code{vcov()}, \code{fitted()}, \code{coef()}, \code{print()}, \code{summary()}
+are implemented.\cr
+The optimization procedure is run via \code{optim()} when required. If the estimated variance-covariance matrix is not positive definite, the function returns a
+warning message and produces a matrix with NA entries.
 }
 \examples{
 
@@ -119,25 +119,25 @@ summary(model)
 makeplot(model)
 }
 \references{
-D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
+D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution,
 \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78 \cr
-D'Elia A. and Piccolo D. (2005). A mixture model for preferences data analysis, 
-  \emph{Computational Statistics & Data Analysis},  \bold{49}, 917--937 \cr
+D'Elia A. and Piccolo D. (2005). A mixture model for preferences data analysis,
+\emph{Computational Statistics & Data Analysis},  \bold{49}, 917--937 \cr
 Capecchi S. and Piccolo D. (2017). Dealing with heterogeneity in ordinal responses,
- \emph{Quality and Quantity}, \bold{51}(5), 2375--2393 \cr
-Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+\emph{Quality and Quantity}, \bold{51}(5), 2375--2393 \cr
+Iannario M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
 Piccolo D. (2015). Inferential issues for CUBE models with covariates,
- \emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
+\emph{Communications in Statistics. Theory and Methods}, \bold{44}(23), 771--786. \cr
 Iannario M. (2015). Detecting latent components in ordinal data with overdispersion by means
- of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987 \cr
- Iannario M. and Piccolo D. (2016a). A comprehensive framework for regression models of ordinal data.
- \emph{Metron}, \bold{74}(2), 233--252.\cr
- Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data. 
- \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
+of a mixture distribution, \emph{Quality & Quantity}, \bold{49}, 977--987 \cr
+Iannario M. and Piccolo D. (2016a). A comprehensive framework for regression models of ordinal data.
+\emph{Metron}, \bold{74}(2), 233--252.\cr
+Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data.
+\emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr
 }
 \seealso{
 \code{\link{logLik}}, \code{\link{coef}}, \code{\link{BIC}},  \code{\link{makeplot}},
- \code{\link{summary}}, \code{\link{vcov}}, \code{\link{fitted}}, \code{\link{cormat}}
+\code{\link{summary}}, \code{\link{vcov}}, \code{\link{fitted}}, \code{\link{cormat}}
 }
 \keyword{models}

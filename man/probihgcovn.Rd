@@ -18,13 +18,13 @@ an intercept term in the model (first entry)}
 }
 \description{
 Given a vector of \eqn{n} ratings over \eqn{m} categories, it returns a vector
- of length \eqn{n} whose i-th element is the  probability of observing the i-th rating for the 
- corresponding IHG model with parameter \eqn{\theta_i}, obtained via logistic link with covariates
-  and coefficients.
+of length \eqn{n} whose i-th element is the  probability of observing the i-th rating for the
+corresponding IHG model with parameter \eqn{\theta_i}, obtained via logistic link with covariates
+and coefficients.
 }
 \details{
 The matrix \eqn{U} is expanded with a vector with entries equal to 1 in the first column to include
- an intercept term in the model.
+an intercept term in the model.
 }
 \examples{
 n<-100

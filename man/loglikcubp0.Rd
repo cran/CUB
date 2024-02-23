@@ -13,13 +13,13 @@ loglikcubp0(m, ordinal, Y, bbet, ccsi)
 
 \item{Y}{Matrix of selected covariates for explaining the uncertainty component}
 
-\item{bbet}{Vector of parameters for the uncertainty component, with length equal to 
+\item{bbet}{Vector of parameters for the uncertainty component, with length equal to
 NCOL(Y)+1 to account for an intercept term (first entry of bbet)}
 
 \item{ccsi}{Feeling parameter}
 }
 \description{
-Compute the log-likelihood function of a CUB model fitting ordinal responses with covariates 
+Compute the log-likelihood function of a CUB model fitting ordinal responses with covariates
 for explaining the uncertainty component.
 }
 \keyword{internal}

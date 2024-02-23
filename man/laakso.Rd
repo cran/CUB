@@ -10,7 +10,7 @@ laakso(prob)
 \item{prob}{Vector of a probability or relative frequency distribution}
 }
 \description{
-Compute the normalized Laakso and Taagepera heterogeneity index for a given 
+Compute the normalized Laakso and Taagepera heterogeneity index for a given
 discrete probability distribution.
 }
 \examples{
@@ -18,7 +18,7 @@ prob<-c(0.04,0.04,0.05,0.10,0.21,0.32,0.24)
 laakso(prob)
 }
 \references{
-Laakso, M. and Taagepera, R. (1989). Effective number of parties: a measure with application to West Europe, 
+Laakso, M. and Taagepera, R. (1989). Effective number of parties: a measure with application to West Europe,
 \emph{Comparative Political Studies}, \bold{12}, 3--27.
 }
 \seealso{

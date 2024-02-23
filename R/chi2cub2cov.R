@@ -6,7 +6,8 @@
 #' @usage chi2cub2cov(m, ordinal, covar1, covar2, pai, gama)
 #' @param m Integer: number of ordinal categories
 #' @param ordinal Vector of ordinal responses
-#' @param covar Vector of the selected covariate for explaining the feeling component
+#' @param covar1 Vector of the first covariate values for explaining the feeling component
+#' @param covar2 Vector of the second covariate values for explaining the feeling component
 #' @param pai Uncertainty parameter 
 #' @param gama Vector of parameters for the feeling component, with length equal to 2
 #'  to account for an intercept term (first entry)

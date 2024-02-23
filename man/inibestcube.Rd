@@ -15,7 +15,7 @@ inibestcube(m,ordinal)
 A vector \eqn{(\pi, \xi ,\phi)} of parameter estimates of a CUBE model without covariates.
 }
 \description{
-Compute \emph{naive} parameter estimates of a CUBE model without covariates for given ordinal responses. 
+Compute \emph{naive} parameter estimates of a CUBE model without covariates for given ordinal responses.
 These preliminary estimators are used within the package code to start the E-M algorithm.
 }
 \examples{

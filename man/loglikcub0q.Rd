@@ -15,11 +15,11 @@ loglikcub0q(m, ordinal, W, pai, gama)
 
 \item{pai}{Uncertainty parameter}
 
-\item{gama}{Vector of parameters for the feeling component, with length NCOL(W) + 1 to account for 
+\item{gama}{Vector of parameters for the feeling component, with length NCOL(W) + 1 to account for
 an intercept term (first entry of gama)}
 }
 \description{
-Compute the log-likelihood function of a CUB model fitting ordinal data, with \eqn{q} 
+Compute the log-likelihood function of a CUB model fitting ordinal data, with \eqn{q}
 covariates for explaining the feeling component.
 }
 \keyword{internal}

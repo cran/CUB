@@ -16,7 +16,7 @@ loglikcush00(m,ordinal,delta,shelter)
 \item{shelter}{Category corresponding to the shelter choice}
 }
 \description{
-Compute the log-likelihood function for a CUSH model 
+Compute the log-likelihood function for a CUSH model
 without covariate for the given ordinal responses.
 }
 \seealso{

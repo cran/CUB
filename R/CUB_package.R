@@ -17,11 +17,10 @@
 #'   In addition, subjects' and objects' covariates can be included in the model in order to assess how the 
 #'   characteristics of the respondents may affect the ordinal score. \cr
 #'   CUB models have been firstly introduced by Piccolo (2003) and implemented on real datasets concerning ratings and rankings 
-#'   by D'Elia and Piccolo (2005), Iannario and Piccolo (2012).\cr
+#'   by D'Elia and Piccolo (2005). \cr
 #'   The CUB package allows the user to estimate and test CUB models and their extensions by using maximum 
-#'   likelihood methods. The package covers the main models of the class of Generalized Mixture Models with uncertainty 
-#'   (GEM - Iannario and Piccolo (2016a)), a comprehensive framework for modelling ordinal data. The accompanying vignettes 
-#'   supplies the user with detailed usage instructions and examples. \cr
+#'   likelihood methods: see Piccolo and Simone (2019a, 2019b) for an updated overview of methodological developments and applications. 
+#'   The accompanying vignettes supplies the user with detailed usage instructions and examples. \cr
 #'  Acknowledgements: The Authors are grateful to Maria Antonietta Del Ferraro, Francesco Miranda and
 #'   Giuseppe Porpora for their preliminary support in the implementation of the first version of the package.
 #' @details 
@@ -32,7 +31,6 @@
 #' Date: \tab 2017-10-11\cr
 #' License: GPL-2 | GPL-3
 #'  }
-#' @source  \url{http://www.labstat.it/home/research/resources/cub-data-sets-2/}
 #' @author  Maria Iannario, Domenico Piccolo, Rosaria Simone
 #' @references  D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
 #' \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78 \cr
@@ -40,9 +38,13 @@
 #'  \emph{Quaderni di Statistica}, \bold{5}, 85--104 \cr 
 #'   D'Elia A. and Piccolo D. (2005).  A mixture model for preferences data analysis, 
 #'   \emph{Computational Statistics & Data Analysis},  \bold{49}, 917--937 \cr
-#' Capecchi S. and Piccolo D. (2017). Dealing with heterogeneity in ordinal responses,
+#'  Piccolo D. and Simone R. (2019a).  The class of CUB models: statistical foundations, inferential issues and empirical evidence. 
+#'  \emph{Statistical Methods and Applications}, \bold{28}(3), 389--435.\cr 
+#'  Piccolo D. and Simone R. (2019b). Rejoinder to the discussions: The class of CUB models: statistical foundations, inferential issues and empirical evidence.  
+#'  \emph{Statistical Methods and Applications}, \bold{28}(3), 477-493.\cr
+#'  Capecchi S. and Piccolo D. (2017). Dealing with heterogeneity in ordinal responses,
 #'  \emph{Quality and Quantity}, \bold{51}(5), 2375--2393 \cr
-#'   Iannario M. and Piccolo D. (2016a). A comprehensive framework for regression models of ordinal data.
+#   Iannario M. and Piccolo D. (2016a). A comprehensive framework for regression models of ordinal data.
 #'    \emph{Metron}, \bold{74}(2), 233--252.\cr
 #'    Iannario M. and Piccolo D. (2016b). A generalized framework for modelling ordinal data. 
 #'  \emph{Statistical Methods and Applications}, \bold{25}, 163--189.\cr 

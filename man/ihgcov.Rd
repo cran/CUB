@@ -19,11 +19,11 @@ An object of the class "IHG"
 An object of the class "IHG"
 }
 \description{
-Estimate and validate an IHG model for given ordinal responses, with covariates to 
+Estimate and validate an IHG model for given ordinal responses, with covariates to
 explain the preference parameter.
 }
 \details{
-The optimization procedure is run via "optim", option method="Brent" for constrained optimization 
+The optimization procedure is run via "optim", option method="Brent" for constrained optimization
 (lower bound = 0, upper bound=1).
 }
 \keyword{internal}

@@ -11,33 +11,33 @@ CUSH(Formula,data,...)
 
 \item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{...}{Additional arguments to pass to the fitting procedure. Argument X specifies the matrix of 
+\item{...}{Additional arguments to pass to the fitting procedure. Argument X specifies the matrix of
 subjects covariates to include in the model for explaining the shelter effect (not including intercept).}
 }
 \value{
-An object of the class "CUSH" is a list containing the following results: 
+An object of the class "CUSH" is a list containing the following results:
 \item{estimates}{Maximum likelihood parameters estimates}
 \item{loglik}{Log-likelihood function at the final estimates}
-\item{varmat}{Variance-covariance matrix of final estimates (if X=0, it returns the square of the estimated standard error 
+\item{varmat}{Variance-covariance matrix of final estimates (if X=0, it returns the square of the estimated standard error
 for the shelter parameter \eqn{\delta})}
 \item{BIC}{BIC index for the estimated model}
 }
 \description{
 Main function to estimate and validate a CUSH model for ordinal responses, with or without covariates
- to explain the shelter effect.
+to explain the shelter effect.
 }
 \details{
 The estimation procedure is not iterative, so a null result for CUSH$niter is produced.
-The optimization procedure is run via "optim". If covariates are included, the variance-covariance matrix 
+The optimization procedure is run via "optim". If covariates are included, the variance-covariance matrix
 is computed as the inverse of the returned numerically differentiated Hessian matrix (option: hessian=TRUE
- as argument for "optim"). If not positive definite, it returns a warning message and produces a matrix 
- with NA entries.
+as argument for "optim"). If not positive definite, it returns a warning message and produces a matrix
+with NA entries.
 }
 \references{
-Capecchi S. and Piccolo D. (2015). Dealing with heterogeneity/uncertainty in sample survey with ordinal data, 
+Capecchi S. and Piccolo D. (2015). Dealing with heterogeneity/uncertainty in sample survey with ordinal data,
 \emph{IFCS Proceedings, University of Bologna} \cr
 Capecchi S. and Iannario M. (2016). Gini heterogeneity index for detecting uncertainty in ordinal data surveys,
- \emph{Metron} - DOI: 10.1007/s40300-016-0088-5
+\emph{Metron} - DOI: 10.1007/s40300-016-0088-5
 }
 \seealso{
 \code{\link{loglikCUSH}}

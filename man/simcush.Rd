@@ -17,7 +17,7 @@ simcush(n,m,delta,shelter)
 }
 \description{
 Generate \eqn{n} pseudo-random observations following the distribution of a CUSH
- model without covariates.
+model without covariates.
 }
 \examples{
 n<-200

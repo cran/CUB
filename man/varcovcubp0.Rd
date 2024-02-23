@@ -13,17 +13,17 @@ varcovcubp0(m, ordinal, Y, bet, csi)
 
 \item{Y}{Matrix of covariates for explaining the uncertainty parameter}
 
-\item{bet}{Vector of parameters for the uncertainty component, whose length equals NCOL(Y)+1 
+\item{bet}{Vector of parameters for the uncertainty component, whose length equals NCOL(Y)+1
 to include an intercept term (first entry)}
 
 \item{csi}{Feeling parameter}
 }
 \description{
-Compute the variance-covariance matrix of parameter estimates of a CUB model with 
+Compute the variance-covariance matrix of parameter estimates of a CUB model with
 covariates for the uncertainty component.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.
 }
 \references{

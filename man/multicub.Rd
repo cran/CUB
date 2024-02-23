@@ -7,11 +7,11 @@
 multicub(listord,mvett,csiplot=FALSE,paiplot=FALSE,...)
 }
 \arguments{
-\item{listord}{A data matrix, data frame, or list of vectors of ordinal observations (for variables 
+\item{listord}{A data matrix, data frame, or list of vectors of ordinal observations (for variables
 with different number of observations)}
 
-\item{mvett}{Vector of number of categories for ordinal variables in \code{listord} (optional: if missing, 
-the number of categories is retrieved from data: it is advisable to specify it in case some category has zero 
+\item{mvett}{Vector of number of categories for ordinal variables in \code{listord} (optional: if missing,
+the number of categories is retrieved from data: it is advisable to specify it in case some category has zero
 frequency)}
 
 \item{csiplot}{Logical: should \eqn{\xi} or \eqn{1-\xi} be the \eqn{y} coordinate}
@@ -21,8 +21,8 @@ frequency)}
 \item{...}{Additional arguments to be passed to \code{\link{plot}}, \code{\link{text}}, and \code{\link{GEM}}}
 }
 \value{
-Fit a CUB model to list elements, and then by default it returns a plot of the estimated 
-\eqn{(1-\pi, 1-\xi)} as points in the parameter space. Depending on \code{csiplot} and \code{paiplot} 
+Fit a CUB model to list elements, and then by default it returns a plot of the estimated
+\eqn{(1-\pi, 1-\xi)} as points in the parameter space. Depending on \code{csiplot} and \code{paiplot}
 and on desired output, \eqn{x} and \eqn{y} coordinates may be set to \eqn{\pi} and \eqn{\xi}, respectively.
 }
 \description{

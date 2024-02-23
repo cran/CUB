@@ -18,16 +18,16 @@ probcubshe1(m,pai1,pai2,csi,shelter)
 \item{shelter}{Category corresponding to the shelter choice}
 }
 \value{
-The vector of the probability distribution of an extended CUB model with a shelter effect 
+The vector of the probability distribution of an extended CUB model with a shelter effect
 at the shelter category
 }
 \description{
 Probability distribution of an extended CUB model with a shelter effect.
 }
 \details{
-An extended CUB model is a mixture of three components: a shifted Binomial distribution 
+An extended CUB model is a mixture of three components: a shifted Binomial distribution
 with probability of success \eqn{\xi}, a discrete uniform distribution with support \eqn{\{1,...,m\}},
- and a degenerate distribution with unit mass at the shelter category (\code{shelter}).
+and a degenerate distribution with unit mass at the shelter category (\code{shelter}).
 }
 \examples{
 m<-8
@@ -41,7 +41,7 @@ xlab="Ordinal categories")
 points(1:m,pr,pch=19)
 }
 \references{
-Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
+Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,
 \emph{Statistical Methods and Applications}, \bold{21}, 1--22 \cr
 }
 \seealso{

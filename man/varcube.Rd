@@ -26,8 +26,8 @@ phi<-0.05
 varianceCUBE<-varcube(m,pai,csi,phi)
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in 
-Ordinal Data,  \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 
+Iannario, M. (2014). Modelling Uncertainty and Overdispersion in
+Ordinal Data,  \emph{Communications in Statistics - Theory and Methods}, \bold{43},
 771--786
 }
 \seealso{

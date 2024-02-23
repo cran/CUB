@@ -20,6 +20,6 @@ An object of the class "GEM", "CUSH"
 }
 \description{
 Estimate and validate a CUSH model for ordinal responses, with covariates
- to explain the shelter effect.
+to explain the shelter effect.
 }
 \keyword{internal}

@@ -20,18 +20,18 @@ inibestcubecsi(m,ordinal,W,starting,maxiter,toler)
 \item{toler}{Fixed error tolerance for final estimates for preliminary iterations}
 }
 \value{
-A vector \code{(pai, gamaest, phi)}, where \code{pai} is the initial estimate for the uncertainty parameter, 
+A vector \code{(pai, gamaest, phi)}, where \code{pai} is the initial estimate for the uncertainty parameter,
 \code{gamaest} is the vector of initial estimates for the feeling component (including an intercept term in the first entry),
-  and \code{phi} is the initial estimate for the overdispersion parameter.
+and \code{phi} is the initial estimate for the overdispersion parameter.
 }
 \description{
 Compute preliminary parameter estimates of a CUBE model with covariates only for feeling, given
- ordinal responses. These estimates are set as initial values to start the corresponding E-M algorithm within the package.
+ordinal responses. These estimates are set as initial values to start the corresponding E-M algorithm within the package.
 }
 \details{
-Preliminary estimates for the uncertainty and the overdispersion parameters are computed by short runs of EM. 
+Preliminary estimates for the uncertainty and the overdispersion parameters are computed by short runs of EM.
 As to the feeling component, it considers the nested CUB model with covariates and calls \code{\link{inibestgama}} to derive initial estimates for the coefficients
-  of the selected covariates for feeling.
+of the selected covariates for feeling.
 }
 \examples{
 data(relgoods)

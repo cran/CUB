@@ -13,25 +13,25 @@ loglikCUBE(ordinal,m,param,Y=0,W=0,Z=0)
 
 \item{param}{Vector of parameters for the specified CUBE model}
 
-\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included 
+\item{Y}{Matrix of selected covariates to explain the uncertainty component (default: no covariate is included
 in the model)}
 
-\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included 
+\item{W}{Matrix of selected covariates to explain the feeling component (default: no covariate is included
 in the model)}
 
-\item{Z}{Matrix of selected covariates to explain the overdispersion component (default: no covariate is included 
+\item{Z}{Matrix of selected covariates to explain the overdispersion component (default: no covariate is included
 in the model)}
 }
 \description{
-Compute the log-likelihood function for CUBE models. It is possible to include 
- covariates in the model for explaining the feeling component or all the three parameters.
+Compute the log-likelihood function for CUBE models. It is possible to include
+covariates in the model for explaining the feeling component or all the three parameters.
 }
 \details{
-If no covariate is included in the model, then \code{param} has the form \eqn{(\pi,\xi,\phi)}. More generally, 
+If no covariate is included in the model, then \code{param} has the form \eqn{(\pi,\xi,\phi)}. More generally,
 it has the form \eqn{(\bold{\beta,\gamma,\alpha)}} where, respectively, \eqn{\bold{\beta}},\eqn{\bold{\gamma}}, \eqn{\bold{\alpha}}
- are the vectors of  coefficients explaining the uncertainty, the feeling and the overdispersion components, with length NCOL(Y)+1, 
- NCOL(W)+1, NCOL(Z)+1 to account for an intercept term in the first entry. No missing value should be present neither
-  for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
+are the vectors of  coefficients explaining the uncertainty, the feeling and the overdispersion components, with length NCOL(Y)+1,
+NCOL(W)+1, NCOL(Z)+1 to account for an intercept term in the first entry. No missing value should be present neither
+for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be preliminarily run.
 }
 \examples{
 #### Log-likelihood of a CUBE model with no covariate

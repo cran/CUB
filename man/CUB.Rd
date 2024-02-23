@@ -11,11 +11,11 @@ CUB(Formula, data, ...)
 
 \item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{...}{Additional arguments to be passed for the specification of the model, including covariates matrices Y, W, X for 
+\item{...}{Additional arguments to be passed for the specification of the model, including covariates matrices Y, W, X for
 #' for uncertainty, feeling and shelter, respectively.}
 }
 \value{
-An object of the class "GEM"-CUB": returns a list containing the following results: 
+An object of the class "GEM"-CUB": returns a list containing the following results:
 \item{estimates}{Maximum likelihood estimates: \eqn{(\pi, \xi)}}
 \item{loglik}{Log-likelihood function at the final estimates}
 \item{varmat}{Variance-covariance matrix of final estimates}
@@ -23,30 +23,30 @@ An object of the class "GEM"-CUB": returns a list containing the following resul
 \item{BIC}{BIC index for the estimated model}
 }
 \description{
-Main function to estimate and validate a CUB model for explaining uncertainty 
+Main function to estimate and validate a CUB model for explaining uncertainty
 and feeling for given ratings, with or without covariates and shelter effect.
 }
 \details{
-This is the main function for CUB models, which calls for the corresponding functions whenever 
-covariates or shelter effect are specified. It performs maximum likelihood estimation via the E-M algorithm 
+This is the main function for CUB models, which calls for the corresponding functions whenever
+covariates or shelter effect are specified. It performs maximum likelihood estimation via the E-M algorithm
 for CUB models and extensions. The optimization procedure is run via "optim".\cr
-It is possible to fit data with CUB models, with or without covariates 
-for the parameters of the mixture model, and CUB models with shelter effect with no covariate included 
-in the model. The program also checks if the estimated variance-covariance matrix is positive definite: 
+It is possible to fit data with CUB models, with or without covariates
+for the parameters of the mixture model, and CUB models with shelter effect with no covariate included
+in the model. The program also checks if the estimated variance-covariance matrix is positive definite:
 if not, it prints a warning message and returns a matrix and related results with NA entries.
 }
 \references{
 Piccolo D. and D'Elia A. (2008). A new approach for modelling consumers' preferences, \emph{Food Quality and Preference},
 \bold{18}, 247--259 \cr
-Iannario M. and Piccolo D. (2012). CUB models: Statistical methods and empirical evidence, in: 
-Kenett R. S. and Salini S. (eds.), \emph{Modern Analysis of Customer Surveys: with applications using R}, 
+Iannario M. and Piccolo D. (2012). CUB models: Statistical methods and empirical evidence, in:
+Kenett R. S. and Salini S. (eds.), \emph{Modern Analysis of Customer Surveys: with applications using R},
 J. Wiley and Sons, Chichester, 231--258\cr
-Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
+Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,
 \emph{Statistical Methods and Applications}, \bold{21}, 1--22 \cr
-Iannario M. and Piccolo D. (2014). Inference for CUB models: a program in R, \emph{Statistica & Applicazioni}, 
+Iannario M. and Piccolo D. (2014). Inference for CUB models: a program in R, \emph{Statistica & Applicazioni},
 \bold{XII} n.2, 177--204 \cr
 Iannario M. (2016). Testing the overdispersion parameter in CUBE models,
- \emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635
+\emph{Communications in Statistics: Simulation and Computation}, \bold{45}(5), 1621--1635
 }
 \seealso{
 \code{\link{probcub00}}, \code{\link{probcubp0}}, \code{\link{probcub0q}}, \code{\link{probcubpq}},

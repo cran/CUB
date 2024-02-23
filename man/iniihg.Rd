@@ -15,9 +15,9 @@ iniihg(m,freq)
 Moment estimator of the preference parameter \eqn{\theta}.
 }
 \description{
-Compute the moment estimate of the preference parameter of the IHG distribution. 
+Compute the moment estimate of the preference parameter of the IHG distribution.
 This preliminary estimate is set as initial value within the optimization procedure for an IHG model
- fitting the observed frequencies.
+fitting the observed frequencies.
 }
 \examples{
 m<-9
@@ -25,7 +25,7 @@ freq<-c(70,51,48,38,29,23,12,10,5)
 initheta<-iniihg(m,freq)
 }
 \references{
-D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
+D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution,
 \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78.
 }
 \seealso{

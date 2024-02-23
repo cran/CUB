@@ -23,11 +23,11 @@ NCOL(W)+1 to account for an intercept term (first entry)}
 }
 \description{
 Compute the variance-covariance matrix of parameter estimates of a CUB model with covariates for
- both the uncertainty and the feeling components.
+both the uncertainty and the feeling components.
 }
 \details{
 The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
- message and produces a matrix with NA entries.
+message and produces a matrix with NA entries.
 }
 \references{
 Piccolo D. (2006), Observed Information Matrix for CUB Models, \emph{Quaderni di Statistica}, \bold{8}, 33--78

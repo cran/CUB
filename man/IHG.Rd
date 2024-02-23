@@ -11,38 +11,38 @@ IHG(Formula, data, ...)
 
 \item{data}{Data frame from which model matrices and response variables are taken.}
 
-\item{...}{Additional arguments to pass to the fitting procedure. Argument U specifies the matrix of 
+\item{...}{Additional arguments to pass to the fitting procedure. Argument U specifies the matrix of
 subjects covariates to include in the model for explaining the preference parameter (not including intercept).}
 }
 \value{
-An object of the class "IHG" is a list containing the following results: 
+An object of the class "IHG" is a list containing the following results:
 \item{estimates}{Maximum likelihood parameters estimates}
 \item{loglik}{Log-likelihood function at the final estimates}
-\item{varmat}{Variance-covariance matrix of final estimates. If no covariate is included in the model, 
+\item{varmat}{Variance-covariance matrix of final estimates. If no covariate is included in the model,
 it returns the square of the estimated standard error for the preference parameter \eqn{\theta}}
 \item{BIC}{BIC index for the estimated model}
 }
 \description{
-Main function to estimate and validate an Inverse Hypergeometric model, without or 
+Main function to estimate and validate an Inverse Hypergeometric model, without or
 with covariates for explaining the preference parameter.
 }
 \details{
 This is the main function for IHG models (that are nested into CUBE models, see the references below),
- calling for the corresponding function whenever covariates are specified. \cr
-The parameter \eqn{\theta} represents the probability of observing a rating corresponding to the first 
+calling for the corresponding function whenever covariates are specified. \cr
+The parameter \eqn{\theta} represents the probability of observing a rating corresponding to the first
 category and is therefore a direct measure of preference, attraction, pleasantness toward the investigated item.
- This is reason why \eqn{\theta} is customarily referred to as the preference parameter of the IHG model.\cr
+This is reason why \eqn{\theta} is customarily referred to as the preference parameter of the IHG model.\cr
 The estimation procedure is not iterative, so a null result for IHG$niter is produced. \cr
 The optimization procedure is run via "optim". The variance-covariance matrix (or the estimated standard error for
- theta if no covariate is included) is computed as the inverse of the returned numerically differentiated 
- Hessian matrix (option: hessian=TRUE as argument for optim). If not positive definite,
- it returns a warning message and produces a matrix with NA entries.
+theta if no covariate is included) is computed as the inverse of the returned numerically differentiated
+Hessian matrix (option: hessian=TRUE as argument for optim). If not positive definite,
+it returns a warning message and produces a matrix with NA entries.
 }
 \references{
-D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
+D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution,
 \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78 \cr
 Iannario M. (2012). CUBE models for interpreting ordered categorical data with overdispersion,
- \emph{Quaderni di Statistica}, \bold{14}, 137--140
+\emph{Quaderni di Statistica}, \bold{14}, 137--140
 }
 \seealso{
 \code{\link{probihg}},  \code{\link{iniihg}}, \code{\link{loglikIHG}}

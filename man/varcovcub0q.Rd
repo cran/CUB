@@ -15,15 +15,15 @@ varcovcub0q(m, ordinal, W, pai, gama)
 
 \item{pai}{Uncertainty parameter}
 
-\item{gama}{Vector of parameters for the feeling component, whose length is 
+\item{gama}{Vector of parameters for the feeling component, whose length is
 NCOL(W)+1 to include an intercept term in the model (first entry of gama)}
 }
 \description{
 Compute the variance-covariance matrix of parameter estimates of a CUB model
- with covariates for the feeling component.
+with covariates for the feeling component.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.
 }
 \examples{
@@ -37,6 +37,6 @@ varmat<-varcovcub0q(m, ordinal, W, pai, gama)
 }
 \references{
 Piccolo D.(2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},
- \bold{8}, 33--78,
+\bold{8}, 33--78,
 }
 \keyword{internal}

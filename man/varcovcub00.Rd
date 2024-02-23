@@ -19,7 +19,7 @@ varcovcub00(m, ordinal, pai, csi)
 Compute the variance-covariance matrix of parameter estimates of a CUB model without covariates.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.
 }
 \examples{
@@ -32,7 +32,7 @@ varmat<-varcovcub00(m, ordinal, pai, csi)
 }
 \references{
 Piccolo D. (2006), Observed Information Matrix for MUB Models. \emph{Quaderni di Statistica},
- \bold{8}, 33--78,
+\bold{8}, 33--78,
 }
 \seealso{
 \code{\link{probcub00}}

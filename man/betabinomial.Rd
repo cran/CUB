@@ -10,17 +10,17 @@ betabinomial(m,ordinal,csivett,phivett)
 \arguments{
 \item{m}{Number of ordinal categories}
 
-\item{ordinal}{Vector of ordinal responses. Missing values are not allowed: they should be preliminarily deleted 
+\item{ordinal}{Vector of ordinal responses. Missing values are not allowed: they should be preliminarily deleted
 or imputed}
 
 \item{csivett}{Vector of feeling parameters of the Beta-Binomial distribution for given ordinal responses}
 
-\item{phivett}{Vector of overdispersion parameters of the Beta-Binomial distribution for given ordinal 
+\item{phivett}{Vector of overdispersion parameters of the Beta-Binomial distribution for given ordinal
 responses}
 }
 \value{
 A vector of the same length as ordinal, containing the Beta-Binomial probabilities of each observation,
- for the corresponding feeling and overdispersion parameters.
+for the corresponding feeling and overdispersion parameters.
 }
 \description{
 Compute the Beta-Binomial probabilities of ordinal responses, given feeling and overdispersion
@@ -28,8 +28,8 @@ parameters for each observation.
 }
 \details{
 The Beta-Binomial distribution is the Binomial distribution in which the probability of success at
- each trial is random and follows the Beta distribution. It is frequently used in Bayesian 
- statistics, empirical Bayes methods and classical statistics as an overdispersed binomial distribution.
+each trial is random and follows the Beta distribution. It is frequently used in Bayesian
+statistics, empirical Bayes methods and classical statistics as an overdispersed binomial distribution.
 }
 \examples{
 data(relgoods)
@@ -48,9 +48,9 @@ pr<-betabinomial(m,ordinal,csivett,phivett)
 plot(density(pr))
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786 \cr
-Piccolo D. (2015). Inferential issues for CUBE models with covariates. 
+Piccolo D. (2015). Inferential issues for CUBE models with covariates.
 \emph{Communications in Statistics - Theory and Methods}, \bold{44}(23), 771--786.
 }
 \seealso{

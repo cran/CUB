@@ -22,9 +22,9 @@ NCOL(W) + 3 to account for an intercept term for the feeling component (first en
 }
 \value{
 An object of the class "CUBE". For cubecsi, $niter will return a NULL value since the optimization procedure
- is not iterative but based on "optim" (method = "L-BFGS-B", option hessian=TRUE). \cr $varmat will return the inverse 
- of the numerically computed Hessian when it is positive definite, otherwise the procedure will return a matrix of NA
-  entries.
+is not iterative but based on "optim" (method = "L-BFGS-B", option hessian=TRUE). \cr $varmat will return the inverse
+of the numerically computed Hessian when it is positive definite, otherwise the procedure will return a matrix of NA
+entries.
 }
 \description{
 Estimate and validate a CUBE model for ordinal data, with covariates only for explaining the

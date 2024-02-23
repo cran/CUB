@@ -15,13 +15,13 @@ loglikcubecsi(m, ordinal, W, pai, gama, phi)
 
 \item{pai}{Uncertainty parameter}
 
-\item{gama}{Vector of parameters for the feeling component, with length 
+\item{gama}{Vector of parameters for the feeling component, with length
 equal to NCOL(W) + 1 to account for an intercept term (first entry of gama)}
 
 \item{phi}{Overdispersion parameter}
 }
 \description{
-Compute the log-likelihood function of a CUBE model for ordinal data with subjects' 
+Compute the log-likelihood function of a CUBE model for ordinal data with subjects'
 covariates only for feeling.
 }
 \seealso{

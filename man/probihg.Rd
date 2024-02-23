@@ -25,7 +25,7 @@ plot(1:m,pr,type="h",xlab="Ordinal categories")
 points(1:m,pr,pch=19)
 }
 \references{
-D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution, 
+D'Elia A. (2003). Modelling ranks using the inverse hypergeometric distribution,
 \emph{Statistical Modelling: an International Journal}, \bold{3}, 65--78
 }
 \keyword{distribution}

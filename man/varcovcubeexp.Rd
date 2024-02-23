@@ -19,14 +19,14 @@ varcovcubeexp(m, pai, csi, phi, n)
 }
 \description{
 Compute the variance-covariance matrix of parameter estimates as the inverse of
- the expected information matrix for a CUBE model without covariates.
+the expected information matrix for a CUBE model without covariates.
 }
 \details{
-The function checks if the variance-covariance matrix is positive-definite: if not, 
+The function checks if the variance-covariance matrix is positive-definite: if not,
 it returns a warning message and produces a matrix with NA entries.
 }
 \references{
-Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data, 
+Iannario, M. (2014). Modelling Uncertainty and Overdispersion in Ordinal Data,
 \emph{Communications in Statistics - Theory and Methods}, \bold{43}, 771--786
 }
 \seealso{

@@ -16,7 +16,7 @@ loglikcub00(m, freq, pai, csi)
 \item{csi}{Feeling parameter}
 }
 \description{
-Compute the log-likelihood function of a CUB model without covariates for a given 
+Compute the log-likelihood function of a CUB model without covariates for a given
 absolute frequency distribution.
 }
 \keyword{internal}

@@ -16,11 +16,6 @@ cubshe(m, ordinal, shelter, maxiter, toler)
 \item{maxiter}{Maximum number of iterations allowed for running the optimization algorithm}
 
 \item{toler}{Fixed error tolerance for final estimates}
-
-\item{makeplot}{Logical: if TRUE (default), the algorithm returns a graphical plot comparing fitted 
-probabilities and observed relative frequencies}
-
-\item{summary}{Logical: if TRUE, summary results of the fitting procedure are displayed on screen}
 }
 \value{
 An object of the class "CUB"
@@ -29,7 +24,7 @@ An object of the class "CUB"
 Estimate and validate a CUB model with a shelter effect.
 }
 \references{
-Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,  
+Iannario M. (2012). Modelling \emph{shelter} choices in a class of mixture models for ordinal responses,
 \emph{Statistical Methods and Applications}, \bold{21}, 1--22
 }
 \keyword{#models}

@@ -11,7 +11,7 @@ deltaprob(prob)
 }
 \value{
 Numeric value of the Gini mean difference of the input probability distribution,
- computed according to the de Finetti-Paciello formulation.
+computed according to the de Finetti-Paciello formulation.
 }
 \description{
 Compute the Gini mean difference of a discrete distribution

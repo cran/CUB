@@ -17,8 +17,8 @@ cubvisual(ordinal,csiplot=FALSE,paiplot=FALSE,...)
 \code{m} of ordinal categories may be passed: this is recommended if some category has zero frequency.}
 }
 \value{
-For a CUB model fit to \code{ordinal}, by default it returns a plot of the estimated 
-\eqn{(1-\pi, 1-\xi)} as a point in the parameter space. Depending on \code{csiplot} and \code{paiplot} 
+For a CUB model fit to \code{ordinal}, by default it returns a plot of the estimated
+\eqn{(1-\pi, 1-\xi)} as a point in the parameter space. Depending on \code{csiplot} and \code{paiplot}
 and on desired output, \eqn{x} and \eqn{y} coordinates may be set to \eqn{\pi} and \eqn{\xi}, respectively.
 }
 \description{
@@ -26,7 +26,7 @@ Plotting facility for the CUB estimation of ordinal responses.
 }
 \details{
 It represents an estimated CUB model as a point
- in the parameter space with some useful options.
+in the parameter space with some useful options.
 }
 \examples{
 data(univer)

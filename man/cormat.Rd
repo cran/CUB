@@ -16,7 +16,7 @@ Parameters correlation matrix for fitted GEM models.
 }
 \description{
 Compute parameter correlation matrix for estimated model as returned by an object
- of class "GEM".
+of class "GEM".
 }
 \seealso{
 \code{GEM}, \code{vcov}

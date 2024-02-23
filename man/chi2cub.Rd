@@ -15,23 +15,23 @@ chi2cub(m,ordinal,W,pai,gama)
 
 \item{pai}{Uncertainty parameter}
 
-\item{gama}{Vector of parameters for the feeling component, with length equal to NCOL(W)+1 
+\item{gama}{Vector of parameters for the feeling component, with length equal to NCOL(W)+1
 to account for an intercept term (first entry of \code{gama})}
 }
 \value{
-A list with the following components: 
+A list with the following components:
 \item{df}{Degrees of freedom}
 \item{chi2}{Value of the Pearson fitting measure}
 \item{dev}{Deviance indicator}
 }
 \description{
 Compute the \eqn{X^2} statistic of Pearson for CUB models with one or two discrete
- covariates for the feeling component.
+covariates for the feeling component.
 }
 \details{
 No missing value should be present neither
-  for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be
-   preliminarily run.
+for \code{ordinal} nor for covariate matrices: thus, deletion or imputation procedures should be
+preliminarily run.
 }
 \examples{
 data(univer)

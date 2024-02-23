@@ -13,11 +13,11 @@ cubevisual(ordinal,csiplot=FALSE,paiplot=FALSE,...)
 
 \item{paiplot}{Logical: should \eqn{\pi} or \eqn{1-\pi} be the \eqn{x} coordinate}
 
-\item{...}{Additional arguments to be passed to \code{plot()} and \code{text()}. Optionally, the number \code{m} 
+\item{...}{Additional arguments to be passed to \code{plot()} and \code{text()}. Optionally, the number \code{m}
 of ordinal categories may be passed: this is recommended if some category has zero frequency.}
 }
 \value{
-For a CUBE model fitted to \code{ordinal}, by default it returns a plot of the estimated 
+For a CUBE model fitted to \code{ordinal}, by default it returns a plot of the estimated
 \eqn{(1-\pi, 1-\xi)} as a point in the parameter space, labeled with the estimated overdispersion \eqn{\phi}.
 Depending on \code{csiplot} and \code{paiplot} and on desired output, \eqn{x} and \eqn{y} coordinates may be set
 to \eqn{\pi} and \eqn{\xi}, respectively.
@@ -27,7 +27,7 @@ Plotting facility for the CUBE estimation of ordinal responses.
 }
 \details{
 It represents an estimated CUBE model as a point
- in the parameter space with the overdispersion being labeled.
+in the parameter space with the overdispersion being labeled.
 }
 \examples{
 data(univer)

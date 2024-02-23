@@ -24,10 +24,10 @@ Compute the variance-covariance matrix of parameter estimates of a CUB model wit
 }
 \details{
 The function checks if the variance-covariance matrix is positive-definite: if not, it returns a warning
- message and produces a matrix with NA entries.
+message and produces a matrix with NA entries.
 }
 \references{
-Iannario, M. (2012), Modelling shelter choices in ordinal data surveys. 
+Iannario, M. (2012), Modelling shelter choices in ordinal data surveys.
 Statistical Modelling and Applications, \bold{21}, 1--22
 }
 \seealso{

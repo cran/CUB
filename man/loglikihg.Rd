@@ -13,16 +13,16 @@ loglikIHG(ordinal,m,param,U=0)
 
 \item{param}{Vector of parameters for the specified IHG model}
 
-\item{U}{Matrix of selected covariates to explain the preference parameter (default: no covariate is included 
+\item{U}{Matrix of selected covariates to explain the preference parameter (default: no covariate is included
 in the model)}
 }
 \description{
-Compute the log-likelihood function for IHG models with or without covariates 
+Compute the log-likelihood function for IHG models with or without covariates
 to explain the preference parameter.
 }
 \details{
 If no covariate is included in the model, then \code{param} is the estimate of the preference
-parameter (\eqn{theta}), otherwise \code{param} has length equal to NCOL(U) + 1 to account for an intercept  
+parameter (\eqn{theta}), otherwise \code{param} has length equal to NCOL(U) + 1 to account for an intercept
 term (first entry). No missing value should be present neither for \code{ordinal} nor for \code{U}.
 }
 \examples{

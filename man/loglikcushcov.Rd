@@ -13,13 +13,13 @@ loglikcushcov(m, ordinal, X, omega, shelter)
 
 \item{X}{Matrix of selected covariates for explaining the shelter parameter}
 
-\item{omega}{Vector of parameters for explaining the shelter effect, 
+\item{omega}{Vector of parameters for explaining the shelter effect,
 with length equal to NCOL(X)+1 to account for an intercept term (first entry of omega)}
 
 \item{shelter}{Category corresponding to the shelter choice}
 }
 \description{
-Compute the log-likelihood function for a CUSH model 
+Compute the log-likelihood function for a CUSH model
 with covariates for the given ordinal responses.
 }
 \keyword{internal}

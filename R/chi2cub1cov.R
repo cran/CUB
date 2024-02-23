@@ -8,7 +8,7 @@
 #' @param ordinal Vector of ordinal responses 
 #' @param covar Vector of the selected covariate for explaining the feeling component
 #' @param pai Uncertainty parameter 
-#' @param gama gama}{Vector of parameters for the feeling component, with length equal to 2
+#' @param gama Vector of parameters for the feeling component, with length equal to 2
 #'  to account for an intercept term (first entry)
 #' @return It returns the following results in a list: 
 #' \item{df}{Number of degrees of freedom}
